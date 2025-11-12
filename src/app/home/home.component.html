@@ -1,0 +1,185 @@
+<!-- 🌸 Hero Carousel -->
+<div
+  id="carCarousel"
+  class="carousel slide"
+  data-bs-ride="carousel"
+  data-bs-interval="4000"
+>
+  <!-- Indicators -->
+  <div class="carousel-indicators">
+    <button
+      type="button"
+      data-bs-target="#carCarousel"
+      data-bs-slide-to="0"
+      class="active"
+    ></button>
+    <button
+      type="button"
+      data-bs-target="#carCarousel"
+      data-bs-slide-to="1"
+    ></button>
+    <button
+      type="button"
+      data-bs-target="#carCarousel"
+      data-bs-slide-to="2"
+    ></button>
+  </div>
+
+  <!-- Slides -->
+  <div class="carousel-inner rounded-4 shadow-lg overflow-hidden">
+    <div class="carousel-item active">
+      <img
+        src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1761908693/Flowerbomb_qnwkrh.jpg"
+        class="d-block w-100 carousel-img"
+        alt="Slide 1"
+      />
+      <div class="carousel-caption d-none d-md-block text-shadow">
+        <h2 class="fw-bold">Luxury You Can Feel</h2>
+        <p>Discover premium collections that define your style.</p>
+        <button
+          class="btn btn-gradient px-4 py-2 rounded-pill mt-2"
+          activeRouterLink="false"
+          routerLink="/perfumes"
+        >
+          Explore Now
+        </button>
+      </div>
+    </div>
+
+    <div class="carousel-item">
+      <img
+        src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1761912004/Solstice_qvwnpq.webp"
+        class="d-block w-100 carousel-img"
+        alt="Slide 2"
+      />
+      <div class="carousel-caption d-none d-md-block text-shadow">
+        <h2 class="fw-bold">Drive With Elegance</h2>
+        <p>Experience unmatched quality and sophistication.</p>
+      </div>
+    </div>
+
+    <div class="carousel-item">
+      <img
+        src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1761909291/merj_zxka3s.jpg"
+        class="d-block w-100 carousel-img"
+        alt="Slide 3"
+      />
+      <div class="carousel-caption d-none d-md-block text-shadow">
+        <h2 class="fw-bold">Style That Speaks</h2>
+        <p>Make every moment luxurious.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <button
+    class="carousel-control-prev"
+    type="button"
+    data-bs-target="#carCarousel"
+    data-bs-slide="prev"
+  >
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button
+    class="carousel-control-next"
+    type="button"
+    data-bs-target="#carCarousel"
+    data-bs-slide="next"
+  >
+    <span class="carousel-control-next-icon"></span>
+  </button>
+</div>
+
+<!-- ✨ Why Choose Us Section -->
+<section class="container my-5 text-center">
+  <h3 class="fw-bold text-gradient mb-4">Why Choose Us?</h3>
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="p-4 bg-light rounded-4 shadow-sm h-100">
+        <i class="bi bi-gem fs-1 text-primary mb-3"></i>
+        <h5>Premium Quality</h5>
+        <p>We deliver products that blend luxury with lasting value.</p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="p-4 bg-light rounded-4 shadow-sm h-100">
+        <i class="bi bi-truck fs-1 text-success mb-3"></i>
+        <h5>Fast Delivery</h5>
+        <p>Enjoy quick and hassle-free delivery to your doorstep.</p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="p-4 bg-light rounded-4 shadow-sm h-100">
+        <i class="bi bi-people fs-1 text-warning mb-3"></i>
+        <h5>Trusted by Thousands</h5>
+        <p>Join our happy customers who love our products.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 💬 Testimonials -->
+<section class="testimonial-section py-5 text-center text-white">
+  <div class="container">
+    <h3 class="fw-bold mb-5">What Our Customers Say</h3>
+    <div
+      id="testimonialCarousel"
+      class="carousel slide"
+      data-bs-ride="carousel"
+    >
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <blockquote class="blockquote mb-4">
+            <p class="mb-4">
+              "Absolutely amazing! The scent lasts all day and feels luxurious."
+            </p>
+          </blockquote>
+          <footer class="blockquote-footer text-light mt-3">
+            <cite>Sarah Johnson</cite>
+          </footer>
+        </div>
+
+        <div class="carousel-item">
+          <blockquote class="blockquote mb-4">
+            <p class="mb-4">
+              "Fast delivery and excellent quality. Highly recommended!"
+            </p>
+          </blockquote>
+          <footer class="blockquote-footer text-light mt-3">
+            <cite>Michael Brown</cite>
+          </footer>
+        </div>
+
+        <div class="carousel-item">
+          <blockquote class="blockquote mb-4">
+            <p class="mb-4">
+              "Beautifully designed packaging and the fragrance is divine."
+            </p>
+          </blockquote>
+          <footer class="blockquote-footer text-light mt-3">
+            <cite>Emily Carter</cite>
+          </footer>
+        </div>
+      </div>
+
+      <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#testimonialCarousel"
+        data-bs-slide="prev"
+      >
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#testimonialCarousel"
+        data-bs-slide="next"
+      >
+        <span class="carousel-control-next-icon"></span>
+      </button>
+    </div>
+  </div>
+</section>

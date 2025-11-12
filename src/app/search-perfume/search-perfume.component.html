@@ -1,0 +1,116 @@
+<div class="container mt-5 perfume-container">
+  <!-- 🌸 Title -->
+  <h2 class="text-center mb-5 fw-bold text-gradient">
+    Discover Your Signature Scent
+  </h2>
+
+  <!-- 🌿 Refined Search & Filter Bar -->
+  <div class="search-filter-bar shadow-sm rounded-4 p-3">
+    <!-- 🔍 Name Search -->
+    <div class="search-input-container">
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Search by name"
+        [(ngModel)]="searchName"
+        (input)="applyFilters()"
+      />
+      <i class="bi bi-search search-icon"></i>
+    </div>
+
+    <!-- 🌿 Gender Filter -->
+    <select
+      class="filter-select"
+      [(ngModel)]="searchGender"
+      (change)="applyFilters()"
+    >
+      <option value="">All Genders</option>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+      <option value="unisex">Unisex</option>
+    </select>
+
+    <!-- 💰 Price Filter -->
+    <select
+      class="filter-select"
+      [(ngModel)]="selectedPriceRange"
+      (change)="applyFilters()"
+    >
+      <option value="">All Prices</option>
+      <option value="100-500">₹100 - ₹500</option>
+      <option value="500-1000">₹500 - ₹1000</option>
+      <option value="1000-5000">₹1000 - ₹5000</option>
+      <option value="5000-10000">₹5000 - ₹10000</option>
+    </select>
+  </div>
+
+  <!-- 🧴 Perfume Cards -->
+  <div class="row justify-content-center mt-4">
+    <div class="col-md-4 mb-4" *ngFor="let p of filteredPerfumes">
+      <div
+        class="card perfume-card shadow-lg border-0 rounded-4 overflow-hidden position-relative"
+      >
+        <!-- 🌟 New Launch Badge -->
+        <span *ngIf="p.latestLaunch" class="badge bg-danger new-launch-badge">
+          New Launch
+        </span>
+
+        <div class="position-relative overflow-hidden">
+          <img
+            [src]="
+              p.imageUrl ||
+              p.imageurl ||
+              'https://placehold.co/300x200?text=No+Image'
+            "
+            class="card-img-top perfume-img"
+            alt="{{ p.name }}"
+          />
+        </div>
+
+        <div class="card-body text-center p-4">
+          <h5 class="card-title fw-semibold mb-2">{{ p.name }}</h5>
+          <p class="card-text text-muted small mb-3">{{ p.description }}</p>
+
+          <div
+            class="d-flex justify-content-center align-items-center mb-2 text-secondary"
+          >
+            <i class="bi bi-gender-ambiguous me-1"></i>
+            <strong>{{ p.gender }}</strong>
+          </div>
+
+          <p class="card-text fw-bold mb-3 text-theme-price">
+            <i class="bi bi-cash-stack me-1"></i>
+            {{ p.price | currency : "INR" }}
+          </p>
+
+          <div class="d-flex justify-content-center gap-2">
+            <button
+              class="btn btn-outline-primary btn-sm d-flex align-items-center rounded-pill px-3"
+              (click)="addToCart(p)"
+            >
+              <i class="bi bi-cart-plus me-1"></i> Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ❌ No Results Message -->
+  <div *ngIf="filteredPerfumes.length === 0" class="text-center mt-5">
+    <h5 class="fw-bold text-muted">No perfumes found 😢</h5>
+    <p class="text-muted">Try changing your search filters.</p>
+  </div>
+
+  <!-- 🧈 Toast -->
+  <div
+    class="toast-container"
+    [ngClass]="{
+      show: showToast,
+      success: toastType === 'success',
+      error: toastType === 'error'
+    }"
+  >
+    {{ toastMessage }}
+  </div>
+</div>

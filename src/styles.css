@@ -1,0 +1,18 @@
+:root {
+  --almond: #ede0d4ff;
+  --dun: #e6ccb2ff;
+  --tan: #ddb892ff;
+  --chamoisee: #b08968ff;
+  --coffee: #7f5539ff;
+  --raw-umber: #9c6644ff;
+  --text-dark: #3b2f2fff;
+  --text-light: #ffffffcc;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  transition: background-color 0.3s ease-in-out;
+}

@@ -1,0 +1,127 @@
+<nav class="navbar navbar-expand-lg perfume-navbar fixed-top shadow-lg p-3">
+  <div class="container">
+    <!-- Brand Logo -->
+    <a class="navbar-brand d-flex align-items-center" routerLink="/">
+      <img
+        src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1762879382/bg-logo_2_unaoit.png"
+        alt="Palace Perfume Logo"
+        class="brand-logo me-2"
+      />
+    </a>
+
+    <!-- Toggle button -->
+    <button
+      class="navbar-toggler border-0"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+    >
+      <i class="bi bi-list fs-1 text-gradient-hover"></i>
+    </button>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item mx-2">
+          <a
+            class="nav-link nav-hover fw-semibold"
+            routerLink="/home"
+            routerLinkActive="active-link"
+            >Home</a
+          >
+        </li>
+
+        <li class="nav-item mx-2">
+          <a
+            class="nav-link nav-hover fw-semibold"
+            routerLink="/perfumes"
+            routerLinkActive="active-link"
+            >Perfumes</a
+          >
+        </li>
+
+        <li class="nav-item mx-2">
+          <a
+            class="nav-link nav-hover d-flex align-items-center fw-semibold"
+            routerLink="/cart"
+            routerLinkActive="active-link"
+          >
+            <i class="bi bi-cart3 me-1"></i> Cart
+          </a>
+        </li>
+
+        <li class="nav-item mx-2">
+          <a
+            class="nav-link nav-hover d-flex align-items-center fw-semibold"
+            routerLink="/search-perfume"
+            routerLinkActive="active-link"
+          >
+            <i class="bi bi-search me-1"></i> Search
+          </a>
+        </li>
+
+        <!-- Show username if logged in -->
+        <li *ngIf="username" class="nav-item mx-2">
+          <div
+            class="user-card d-flex align-items-center px-3 py-1 rounded-3 shadow-sm"
+          >
+            <i class="bi bi-person-circle me-2"></i>
+            {{ username }}
+          </div>
+        </li>
+
+        <!-- Signup & Login -->
+        <li *ngIf="!username" class="nav-item ms-3">
+          <a
+            class="btn btn-outline-gradient fw-semibold px-4 rounded-pill hover-btn-outline"
+            routerLink="/signup"
+          >
+            <i class="bi bi-person-plus me-1"></i> Signup
+          </a>
+        </li>
+
+        <li *ngIf="!username" class="nav-item ms-2">
+          <a
+            class="btn btn-gradient fw-semibold px-4 rounded-pill hover-btn"
+            routerLink="/login"
+          >
+            <i class="bi bi-box-arrow-in-right me-1"></i> Login
+          </a>
+        </li>
+
+        <!-- ✅ Logout button (now shows confirmation modal) -->
+        <li *ngIf="username" class="nav-item ms-2">
+          <button
+            class="btn btn-outline-danger fw-semibold px-4 rounded-pill hover-btn-outline"
+            (click)="confirmLogout()"
+          >
+            <i class="bi bi-box-arrow-right me-1"></i> Logout
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- 👑 Luxury Logout Confirmation Modal -->
+<div *ngIf="showLogoutConfirm" class="luxury-toast">
+  <div class="luxury-toast-content text-center">
+    <h5 class="fw-bold">Are you sure you want to logout?</h5>
+    <p class="toast-subtitle">We’ll miss your essence...</p>
+    <div class="toast-actions mt-4">
+      <button class="btn btn-luxury me-3 px-4" (click)="logout()">
+        Yes, Logout
+      </button>
+      <button class="btn btn-outline-light px-4" (click)="cancelLogout()">
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Page content -->
+<div class="container mt-5 pt-5 page-transition">
+  <router-outlet></router-outlet>
+</div>
+
+<app-footer></app-footer>

@@ -1,0 +1,138 @@
+<div class="container mt-5 perfume-container text-center">
+  <!-- 🩶 Section Title -->
+  <h2 class="text-center mb-2 fw-bold text-gradient">Perfume Collection</h2>
+  <p class="text-muted mb-5 fs-5">
+    Indulge in elegance — crafted fragrances for every soul
+  </p>
+
+  <!-- 🌸 Filter Section -->
+  <div
+    class="d-flex flex-wrap justify-content-center align-items-center gap-3 mb-5 p-3 bg-light rounded-4 shadow-sm filter-bar"
+  >
+    <!-- Gender Filter -->
+    <div>
+      <label for="genderSelect" class="fw-semibold me-2 fs-6 text-secondary">
+        <i class="bi bi-gender-ambiguous text-primary me-1"></i> Category:
+      </label>
+      <select
+        id="genderSelect"
+        class="form-select d-inline-block w-auto border-primary shadow-sm"
+        [(ngModel)]="searchGender"
+        (change)="applyFilters()"
+      >
+        <option value="">All</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="unisex">Unisex</option>
+      </select>
+    </div>
+
+    <!-- Price Filter -->
+    <div>
+      <label for="priceSelect" class="fw-semibold me-2 fs-6 text-secondary">
+        <i class="bi bi-cash-stack text-success me-1"></i> Price Range:
+      </label>
+      <select
+        id="priceSelect"
+        class="form-select d-inline-block w-auto border-success shadow-sm"
+        [(ngModel)]="selectedPriceRange"
+        (change)="applyFilters()"
+      >
+        <option value="">All</option>
+        <option value="100-500">₹100 - ₹500</option>
+        <option value="500-1000">₹500 - ₹1000</option>
+        <option value="1000-5000">₹1000 - ₹5000</option>
+        <option value="5000-10000">₹5000 - ₹10000</option>
+      </select>
+    </div>
+
+    <!-- ✅ Latest Launch Filter -->
+    <div class="form-check ms-2">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="latestLaunchCheck"
+        [(ngModel)]="showLatestOnly"
+        (change)="applyFilters()"
+      />
+      <label
+        class="form-check-label fw-semibold text-secondary"
+        for="latestLaunchCheck"
+      >
+        <i class="bi bi-stars text-warning me-1"></i> Latest Launch Only
+      </label>
+    </div>
+  </div>
+
+  <!-- 💎 Perfume Cards -->
+  <div class="row justify-content-center">
+    <div class="col-md-4 mb-4" *ngFor="let f of filteredPerfumes">
+      <div
+        class="card perfume-card shadow-sm h-100 border-0 rounded-4 overflow-hidden position-relative"
+      >
+        <span
+          *ngIf="f.latestLaunch"
+          class="badge bg-danger new-launch-badge position-absolute top-0 end-0 m-2 px-3 py-2 rounded-pill shadow-sm"
+        >
+          New Launch
+        </span>
+
+        <div class="position-relative overflow-hidden">
+          <img
+            [src]="
+              f.imageUrl ||
+              f.imageurl ||
+              'https://placehold.co/300x200?text=No+Image'
+            "
+            class="card-img-top perfume-img"
+            alt="{{ f.name }}"
+          />
+        </div>
+
+        <div class="card-body text-center p-4">
+          <h5 class="card-title fw-semibold mb-2">{{ f.name }}</h5>
+          <p class="card-text text-muted small mb-3">{{ f.description }}</p>
+
+          <div
+            class="d-flex justify-content-center align-items-center mb-2 text-secondary"
+          >
+            <i class="bi bi-gender-ambiguous me-1"></i>
+            <strong>{{ f.gender }}</strong>
+          </div>
+
+          <p class="card-text fw-bold mb-3 text-theme-price">
+            <i class="bi bi-cash-stack me-1"></i>
+            {{ f.price | currency : "INR" }}
+          </p>
+
+          <div class="d-flex justify-content-center gap-2">
+            <button
+              class="btn btn-outline-primary btn-sm d-flex align-items-center"
+              (click)="addtocart(f)"
+            >
+              <i class="bi bi-cart-plus me-1"></i> Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🚫 Empty Message -->
+  <div *ngIf="filteredPerfumes.length === 0" class="text-center mt-5">
+    <h5>No perfumes found 😢</h5>
+    <p class="text-muted">Try changing the filter options.</p>
+  </div>
+
+  <!-- 🍂 Toast -->
+  <div
+    class="toast-container"
+    [ngClass]="{
+      show: showToast,
+      success: toastType === 'success',
+      error: toastType === 'error'
+    }"
+  >
+    {{ toastMessage }}
+  </div>
+</div>

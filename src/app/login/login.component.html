@@ -1,0 +1,90 @@
+<div class="login-container">
+  <div class="login-box">
+    <!-- 👑 Brand Logo -->
+    <div class="brand-header mb-4 text-center">
+      <img src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1762879382/bg-logo_2_unaoit.png" alt="Palace Perfume" class="brand-logo mb-2" />
+      <p class="brand-tagline">Where Elegance Meets Fragrance</p>
+    </div>
+
+    <h2>Welcome Back</h2>
+    <p class="subtitle">Login to continue to your account</p>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <!-- Email -->
+      <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input
+          type="email"
+          formControlName="email"
+          class="form-control"
+          placeholder="Enter your email"
+          required
+        />
+      </div>
+
+      <!-- Password -->
+      <div class="mb-3 position-relative">
+        <label class="form-label">Password</label>
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          formControlName="password"
+          class="form-control password-input"
+          placeholder="Enter your password"
+          required
+        />
+        <i
+          class="bi password-toggle"
+          [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"
+          (click)="showPassword = !showPassword"
+        ></i>
+      </div>
+
+      <!-- Error Message -->
+      <p *ngIf="errorMessage" class="error-text text-danger">
+        {{ errorMessage }}
+      </p>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-gradient w-100" [disabled]="loading">
+        {{ loading ? "Logging in..." : "Login" }}
+      </button>
+
+      <!-- Signup Link -->
+      <p class="signup-text text-center mt-3">
+        Don’t have an account?
+        <a routerLink="/signup" class="text-gradient-hover fw-semibold"
+          >Create one</a
+        >
+      </p>
+    </form>
+  </div>
+</div>
+
+<!-- ✅ Toast Notification -->
+<div
+  *ngIf="showToast"
+  class="toast-message show"
+  [ngClass]="{
+    success: toastType === 'success',
+    error: toastType === 'error'
+  }"
+  role="alert"
+>
+  <div class="d-flex align-items-center justify-content-between">
+    <div>
+      <i
+        class="bi"
+        [ngClass]="{
+          'bi-check-circle-fill me-2': toastType === 'success',
+          'bi-exclamation-triangle-fill me-2': toastType === 'error'
+        }"
+      ></i>
+      {{ toastMessage }}
+    </div>
+    <button
+      type="button"
+      class="btn-close btn-close-white ms-3"
+      (click)="showToast = false"
+    ></button>
+  </div>
+</div>

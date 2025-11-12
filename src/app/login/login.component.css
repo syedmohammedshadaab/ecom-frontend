@@ -1,0 +1,236 @@
+/* 🌅 Background and centering */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--almond), var(--dun));
+  font-family: "Poppins", sans-serif;
+}
+
+/* 👑 Brand Logo Section */
+.brand-header {
+  text-align: center;
+  margin-bottom: 1.2rem;
+}
+
+.brand-logo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  border-radius: 50%;
+  background: var(--almond);
+  padding: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.brand-tagline {
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--chamoisee);
+  margin-top: 6px;
+  letter-spacing: 0.5px;
+}
+
+/* 🏠 Login Box */
+.login-box {
+  background: var(--tan);
+  padding: 40px 35px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  width: 380px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.18);
+}
+
+/* Headings */
+.login-box h2 {
+  margin-bottom: 10px;
+  color: var(--coffee);
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.subtitle {
+  color: var(--raw-umber);
+  font-size: 14px;
+  margin-bottom: 25px;
+}
+
+/* Input fields */
+.input-group {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  color: var(--coffee);
+  margin-bottom: 6px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.input-group input,
+.form-control {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--input-border);
+  border-radius: 10px;
+  font-size: 15px;
+  outline: none;
+  background-color: var(--almond);
+  color: var(--text-dark);
+  transition: all 0.2s ease;
+}
+
+.input-group input:focus,
+.form-control:focus {
+  border-color: var(--chamoisee);
+  box-shadow: 0 0 6px rgba(176, 137, 104, 0.4);
+}
+
+/* 👁️ Password field customization */
+.password-input {
+  padding-right: 2.5rem; /* Space for the eye icon */
+  border-radius: 10px;
+  background-color: var(--almond);
+}
+
+/* Eye icon inside password field */
+.password-toggle {
+  position: absolute;
+  top: 70%;
+  right: 14px;
+  transform: translateY(-50%);
+  font-size: 1.1rem;
+  color: var(--coffee);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: var(--almond);
+  border-radius: 50%;
+  padding: 4px;
+}
+
+.password-toggle:hover {
+  color: var(--chamoisee);
+  background-color: var(--dun);
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* Error message */
+.error-text {
+  color: #e63946;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+/* Buttons */
+button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(90deg, var(--chamoisee), var(--tan));
+  border: none;
+  border-radius: 10px;
+  color: var(--text-dark);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.03);
+  background: linear-gradient(90deg, var(--tan), var(--almond));
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+button:disabled {
+  background: #d2bba0ff;
+  cursor: not-allowed;
+}
+
+/* Signup link */
+.signup-text {
+  margin-top: 15px;
+  font-size: 14px;
+  color: var(--coffee);
+}
+
+.signup-text a {
+  color: var(--chamoisee);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.signup-text a:hover {
+  text-decoration: underline;
+}
+
+/* 🌟 Toast Notification */
+.toast-message {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1055;
+  min-width: 300px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  color: var(--text-light);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all 0.5s ease-in-out;
+}
+
+.toast-message.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.toast-message.success {
+  background-color: var(--chamoisee);
+}
+
+.toast-message.error {
+  background-color: #dc3545;
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* 📱 Responsive */
+@media (max-width: 420px) {
+  .login-box {
+    width: 90%;
+    padding: 30px 25px;
+  }
+
+  .password-toggle {
+    right: 10px;
+    font-size: 1rem;
+  }
+
+  .brand-logo {
+    width: 65px;
+    height: 65px;
+  }
+
+  .brand-tagline {
+    font-size: 0.8rem;
+  }
+}

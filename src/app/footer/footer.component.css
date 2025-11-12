@@ -1,0 +1,188 @@
+/* 🌰 Footer Container */
+.footer {
+  background: linear-gradient(135deg, #6f4e37, #9c6644);
+  color: var(--text-light);
+  padding: 45px 20px 15px; /* reduced height */
+  font-family: "Poppins", sans-serif;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -4px 20px rgba(156, 102, 68, 0.25);
+}
+
+/* ✨ Soft golden shimmer overlay */
+.footer::before {
+  content: "";
+  position: absolute;
+  top: -100px;
+  left: -100px;
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, rgba(219, 188, 141, 0.25), transparent);
+  filter: blur(70px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Layout */
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  gap: 30px;
+  position: relative;
+  z-index: 1;
+}
+
+/* 🌿 Footer Logo Section */
+.footer-logo-container {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.footer-logo {
+  width: 110px; /* smaller + refined */
+  height: auto;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(219, 188, 141, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.footer-logo:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 18px rgba(219, 188, 141, 0.5);
+}
+
+/* Sections */
+.footer-section {
+  flex: 1 1 230px;
+  text-align: left;
+}
+
+.footer-section h3,
+.footer-section h4 {
+  color: var(--almond);
+  margin-bottom: 10px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  font-size: 15px;
+  text-transform: uppercase;
+}
+
+/* Text */
+.footer-section p,
+.footer-section li,
+.footer-section a {
+  color: var(--tan);
+  font-size: 13px;
+  line-height: 1.6;
+  transition: all 0.3s ease;
+}
+
+/* Tagline */
+.tagline {
+  font-style: italic;
+  color: var(--dun);
+  font-size: 13px;
+  line-height: 1.5;
+  margin-bottom: 10px;
+  text-align: center;
+  max-width: 240px;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0.9;
+}
+
+/* Social Icons */
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.social-icons a {
+  color: var(--almond);
+  font-size: 18px;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: var(--dun);
+  transform: scale(1.15);
+}
+
+/* Links */
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 8px;
+}
+
+.footer-section ul li a {
+  text-decoration: none;
+  color: var(--tan);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+  color: var(--almond);
+  transform: translateX(4px);
+}
+
+/* 📞 Contact Section */
+.footer-section.contact p i {
+  color: var(--almond);
+  margin-right: 6px;
+}
+
+/* Footer Bottom */
+.footer-bottom {
+  text-align: center;
+  margin-top: 25px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(219, 188, 141, 0.3);
+  font-size: 12px;
+  color: var(--tan);
+  position: relative;
+  z-index: 1;
+  letter-spacing: 0.3px;
+}
+
+.footer-bottom strong {
+  color: var(--almond);
+  font-weight: 600;
+}
+
+/* ✨ Subtle luxury hover glow */
+.footer:hover {
+  box-shadow: 0 -5px 30px rgba(176, 137, 104, 0.25);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-section {
+    text-align: center;
+  }
+
+  .social-icons {
+    justify-content: center;
+  }
+
+  .footer-logo {
+    width: 90px; /* smaller on mobile */
+  }
+}
