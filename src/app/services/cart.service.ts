@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable({
@@ -9,37 +9,42 @@ import { catchError } from 'rxjs/operators';
 export class CartService {
   private baseUrl = 'http://localhost:8081/cart';
 
-  // 🔥 BehaviorSubject for instant cart count update across all pages
-  private cartCountSource = new BehaviorSubject<number>(
-    Number(sessionStorage.getItem('cartCount')) || 0
-  );
+  // ✅ BehaviorSubject with safe sessionStorage check
+  private initialCount = (() => {
+    if (typeof window !== 'undefined') {
+      return Number(sessionStorage.getItem('cartCount')) || 0;
+    }
+    return 0; // SSR fallback
+  })();
 
-  cartCount$ = this.cartCountSource.asObservable();
+  private cartCountSubject = new BehaviorSubject<number>(this.initialCount);
+  cartCount$ = this.cartCountSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
-  // ============================
-  // 🟢 CART COUNT FUNCTIONS
-  // ============================
-  updateCartCount(count: number) {
-    sessionStorage.setItem('cartCount', String(count));
-    this.cartCountSource.next(count); // 🔥 instantly updates navbar + pages
+  // ======================================================
+  // 📌 UPDATE CART COUNT SAFELY (NO DIRECT sessionStorage)
+  // ======================================================
+  setCartCount(count: number) {
+    this.cartCountSubject.next(count);
+
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('cartCount', String(count));
+    }
   }
 
   incrementCartCount() {
-    let current = Number(sessionStorage.getItem('cartCount')) || 0;
-    current++;
-    this.updateCartCount(current);
+    const newCount = this.cartCountSubject.value + 1;
+    this.setCartCount(newCount);
   }
 
   resetCartCount() {
-    this.updateCartCount(0);
+    this.setCartCount(0);
   }
 
-  // ============================
-  // 🟩 CART API METHODS
-  // ============================
-
+  // ======================================================
+  // 🧩 BACKEND APIs
+  // ======================================================
   addToCart(cartItem: any): Observable<any> {
     return this.http
       .post(`${this.baseUrl}/addtocart`, cartItem)
@@ -68,9 +73,9 @@ export class CartService {
     });
   }
 
-  // ============================
-  // 🔴 ERROR HANDLER
-  // ============================
+  // ======================================================
+  // ⚠️ ERROR HANDLER
+  // ======================================================
   private handleError(error: HttpErrorResponse) {
     console.error('🛑 CartService Error:', error);
     return throwError(
