@@ -22,6 +22,7 @@
     <!-- Navbar links -->
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto align-items-center">
+        
         <li class="nav-item mx-2">
           <a
             class="nav-link nav-hover fw-semibold"
@@ -40,16 +41,26 @@
           >
         </li>
 
-        <li class="nav-item mx-2">
+        <!-- 🛒 CART WITH BADGE -->
+        <li class="nav-item mx-2 position-relative">
           <a
             class="nav-link nav-hover d-flex align-items-center fw-semibold"
             routerLink="/cart"
             routerLinkActive="active-link"
           >
-            <i class="bi bi-cart3 me-1"></i> Cart
+            <i class="bi bi-cart3 fs-5"></i>
           </a>
+
+          <!-- 🔴 Counter Badge -->
+          <span
+            *ngIf="cartCount > 0"
+            class="cart-badge"
+          >
+            {{ cartCount }}
+          </span>
         </li>
 
+        <!-- Search Icon -->
         <li class="nav-item mx-2">
           <a
             class="nav-link nav-hover d-flex align-items-center fw-semibold"
@@ -89,7 +100,7 @@
           </a>
         </li>
 
-        <!-- ✅ Logout button (now shows confirmation modal) -->
+        <!-- Logout -->
         <li *ngIf="username" class="nav-item ms-2">
           <button
             class="btn btn-outline-danger fw-semibold px-4 rounded-pill hover-btn-outline"
@@ -103,18 +114,14 @@
   </div>
 </nav>
 
-<!-- 👑 Luxury Logout Confirmation Modal -->
+<!-- Logout modal -->
 <div *ngIf="showLogoutConfirm" class="luxury-toast">
   <div class="luxury-toast-content text-center">
     <h5 class="fw-bold">Are you sure you want to logout?</h5>
     <p class="toast-subtitle">We’ll miss your essence...</p>
     <div class="toast-actions mt-4">
-      <button class="btn btn-luxury me-3 px-4" (click)="logout()">
-        Yes, Logout
-      </button>
-      <button class="btn btn-outline-light px-4" (click)="cancelLogout()">
-        Cancel
-      </button>
+      <button class="btn btn-luxury me-3 px-4" (click)="logout()">Yes, Logout</button>
+      <button class="btn btn-outline-light px-4" (click)="cancelLogout()">Cancel</button>
     </div>
   </div>
 </div>

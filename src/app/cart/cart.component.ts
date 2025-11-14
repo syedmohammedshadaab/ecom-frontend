@@ -48,6 +48,9 @@ export class CartComponent implements OnInit {
       next: (response: any) => {
         this.cartItems = response;
         this.calculateTotal();
+
+        // ✅ Update cart counter here
+        sessionStorage.setItem('cartCount', this.cartItems.length.toString());
       },
       error: (err) => {
         console.error('Error loading cart:', err);
@@ -76,8 +79,15 @@ export class CartComponent implements OnInit {
             item.cartid !== this.itemToDelete &&
             item.cartId !== this.itemToDelete
         );
+
         this.calculateTotal();
         this.showToastMessage('🗑️ Item removed successfully!', 'success');
+
+        // ✅ Update cart counter after deletion
+        sessionStorage.setItem(
+          'cartCount',
+          this.cartItems.length.toString()
+        );
       },
       error: (err) => {
         console.error('Error deleting item:', err);
@@ -139,8 +149,8 @@ export class CartComponent implements OnInit {
     this.showToast = true;
     setTimeout(() => (this.showToast = false), 2500);
   }
-  //Clear Cart Button
-  // Clear Cart Button
+
+  // 🗑️ Clear Cart Button
   clearCart() {
     if (!this.uid) {
       this.showToastMessage('⚠️ Please log in to clear the cart.', 'error');
@@ -153,6 +163,9 @@ export class CartComponent implements OnInit {
           this.cartItems = [];
           this.totalPrice = 0;
           this.showToastMessage('🗑️ Cart cleared successfully!', 'success');
+
+          // ✅ Update cart counter after clearing
+          sessionStorage.setItem('cartCount', '0');
         },
         error: (err) => {
           console.error('Error clearing cart:', err);

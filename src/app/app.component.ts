@@ -10,41 +10,55 @@ import { Router, NavigationEnd } from '@angular/router';
 export class AppComponent implements OnInit {
   username: string | null = null;
   showLogoutConfirm = false;
+  cartCount: number = 0;
 
   constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.updateUsername();
+    this.updateCartCount();
 
-    // Update username whenever route changes
+    // Refresh username + cart count on route change
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.updateUsername();
+        this.updateCartCount();
       }
     });
   }
 
-  // ✅ Read username from sessionStorage
+  // ✅ Safe check for sessionStorage (avoids SSR error)
   updateUsername(): void {
     if (typeof window !== 'undefined') {
       this.username = sessionStorage.getItem('username');
     }
   }
+
+  // 📌 Reads totalCartCount from sessionStorage
+  updateCartCount(): void {
+    if (typeof window !== 'undefined') {
+      const count = sessionStorage.getItem('cartCount');
+      this.cartCount = count ? Number(count) : 0;
+    }
+  }
+
   confirmLogout(): void {
     this.showLogoutConfirm = true;
   }
+
   cancelLogout(): void {
     this.showLogoutConfirm = false;
   }
 
-  // ✅ Logout function
   logout(): void {
     if (typeof window !== 'undefined') {
-      sessionStorage.removeItem('username');
-      sessionStorage.removeItem('uid');
-      this.username = null;
-      this.showLogoutConfirm = false;
-      this.router.navigate(['/login']); // redirect to login page
+      sessionStorage.clear();
     }
+
+    this.username = null;
+    this.cartCount = 0;
+    this.showLogoutConfirm = false;
+
+    this.router.navigate(['/login']);
   }
 }

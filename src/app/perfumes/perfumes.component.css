@@ -172,7 +172,11 @@
   top: 12px;
   right: 12px;
   z-index: 10;
-  background: linear-gradient(135deg, var(--tan), var(--chamoisee)); /* 🎨 Using theme colors */
+  background: linear-gradient(
+    135deg,
+    var(--tan),
+    var(--chamoisee)
+  ); /* 🎨 Using theme colors */
   color: #fff;
   font-weight: 700;
   font-size: 0.9rem;
@@ -202,8 +206,6 @@
   position: relative;
   overflow: hidden;
 }
-
-
 
 /* 🌸 Toast Message */
 .toast-container {
@@ -272,3 +274,62 @@
     width: 100%;
   }
 }
+
+/* 🌟 Search Input Container */
+.search-input-container {
+  position: relative;
+  width: 100%; /* full width for mobile */
+  max-width: 280px; /* desktop max width */
+  margin: 0 auto; /* center horizontally */
+  display: inline-block; /* prevent flex issues */
+}
+
+/* 🔍 Search Input */
+.search-input {
+  width: 100%; /* fill container */
+  padding: 10px 40px 10px 16px; /* right padding for icon */
+  border-radius: 2rem;
+  border: none;
+  font-size: 0.95rem;
+  background: linear-gradient(135deg, var(--almond), var(--dun));
+  color: var(--text-dark);
+  box-shadow: 0 3px 8px rgba(176, 137, 104, 0.2);
+  transition: all 0.3s ease;
+  height: 42px; /* fixed height for alignment */
+  display: block;
+  line-height: 1.2;
+}
+
+.search-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(176, 137, 104, 0.3);
+}
+
+/* 🔍 Search Icon */
+.search-input-container .search-icon {
+  position: absolute;
+  right: 12px; /* icon on right */
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.25rem;
+  color: var(--chamoisee);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .search-input-container {
+    max-width: 100%;
+  }
+  .search-input {
+    padding: 10px 38px 10px 14px;
+    font-size: 0.9rem;
+  }
+  .search-input-container .search-icon {
+    font-size: 1.1rem;
+  }
+}
+

@@ -13,11 +13,12 @@ export class PerfumesComponent implements OnInit {
   filteredPerfumes: any[] = [];
 
   // Filters
+  searchName: string = '';
   searchGender: string = '';
   selectedPriceRange: string = '';
   showLatestOnly: boolean = false;
 
-  // Toast state
+  // Toast
   showToast: boolean = false;
   toastMessage: string = '';
   toastType: 'success' | 'error' = 'success';
@@ -28,11 +29,12 @@ export class PerfumesComponent implements OnInit {
     this.getAllPerfumes();
   }
 
-  // ✅ Fetch all perfumes from backend
+  // ================================
+  // FETCH ALL PERFUMES
+  // ================================
   getAllPerfumes(): void {
     this.perfumeService.getallperfume().subscribe({
       next: (data) => {
-        console.log('Perfume data:', data);
         this.perfume = data;
         this.filteredPerfumes = data;
       },
@@ -40,9 +42,16 @@ export class PerfumesComponent implements OnInit {
     });
   }
 
-  // ✅ Apply filters
+  // ================================
+  // APPLY FILTERS
+  // ================================
   applyFilters(): void {
     let temp = [...this.perfume];
+
+    if (this.searchName.trim()) {
+      const name = this.searchName.toLowerCase();
+      temp = temp.filter((p) => p.name.toLowerCase().includes(name));
+    }
 
     if (this.searchGender) {
       temp = temp.filter(
@@ -62,16 +71,15 @@ export class PerfumesComponent implements OnInit {
     this.filteredPerfumes = temp;
   }
 
-  // ✅ Add perfume to cart
+  // ================================
+  // ADD TO CART (REAL-TIME UPDATE)
+  // ================================
   addtocart(perfume: any): void {
     const uidStr = sessionStorage.getItem('uid');
     const uid = uidStr ? Number(uidStr) : null;
 
     if (!uid) {
-      this.showToastMessage(
-        '⚠️ Please log in to add items to your cart.',
-        'error'
-      );
+      this.showToastMessage('⚠️ Please log in to add items to your cart.', 'error');
       return;
     }
 
@@ -80,6 +88,7 @@ export class PerfumesComponent implements OnInit {
         const existingItem = cartItems.find((item) => item.id === perfume.id);
 
         if (existingItem) {
+          // UPDATE quantity
           const updatedItem = {
             ...existingItem,
             quantity: existingItem.quantity + 1,
@@ -87,16 +96,13 @@ export class PerfumesComponent implements OnInit {
 
           this.perfumeService.addtocart(updatedItem).subscribe({
             next: () => {
-              this.showToastMessage(
-                `✅ Increased quantity of ${perfume.name}`,
-                'success'
-              );
+              this.perfumeService.refreshCartCount(uid); // ⭐ real-time update
+              this.showToastMessage(`🔁 Increased quantity of ${perfume.name}`, 'success');
             },
-            error: () => {
-              this.showToastMessage('❌ Failed to update cart.', 'error');
-            },
+            error: () => this.showToastMessage('❌ Failed to update cart.', 'error'),
           });
         } else {
+          // ADD new item
           const newCartItem = {
             uid: uid,
             id: perfume.id,
@@ -111,18 +117,10 @@ export class PerfumesComponent implements OnInit {
 
           this.perfumeService.addtocart(newCartItem).subscribe({
             next: () => {
-              console.log(newCartItem);
-              this.showToastMessage(
-                '✅ Perfume added to cart successfully!',
-                'success'
-              );
+              this.perfumeService.refreshCartCount(uid); // ⭐ real-time update
+              this.showToastMessage('🛒 Perfume added to cart successfully!', 'success');
             },
-            error: () => {
-              this.showToastMessage(
-                '❌ Failed to add perfume to cart.',
-                'error'
-              );
-            },
+            error: () => this.showToastMessage('❌ Failed to add perfume to cart.', 'error'),
           });
         }
       },
@@ -132,15 +130,16 @@ export class PerfumesComponent implements OnInit {
     });
   }
 
-  // ✅ View perfume details
-  // viewDetails(id: number): void {
-  //   this.router.navigate(['/perfumes', id]);
-  // }
+  // ================================
+  // VIEW DETAILS
+  // ================================
   viewPerfumeDetails(id: number) {
     this.router.navigate(['/perfumes', id]);
   }
 
-  // ✅ Toast helper
+  // ================================
+  // TOAST HELPER
+  // ================================
   showToastMessage(message: string, type: 'success' | 'error') {
     this.toastMessage = message;
     this.toastType = type;

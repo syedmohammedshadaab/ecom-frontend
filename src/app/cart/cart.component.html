@@ -1,7 +1,20 @@
 <div class="container mt-5 cart-container">
-  <h2 class="text-center mb-4 fw-bold text-gradient">Your Shopping Cart</h2>
 
-  <!-- Empty Cart Message -->
+  <!-- Header -->
+  <div class="cart-header d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold text-gradient">Your Shopping Cart</h2>
+
+    <!-- Clear Cart Button -->
+    <button
+      *ngIf="cartItems.length > 0"
+      class="btn btn-danger clear-cart-btn"
+      (click)="clearCart()"
+    >
+      <i class="bi bi-trash me-1"></i> Clear Cart
+    </button>
+  </div>
+
+  <!-- EMPTY CART -->
   <div *ngIf="cartItems.length === 0 && uid" class="text-center mt-5 empty-cart">
     <img
       src="https://cdn-icons-png.flaticon.com/512/2038/2038854.png"
@@ -15,73 +28,87 @@
     </a>
   </div>
 
-  <!-- Clear Cart Button -->
-  <div *ngIf="cartItems.length > 0" class="text-center mb-3">
-    <button class="btn btn-danger mb-3" (click)="clearCart()">
-      <i class="bi bi-trash me-1"></i> Clear Cart
-    </button>
-  </div>
+  <!-- MAIN GRID: LEFT (ITEMS) + RIGHT (SUMMARY) -->
+  <div *ngIf="cartItems.length > 0" class="cart-grid">
 
-  <!-- Cart Items -->
-  <div *ngIf="cartItems.length > 0" class="cart-items">
-    <div class="cart-item" *ngFor="let item of cartItems">
-      <img
-        [src]="
-          item.imageUrl || item.imageurl || 'https://placehold.co/100x100?text=No+Image'
-        "
-        alt="{{ item.name }}"
-        class="cart-item-img"
-      />
+    <!-- LEFT SIDE: ITEMS -->
+    <div class="cart-items">
+      <div class="cart-item" *ngFor="let item of cartItems">
+        <img
+          [src]="item.imageUrl || item.imageurl || 'https://placehold.co/100x100?text=No+Image'"
+          alt="{{ item.name }}"
+          class="cart-item-img"
+        />
 
-      <div class="cart-item-info flex-grow-1">
-        <h5>{{ item.name }}</h5>
-        <p class="text-muted small">{{ item.description }}</p>
-        <p><strong>Gender:</strong> {{ item.gender }}</p>
-        <p class="fw-bold text-theme-price">
-          <i class="bi bi-cash-stack"></i> {{ item.price | currency : "INR" }}
-        </p>
+        <div class="cart-item-info flex-grow-1">
+          <h5>{{ item.name }}</h5>
+          <p><strong>Gender:</strong> {{ item.gender }}</p>
 
-        <!-- Quantity Controls -->
-        <div class="quantity-controls d-flex align-items-center gap-2 mt-1">
-          <button
-            class="btn btn-outline-secondary btn-sm"
-            (click)="updateQuantity(item, item.quantity - 1)"
-            [disabled]="item.quantity <= 1"
-          >
-            −
-          </button>
-          <span class="fw-semibold">{{ item.quantity }}</span>
-          <button
-            class="btn btn-outline-secondary btn-sm"
-            (click)="updateQuantity(item, item.quantity + 1)"
-          >
-            +
-          </button>
+          <p class="fw-bold text-theme-price">
+            <i class="bi bi-cash-stack"></i>
+            {{ item.price | currency : "INR" }}
+          </p>
+
+          <!-- Quantity Controls -->
+          <div class="quantity-controls d-flex align-items-center gap-2 mt-1">
+            <button
+              class="btn btn-outline-secondary btn-sm"
+              (click)="updateQuantity(item, item.quantity - 1)"
+              [disabled]="item.quantity <= 1"
+            >
+              −
+            </button>
+
+            <span class="fw-semibold">{{ item.quantity }}</span>
+
+            <button
+              class="btn btn-outline-secondary btn-sm"
+              (click)="updateQuantity(item, item.quantity + 1)"
+            >
+              +
+            </button>
+          </div>
+
+          <p class="mt-2 text-success fw-bold subtotal">
+            Subtotal: ₹{{ item.price * item.quantity | number : "1.2-2" }}
+          </p>
         </div>
 
-        <p class="mt-2 text-success fw-bold subtotal">
-          Subtotal: ₹{{ item.price * item.quantity | number : "1.2-2" }}
-        </p>
+        <!-- Remove Button -->
+        <button
+          class="btn btn-outline-danger btn-sm remove-btn"
+          (click)="openConfirmModal(item.cartId || item.cartid)"
+        >
+          <i class="bi bi-trash"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- RIGHT SIDE: BILL SUMMARY -->
+    <div class="bill-summary shadow-sm p-4 rounded-4">
+      <h4 class="fw-bold mb-3">Bill Summary</h4>
+
+      <div class="d-flex justify-content-between mb-2">
+        <span>Items Total</span>
+        <strong>₹{{ totalPrice | number : "1.2-2" }}</strong>
       </div>
 
-      <!-- Remove Button -->
-      <button
-        class="btn btn-outline-danger btn-sm remove-btn"
-        (click)="openConfirmModal(item.cartId || item.cartid)"
-      >
-        <i class="bi bi-trash"></i>
+      <div class="d-flex justify-content-between mb-2">
+        <span>Delivery Charges</span>
+        <strong class="text-success">FREE</strong>
+      </div>
+
+      <hr />
+
+      <div class="d-flex justify-content-between mb-3 fs-5">
+        <span><strong>Final Total</strong></span>
+        <strong class="text-primary">₹{{ totalPrice | number : "1.2-2" }}</strong>
+      </div>
+
+      <button class="btn btn-theme-outline w-100 py-2 fs-6">
+        <i class="bi bi-credit-card"></i> Proceed to Checkout
       </button>
     </div>
-  </div>
-
-  <!-- Cart Summary -->
-  <div *ngIf="cartItems.length > 0" class="cart-summary text-center mt-4 p-4 rounded-4 shadow-sm">
-    <h4 class="fw-bold text-dark">
-      Total: {{ totalPrice | currency : "INR" }}
-    </h4>
-    <button class="btn btn-theme-outline mt-2 px-4">
-      <i class="bi bi-credit-card"></i> Proceed to Checkout
-    </button>
   </div>
 
   <!-- Confirm Remove Modal -->
@@ -89,27 +116,17 @@
     <div class="modal-content text-center p-4">
       <i class="bi bi-exclamation-triangle text-warning fs-1"></i>
       <h5 class="fw-bold mt-3 mb-2">Remove Item?</h5>
-      <p class="text-muted">
-        Are you sure you want to remove this perfume from your cart?
-      </p>
+      <p class="text-muted">Are you sure you want to remove this perfume?</p>
+
       <div class="d-flex justify-content-center gap-3 mt-3">
-        <button class="btn btn-confirm px-4" (click)="confirmDelete()">
-          Yes, Remove
-        </button>
-        <button class="btn btn-cancel px-4" (click)="cancelDelete()">
-          Cancel
-        </button>
+        <button class="btn btn-confirm px-4" (click)="confirmDelete()">Yes, Remove</button>
+        <button class="btn btn-cancel px-4" (click)="cancelDelete()">Cancel</button>
       </div>
     </div>
   </div>
 
-  <!-- Toast Message -->
-  <div
-    *ngIf="showToast"
-    class="toast-container show"
-    [ngClass]="toastType"
-    role="alert"
-  >
+  <!-- Toast -->
+  <div *ngIf="showToast" class="toast-container show" [ngClass]="toastType">
     <div class="toast-body">{{ toastMessage }}</div>
   </div>
 </div>

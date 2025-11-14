@@ -40,7 +40,9 @@ export class PerfumedetailsComponent implements OnInit {
     });
   }
 
+  // ===============================
   // ✅ Fetch perfume details
+  // ===============================
   fetchPerfumeDetails(): void {
     this.perfumeService.getPerfumeById(this.perfumeId).subscribe({
       next: (data) => {
@@ -65,7 +67,9 @@ export class PerfumedetailsComponent implements OnInit {
     });
   }
 
-  // ✅ Fetch similar priced perfumes
+  // ===============================
+  // ✅ Fetch similar perfumes
+  // ===============================
   fetchSimilarPerfumes(price: number): void {
     this.perfumeService.getallperfume().subscribe({
       next: (data) => {
@@ -83,7 +87,9 @@ export class PerfumedetailsComponent implements OnInit {
     });
   }
 
-  // 🖼️ Carousel controls
+  // ===============================
+  // 🎞️ Carousel Controls
+  // ===============================
   nextImage(): void {
     if (this.imageList.length) {
       this.currentImageIndex =
@@ -114,7 +120,9 @@ export class PerfumedetailsComponent implements OnInit {
     }
   }
 
-  // ✅ Add perfume to cart with toast
+  // ===============================
+  // 🛒 Add to cart + update cartCount
+  // ===============================
   addtocart(perfume: any): void {
     const uidStr = sessionStorage.getItem('uid');
     const uid = uidStr ? Number(uidStr) : null;
@@ -136,12 +144,15 @@ export class PerfumedetailsComponent implements OnInit {
             ...existingItem,
             quantity: existingItem.quantity + 1,
           };
+
           this.perfumeService.addtocart(updatedItem).subscribe({
-            next: () =>
+            next: () => {
+              this.updateCartCount(); // 🔥 cart count updates instantly
               this.showToastMessage(
-                `✅ Increased quantity of ${perfume.name}`,
+                `🔁 Increased quantity of ${perfume.name}`,
                 'success'
-              ),
+              );
+            },
             error: () =>
               this.showToastMessage('❌ Failed to update cart.', 'error'),
           });
@@ -157,12 +168,15 @@ export class PerfumedetailsComponent implements OnInit {
             quantity: 1,
             latestLaunch: perfume.latestLaunch,
           };
+
           this.perfumeService.addtocart(newCartItem).subscribe({
-            next: () =>
+            next: () => {
+              this.updateCartCount(); // 🔥 cart count updates instantly
               this.showToastMessage(
-                '✅ Perfume added to cart successfully!',
+                '🛒 Perfume added to cart successfully!',
                 'success'
-              ),
+              );
+            },
             error: () =>
               this.showToastMessage(
                 '❌ Failed to add perfume to cart.',
@@ -177,14 +191,26 @@ export class PerfumedetailsComponent implements OnInit {
     });
   }
 
-  // ✅ Navigate to similar perfume
+  // ===============================
+  // 🔥 Update cart count in sessionStorage
+  // ===============================
+  updateCartCount() {
+    const prev = Number(sessionStorage.getItem('cartCount')) || 0;
+    sessionStorage.setItem('cartCount', String(prev + 1));
+  }
+
+  // ===============================
+  // 🔗 Navigate to similar perfume
+  // ===============================
   goToDetails(id: number): void {
     this.router.navigate(['/perfumes', id]).then(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
 
-  // ✅ Toast helper
+  // ===============================
+  // 🔔 Toast controller
+  // ===============================
   showToastMessage(message: string, type: 'success' | 'error') {
     this.toastMessage = message;
     this.toastType = type;

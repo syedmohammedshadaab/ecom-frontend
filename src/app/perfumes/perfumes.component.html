@@ -5,22 +5,29 @@
     Indulge in elegance — crafted fragrances for every soul
   </p>
 
-  <!-- 🌸 Filter Section -->
-  <div
-    class="d-flex flex-wrap justify-content-center align-items-center gap-3 mb-5 p-3 filter-bar"
-  >
+  <!-- 🌿 Search & Filter Section -->
+  <div class="filter-bar shadow-sm rounded-4 p-3 d-flex flex-wrap justify-content-center align-items-center gap-3 mb-5">
+    <!-- 🔍 Search by Name -->
+    <div class="search-input-container">
+      <input
+        type="text"
+        class="form-control search-input"
+        placeholder="Search by name"
+        [(ngModel)]="searchName"
+        (input)="applyFilters()"
+      />
+      <i class="bi bi-search search-icon"></i>
+    </div>
+
     <!-- Gender Filter -->
-    <div>
-      <label for="genderSelect" class="fw-semibold me-2 fs-6 text-secondary">
-        <i class="bi bi-gender-ambiguous text-primary me-1"></i> Category:
-      </label>
+    <div class="filter-select-wrapper">
       <select
         id="genderSelect"
         class="form-select"
         [(ngModel)]="searchGender"
         (change)="applyFilters()"
       >
-        <option value="">All</option>
+        <option value="">All Categories</option>
         <option value="male">Male</option>
         <option value="female">Female</option>
         <option value="unisex">Unisex</option>
@@ -28,17 +35,14 @@
     </div>
 
     <!-- Price Filter -->
-    <div>
-      <label for="priceSelect" class="fw-semibold me-2 fs-6 text-secondary">
-        <i class="bi bi-cash-stack text-success me-1"></i> Price Range:
-      </label>
+    <div class="filter-select-wrapper">
       <select
         id="priceSelect"
         class="form-select"
         [(ngModel)]="selectedPriceRange"
         (change)="applyFilters()"
       >
-        <option value="">All</option>
+        <option value="">All Prices</option>
         <option value="100-500">₹100 - ₹500</option>
         <option value="500-1000">₹500 - ₹1000</option>
         <option value="1000-5000">₹1000 - ₹5000</option>
@@ -46,7 +50,7 @@
       </select>
     </div>
 
-    <!-- ✅ Latest Launch Filter -->
+    <!-- Latest Launch Filter -->
     <div class="form-check ms-2">
       <input
         class="form-check-input"
@@ -55,10 +59,7 @@
         [(ngModel)]="showLatestOnly"
         (change)="applyFilters()"
       />
-      <label
-        class="form-check-label fw-semibold text-secondary"
-        for="latestLaunchCheck"
-      >
+      <label class="form-check-label fw-semibold text-secondary" for="latestLaunchCheck">
         <i class="bi bi-stars text-warning me-1"></i> Latest Launch Only
       </label>
     </div>
@@ -78,20 +79,10 @@
 
   <!-- 💎 Perfume Cards -->
   <div class="row justify-content-center">
-    <div
-      class="col-md-3 mb-3"
-      *ngFor="let f of filteredPerfumes"
-    >
-      <div
-        class="card perfume-card shadow-sm h-100 border-0 rounded-4 overflow-hidden position-relative"
-      >
+    <div class="col-md-3 mb-4" *ngFor="let f of filteredPerfumes">
+      <div class="card perfume-card shadow-sm h-100 border-0 rounded-4 overflow-hidden position-relative">
         <!-- New Launch Badge -->
-        <span
-          *ngIf="f.latestLaunch"
-          class="badge new-launch-badge"
-        >
-          New Launch
-        </span>
+        <span *ngIf="f.latestLaunch" class="badge new-launch-badge">New Launch</span>
 
         <!-- Perfume Image -->
         <div class="position-relative overflow-hidden">
@@ -120,7 +111,6 @@
           </p>
 
           <div class="d-flex justify-content-center gap-2">
-            <!-- 🛒 Add to Cart -->
             <button
               class="btn btn-outline-primary btn-sm d-flex align-items-center"
               (click)="addtocart(f); $event.stopPropagation()"
