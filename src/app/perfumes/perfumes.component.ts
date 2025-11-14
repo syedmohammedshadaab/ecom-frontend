@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { PerfumeService } from '../services/perfume.service';
 
 @Component({
@@ -14,14 +15,14 @@ export class PerfumesComponent implements OnInit {
   // Filters
   searchGender: string = '';
   selectedPriceRange: string = '';
-  showLatestOnly: boolean = false; // ✅ new filter
+  showLatestOnly: boolean = false;
 
   // Toast state
   showToast: boolean = false;
   toastMessage: string = '';
   toastType: 'success' | 'error' = 'success';
 
-  constructor(private perfumeService: PerfumeService) {}
+  constructor(private perfumeService: PerfumeService, private router: Router) {}
 
   ngOnInit(): void {
     this.getAllPerfumes();
@@ -39,7 +40,7 @@ export class PerfumesComponent implements OnInit {
     });
   }
 
-  // ✅ Apply gender, price, and latest filters
+  // ✅ Apply filters
   applyFilters(): void {
     let temp = [...this.perfume];
 
@@ -129,6 +130,14 @@ export class PerfumesComponent implements OnInit {
         this.showToastMessage('❌ Could not fetch cart details.', 'error');
       },
     });
+  }
+
+  // ✅ View perfume details
+  // viewDetails(id: number): void {
+  //   this.router.navigate(['/perfumes', id]);
+  // }
+  viewPerfumeDetails(id: number) {
+    this.router.navigate(['/perfumes', id]);
   }
 
   // ✅ Toast helper

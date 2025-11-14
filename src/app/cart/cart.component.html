@@ -2,7 +2,7 @@
   <h2 class="text-center mb-4 fw-bold text-gradient">Your Shopping Cart</h2>
 
   <!-- Empty Cart Message -->
-  <div *ngIf="cartItems.length === 0 && uid" class="text-center mt-5">
+  <div *ngIf="cartItems.length === 0 && uid" class="text-center mt-5 empty-cart">
     <img
       src="https://cdn-icons-png.flaticon.com/512/2038/2038854.png"
       alt="Empty cart"
@@ -15,79 +15,67 @@
     </a>
   </div>
 
+  <!-- Clear Cart Button -->
+  <div *ngIf="cartItems.length > 0" class="text-center mb-3">
+    <button class="btn btn-danger mb-3" (click)="clearCart()">
+      <i class="bi bi-trash me-1"></i> Clear Cart
+    </button>
+  </div>
+
   <!-- Cart Items -->
-  <div *ngIf="cartItems.length > 0" class="row justify-content-center">
-    <div
-      class="col-md-4 mb-4"
-      *ngFor="let item of cartItems"
-      style="min-width: 300px"
-    >
-      <div class="card shadow-sm rounded-4 border-0 h-100">
-        <img
-          [src]="
-            item.imageUrl ||
-            item.imageurl ||
-            'https://placehold.co/300x200?text=No+Image'
-          "
-          class="card-img-top"
-          alt="{{ item.name }}"
-        />
+  <div *ngIf="cartItems.length > 0" class="cart-items">
+    <div class="cart-item" *ngFor="let item of cartItems">
+      <img
+        [src]="
+          item.imageUrl || item.imageurl || 'https://placehold.co/100x100?text=No+Image'
+        "
+        alt="{{ item.name }}"
+        class="cart-item-img"
+      />
 
-        <div class="card-body text-center">
-          <h5 class="fw-semibold">{{ item.name }}</h5>
-          <p class="text-muted small">{{ item.description }}</p>
-          <p class="text-secondary mb-1">
-            <strong>Gender:</strong> {{ item.gender }}
-          </p>
+      <div class="cart-item-info flex-grow-1">
+        <h5>{{ item.name }}</h5>
+        <p class="text-muted small">{{ item.description }}</p>
+        <p><strong>Gender:</strong> {{ item.gender }}</p>
+        <p class="fw-bold text-theme-price">
+          <i class="bi bi-cash-stack"></i> {{ item.price | currency : "INR" }}
+        </p>
 
-          <p class="fw-bold text-theme-price mb-2">
-            <i class="bi bi-cash-stack"></i>
-            {{ item.price | currency : "INR" }}
-          </p>
-
-          <!-- Quantity Controls -->
-          <div
-            class="d-flex align-items-center justify-content-center gap-3 mt-2"
-          >
-            <button
-              class="btn btn-outline-secondary btn-sm"
-              (click)="updateQuantity(item, item.quantity - 1)"
-              [disabled]="item.quantity <= 1"
-            >
-              −
-            </button>
-            <span class="fw-semibold">{{ item.quantity }}</span>
-            <button
-              class="btn btn-outline-secondary btn-sm"
-              (click)="updateQuantity(item, item.quantity + 1)"
-            >
-              +
-            </button>
-          </div>
-
-          <p class="mt-3 text-success fw-bold">
-            Subtotal: ₹{{ item.price * item.quantity | number : "1.2-2" }}
-          </p>
-        </div>
-
-        <!-- Remove Button -->
-        <div class="card-footer text-center border-0 bg-transparent">
+        <!-- Quantity Controls -->
+        <div class="quantity-controls d-flex align-items-center gap-2 mt-1">
           <button
-            class="btn btn-outline-danger btn-sm"
-            (click)="openConfirmModal(item.cartId || item.cartid)"
+            class="btn btn-outline-secondary btn-sm"
+            (click)="updateQuantity(item, item.quantity - 1)"
+            [disabled]="item.quantity <= 1"
           >
-            <i class="bi bi-trash"></i> Remove
+            −
+          </button>
+          <span class="fw-semibold">{{ item.quantity }}</span>
+          <button
+            class="btn btn-outline-secondary btn-sm"
+            (click)="updateQuantity(item, item.quantity + 1)"
+          >
+            +
           </button>
         </div>
+
+        <p class="mt-2 text-success fw-bold subtotal">
+          Subtotal: ₹{{ item.price * item.quantity | number : "1.2-2" }}
+        </p>
       </div>
+
+      <!-- Remove Button -->
+      <button
+        class="btn btn-outline-danger btn-sm remove-btn"
+        (click)="openConfirmModal(item.cartId || item.cartid)"
+      >
+        <i class="bi bi-trash"></i>
+      </button>
     </div>
   </div>
 
   <!-- Cart Summary -->
-  <div
-    *ngIf="cartItems.length > 0"
-    class="text-center mt-4 p-4 bg-light rounded-4 shadow-sm cart-summary"
-  >
+  <div *ngIf="cartItems.length > 0" class="cart-summary text-center mt-4 p-4 rounded-4 shadow-sm">
     <h4 class="fw-bold text-dark">
       Total: {{ totalPrice | currency : "INR" }}
     </h4>
@@ -105,10 +93,10 @@
         Are you sure you want to remove this perfume from your cart?
       </p>
       <div class="d-flex justify-content-center gap-3 mt-3">
-        <button class="btn btn-danger px-4" (click)="confirmDelete()">
+        <button class="btn btn-confirm px-4" (click)="confirmDelete()">
           Yes, Remove
         </button>
-        <button class="btn btn-outline-secondary px-4" (click)="cancelDelete()">
+        <button class="btn btn-cancel px-4" (click)="cancelDelete()">
           Cancel
         </button>
       </div>

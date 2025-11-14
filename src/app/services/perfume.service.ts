@@ -34,4 +34,7 @@ export class PerfumeService {
   removeFromCart(cartId: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/deletecart/${cartId}`);
   }
+  getPerfumeById(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/perfume/getperfumebyid/${id}`);
+  }
 }

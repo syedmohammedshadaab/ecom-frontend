@@ -36,6 +36,13 @@ export class CartService {
     return this.http.put(`${this.baseUrl}/putcart/${cartId}`, updatedItem);
   }
 
+  // Clear entire cart for a user
+  clearCart(uid: number): Observable<string> {
+    return this.http.delete(`${this.baseUrl}/clear/${uid}`, {
+      responseType: 'text',
+    });
+  }
+
   // ⚙️ Handle backend errors
   private handleError(error: HttpErrorResponse) {
     console.error('🛑 CartService Error:', error);

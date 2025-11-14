@@ -19,6 +19,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { SearchPerfumeComponent } from './search-perfume/search-perfume.component';
 import { FooterComponent } from './footer/footer.component';
+import { PerfumedetailsComponent } from './perfumedetails/perfumedetails.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { FooterComponent } from './footer/footer.component';
     SignupComponent,
     SearchPerfumeComponent,
     FooterComponent,
+    PerfumedetailsComponent,
   ],
   imports: [
     BrowserModule,

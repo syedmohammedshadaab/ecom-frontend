@@ -139,4 +139,26 @@ export class CartComponent implements OnInit {
     this.showToast = true;
     setTimeout(() => (this.showToast = false), 2500);
   }
+  //Clear Cart Button
+  // Clear Cart Button
+  clearCart() {
+    if (!this.uid) {
+      this.showToastMessage('⚠️ Please log in to clear the cart.', 'error');
+      return;
+    }
+
+    if (confirm('Are you sure you want to clear the entire cart?')) {
+      this.cartService.clearCart(this.uid).subscribe({
+        next: () => {
+          this.cartItems = [];
+          this.totalPrice = 0;
+          this.showToastMessage('🗑️ Cart cleared successfully!', 'success');
+        },
+        error: (err) => {
+          console.error('Error clearing cart:', err);
+          this.showToastMessage('❌ Failed to clear cart!', 'error');
+        },
+      });
+    }
+  }
 }

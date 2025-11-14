@@ -1,0 +1,175 @@
+<div class="container mt-5">
+
+  <!-- 🔔 Toast Notification -->
+  <div
+    class="toast-container"
+    [ngClass]="{
+      show: showToast,
+      success: toastType === 'success',
+      error: toastType === 'error'
+    }"
+  >
+    <div class="toast-content d-flex align-items-center justify-content-between">
+      <div class="toast-body">{{ toastMessage }}</div>
+      <button
+        type="button"
+        class="btn-close btn-close-white ms-3"
+        (click)="showToast = false"
+        aria-label="Close"
+      ></button>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- 🖼️ Left Section: Image Carousel -->
+    <div class="col-md-6 text-center position-relative">
+      <div id="perfumeCarousel" class="position-relative">
+        <!-- Main Image -->
+        <img
+          [src]="
+            imageList[currentImageIndex] && imageList[currentImageIndex].trim() !== ''
+              ? imageList[currentImageIndex]
+              : 'https://placehold.co/400x400?text=No+Image'
+          "
+          class="img-fluid rounded shadow-sm main-preview"
+          alt="{{ perfume?.name }}"
+          style="max-width: 100%; height: auto; border-radius: 15px;"
+          (click)="previewImage(imageList[currentImageIndex])"
+        />
+
+        <!-- Latest Launch Badge -->
+        <span
+          *ngIf="perfume?.latestLaunch"
+          class="badge new-launch-badge position-absolute top-0 end-0 m-3"
+        >
+          New Launch
+        </span>
+
+        <!-- Left Arrow -->
+        <button
+          class="carousel-arrow left-arrow"
+          (click)="prevImage()"
+          aria-label="Previous"
+        >
+          <i class="bi bi-chevron-left"></i>
+        </button>
+
+        <!-- Right Arrow -->
+        <button
+          class="carousel-arrow right-arrow"
+          (click)="nextImage()"
+          aria-label="Next"
+        >
+          <i class="bi bi-chevron-right"></i>
+        </button>
+      </div>
+
+      <!-- Thumbnails -->
+      <div class="d-flex justify-content-center gap-3 flex-wrap mt-3">
+        <img
+          *ngFor="let img of imageList; let i = index"
+          [src]="img && img.trim() !== '' ? img : 'https://placehold.co/85x85?text=No+Image'"
+          (click)="setImage(i)"
+          class="thumbnail-img rounded shadow-sm"
+          [class.selected]="i === currentImageIndex"
+          alt="Thumbnail {{ i + 1 }}"
+          style="width: 85px; height: 85px; object-fit: cover; cursor: pointer;"
+        />
+      </div>
+    </div>
+
+    <!-- 🧴 Right Section: Perfume Details -->
+    <div class="col-md-6 text-start mt-4 mt-md-0 position-relative">
+      <!-- Latest Launch Badge (Optional, in right section if you want another view) -->
+      <!-- <span
+        *ngIf="perfume?.latestLaunch"
+        class="badge new-launch-badge position-absolute top-0 end-0 m-3"
+      >
+        New Launch
+      </span> -->
+
+      <h2 class="fw-bold mb-3">{{ perfume?.name }}</h2>
+      <p class="text-muted">{{ perfume?.description }}</p>
+      <p><strong>Gender:</strong> {{ perfume?.gender }}</p>
+      <p>
+        <strong>Price:</strong>
+        {{ perfume?.price | currency : 'INR' }}
+      </p>
+
+      <button class="btn btn-outline-primary me-2" (click)="addtocart(perfume)">
+        <i class="bi bi-cart-plus me-1"></i> Add to Cart
+      </button>
+
+      <button class="btn btn-outline-secondary" routerLink="/perfumes">
+        <i class="bi bi-arrow-left me-1"></i> Back
+      </button>
+    </div>
+  </div>
+
+  <!-- 🪄 Image Preview Modal -->
+  <div
+    class="modal fade"
+    id="imageModal"
+    tabindex="-1"
+    aria-labelledby="imageModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-transparent border-0 text-center">
+        <img
+          [src]="selectedImage"
+          class="img-fluid rounded-4 shadow-lg"
+          alt="Preview"
+          style="max-height: 80vh;"
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- 🌸 Similar Priced Perfumes Section -->
+  <div class="mt-5" *ngIf="similarPerfumes.length > 0">
+    <h4 class="fw-bold mb-4 text-center">You may also like</h4>
+    <div class="row">
+      <div
+        class="col-md-3 mb-4"
+        *ngFor="let p of similarPerfumes"
+        (click)="goToDetails(p.id)"
+        style="cursor: pointer;"
+      >
+        <div class="card h-100 shadow-sm border-0 hover-card position-relative">
+          <!-- New Launch Badge for similar perfumes -->
+          <span
+            *ngIf="p.latestLaunch"
+            class="badge new-launch-badge position-absolute top-0 end-0 m-2"
+          >
+            New Launch
+          </span>
+
+          <img
+            [src]="
+              p.imageurl && p.imageurl.trim() !== ''
+                ? p.imageurl
+                : p.imageUrl && p.imageUrl.trim() !== ''
+                ? p.imageUrl
+                : 'https://placehold.co/300x300?text=No+Image'
+            "
+            class="card-img-top rounded"
+            alt="{{ p.name }}"
+            style="height: 250px; object-fit: cover;"
+          />
+          <div class="card-body text-center">
+            <h6 class="fw-semibold">{{ p.name }}</h6>
+            <p class="text-muted small mb-1">{{ p.gender }}</p>
+            <p class="fw-bold mb-0">{{ p.price | currency : 'INR' }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- No Similar Perfumes -->
+  <div class="text-center text-muted mt-5" *ngIf="similarPerfumes.length === 0">
+    <i class="bi bi-emoji-frown fs-3 d-block mb-2"></i>
+    No similar priced perfumes found.
+  </div>
+</div>
