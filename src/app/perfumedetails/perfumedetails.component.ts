@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PerfumeService } from '../services/perfume.service';
+import { CartService } from '../services/cart.service'; // ✅ Inject CartService
 
 @Component({
   selector: 'app-perfumedetails',
@@ -28,7 +29,8 @@ export class PerfumedetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private perfumeService: PerfumeService,
-    private router: Router
+    private router: Router,
+    private cartService: CartService // ✅ Added
   ) {}
 
   ngOnInit(): void {
@@ -40,9 +42,6 @@ export class PerfumedetailsComponent implements OnInit {
     });
   }
 
-  // ===============================
-  // ✅ Fetch perfume details
-  // ===============================
   fetchPerfumeDetails(): void {
     this.perfumeService.getPerfumeById(this.perfumeId).subscribe({
       next: (data) => {
@@ -67,9 +66,6 @@ export class PerfumedetailsComponent implements OnInit {
     });
   }
 
-  // ===============================
-  // ✅ Fetch similar perfumes
-  // ===============================
   fetchSimilarPerfumes(price: number): void {
     this.perfumeService.getallperfume().subscribe({
       next: (data) => {
@@ -87,9 +83,6 @@ export class PerfumedetailsComponent implements OnInit {
     });
   }
 
-  // ===============================
-  // 🎞️ Carousel Controls
-  // ===============================
   nextImage(): void {
     if (this.imageList.length) {
       this.currentImageIndex =
@@ -122,6 +115,7 @@ export class PerfumedetailsComponent implements OnInit {
 
   // ===============================
   // 🛒 Add to cart + update cartCount
+  // ✅ Only increase cart count for unique perfumes
   // ===============================
   addtocart(perfume: any): void {
     const uidStr = sessionStorage.getItem('uid');
@@ -140,22 +134,11 @@ export class PerfumedetailsComponent implements OnInit {
         const existingItem = cartItems.find((item) => item.id === perfume.id);
 
         if (existingItem) {
-          const updatedItem = {
-            ...existingItem,
-            quantity: existingItem.quantity + 1,
-          };
-
-          this.perfumeService.addtocart(updatedItem).subscribe({
-            next: () => {
-              this.updateCartCount(); // 🔥 cart count updates instantly
-              this.showToastMessage(
-                `🔁 Increased quantity of ${perfume.name}`,
-                'success'
-              );
-            },
-            error: () =>
-              this.showToastMessage('❌ Failed to update cart.', 'error'),
-          });
+          // ✅ Already in cart, show message, do NOT increment cart count
+          this.showToastMessage(
+            `🛑 ${perfume.name} is already in your cart.`,
+            'error'
+          );
         } else {
           const newCartItem = {
             uid: uid,
@@ -171,7 +154,7 @@ export class PerfumedetailsComponent implements OnInit {
 
           this.perfumeService.addtocart(newCartItem).subscribe({
             next: () => {
-              this.updateCartCount(); // 🔥 cart count updates instantly
+              this.cartService.incrementCartCount(); // ✅ increment only for new perfume
               this.showToastMessage(
                 '🛒 Perfume added to cart successfully!',
                 'success'
@@ -189,14 +172,6 @@ export class PerfumedetailsComponent implements OnInit {
         this.showToastMessage('❌ Could not fetch cart details.', 'error');
       },
     });
-  }
-
-  // ===============================
-  // 🔥 Update cart count in sessionStorage
-  // ===============================
-  updateCartCount() {
-    const prev = Number(sessionStorage.getItem('cartCount')) || 0;
-    sessionStorage.setItem('cartCount', String(prev + 1));
   }
 
   // ===============================

@@ -38,6 +38,11 @@ export class CartService {
     this.setCartCount(newCount);
   }
 
+  decrementCartCount() {
+    const newCount = Math.max(0, this.cartCountSubject.value - 1);
+    this.setCartCount(newCount);
+  }
+
   resetCartCount() {
     this.setCartCount(0);
   }
@@ -63,8 +68,10 @@ export class CartService {
       .pipe(catchError(this.handleError));
   }
 
-  updateCartItem(cartId: number, updatedItem: any) {
-    return this.http.put(`${this.baseUrl}/putcart/${cartId}`, updatedItem);
+  updateCartItem(cartId: number, updatedItem: any): Observable<any> {
+    return this.http
+      .put(`${this.baseUrl}/putcart/${cartId}`, updatedItem)
+      .pipe(catchError(this.handleError));
   }
 
   clearCart(uid: number): Observable<string> {
@@ -78,8 +85,6 @@ export class CartService {
   // ======================================================
   private handleError(error: HttpErrorResponse) {
     console.error('🛑 CartService Error:', error);
-    return throwError(
-      () => new Error(error.message || 'Something went wrong!')
-    );
+    return throwError(() => new Error(error.message || 'Something went wrong!'));
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { CartService } from './services/cart.service';
 
 @Component({
   selector: 'app-root',
@@ -12,33 +13,52 @@ export class AppComponent implements OnInit {
   showLogoutConfirm = false;
   cartCount: number = 0;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private cartService: CartService) {}
 
   ngOnInit(): void {
+    // ✅ Load username safely
     this.updateUsername();
-    this.updateCartCount();
 
-    // Refresh username + cart count on route change
+    // ✅ Subscribe to cartCount observable for real-time updates
+    this.cartService.cartCount$.subscribe((count) => {
+      this.cartCount = count;
+    });
+
+    // ✅ Load cart count immediately if user is logged in
+    this.loadCartCount();
+
+    // ✅ Update username and cart count on route changes
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.updateUsername();
-        this.updateCartCount();
+        this.loadCartCount();
       }
     });
   }
 
-  // ✅ Safe check for sessionStorage (avoids SSR error)
+  // ✅ Safe username retrieval
   updateUsername(): void {
     if (typeof window !== 'undefined') {
       this.username = sessionStorage.getItem('username');
     }
   }
 
-  // 📌 Reads totalCartCount from sessionStorage
-  updateCartCount(): void {
-    if (typeof window !== 'undefined') {
-      const count = sessionStorage.getItem('cartCount');
-      this.cartCount = count ? Number(count) : 0;
+  // ✅ Fetch cart items count for logged-in user and update BehaviorSubject
+  loadCartCount(): void {
+    if (typeof window === 'undefined') return;
+
+    const uidStr = sessionStorage.getItem('uid');
+    const uid = uidStr ? Number(uidStr) : null;
+
+    if (uid) {
+      this.cartService.getCartItems(uid).subscribe({
+        next: (cartItems: any[]) => {
+          this.cartService.setCartCount(cartItems.length); // update count reactively
+        },
+        error: (err) => {
+          console.error('Error fetching cart count:', err);
+        },
+      });
     }
   }
 
@@ -58,6 +78,9 @@ export class AppComponent implements OnInit {
     this.username = null;
     this.cartCount = 0;
     this.showLogoutConfirm = false;
+
+    // ✅ Reset cart count on logout
+    this.cartService.resetCartCount();
 
     this.router.navigate(['/login']);
   }

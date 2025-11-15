@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PerfumeService } from '../services/perfume.service';
+import { CartService } from '../services/cart.service'; // ✅ import CartService
 
 @Component({
   selector: 'app-perfumes',
@@ -23,7 +24,11 @@ export class PerfumesComponent implements OnInit {
   toastMessage: string = '';
   toastType: 'success' | 'error' = 'success';
 
-  constructor(private perfumeService: PerfumeService, private router: Router) {}
+  constructor(
+    private perfumeService: PerfumeService,
+    private cartService: CartService, // ✅ inject CartService
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getAllPerfumes();
@@ -79,50 +84,52 @@ export class PerfumesComponent implements OnInit {
     const uid = uidStr ? Number(uidStr) : null;
 
     if (!uid) {
-      this.showToastMessage('⚠️ Please log in to add items to your cart.', 'error');
+      this.showToastMessage(
+        '⚠️ Please log in to add items to your cart.',
+        'error'
+      );
       return;
     }
 
-    this.perfumeService.getCartItems(uid).subscribe({
+    this.cartService.getCartItems(uid).subscribe({
       next: (cartItems: any[]) => {
         const existingItem = cartItems.find((item) => item.id === perfume.id);
 
         if (existingItem) {
-          // UPDATE quantity
-          const updatedItem = {
-            ...existingItem,
-            quantity: existingItem.quantity + 1,
-          };
-
-          this.perfumeService.addtocart(updatedItem).subscribe({
-            next: () => {
-              this.perfumeService.refreshCartCount(uid); // ⭐ real-time update
-              this.showToastMessage(`🔁 Increased quantity of ${perfume.name}`, 'success');
-            },
-            error: () => this.showToastMessage('❌ Failed to update cart.', 'error'),
-          });
-        } else {
-          // ADD new item
-          const newCartItem = {
-            uid: uid,
-            id: perfume.id,
-            name: perfume.name,
-            description: perfume.description,
-            gender: perfume.gender,
-            price: perfume.price,
-            imageurl: perfume.imageUrl || perfume.imageurl,
-            quantity: 1,
-            latestLaunch: perfume.latestLaunch,
-          };
-
-          this.perfumeService.addtocart(newCartItem).subscribe({
-            next: () => {
-              this.perfumeService.refreshCartCount(uid); // ⭐ real-time update
-              this.showToastMessage('🛒 Perfume added to cart successfully!', 'success');
-            },
-            error: () => this.showToastMessage('❌ Failed to add perfume to cart.', 'error'),
-          });
+          this.showToastMessage(
+            `⚠️ ${perfume.name} is already in your cart.`,
+            'error'
+          );
+          return; // ✅ do not add duplicate
         }
+
+        const newCartItem = {
+          uid: uid,
+          id: perfume.id,
+          name: perfume.name,
+          description: perfume.description,
+          gender: perfume.gender,
+          price: perfume.price,
+          imageurl: perfume.imageUrl || perfume.imageurl,
+          quantity: 1,
+          latestLaunch: perfume.latestLaunch,
+        };
+
+        this.perfumeService.addtocart(newCartItem).subscribe({
+          next: () => {
+            // ✅ Update cart count immediately
+            this.cartService.incrementCartCount();
+            this.showToastMessage(
+              '🛒 Perfume added to cart successfully!',
+              'success'
+            );
+          },
+          error: () =>
+            this.showToastMessage(
+              '❌ Failed to add perfume to cart.',
+              'error'
+            ),
+        });
       },
       error: () => {
         this.showToastMessage('❌ Could not fetch cart details.', 'error');

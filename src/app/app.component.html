@@ -22,7 +22,8 @@
     <!-- Navbar links -->
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto align-items-center">
-        
+
+        <!-- Home -->
         <li class="nav-item mx-2">
           <a
             class="nav-link nav-hover fw-semibold"
@@ -32,6 +33,7 @@
           >
         </li>
 
+        <!-- Perfumes -->
         <li class="nav-item mx-2">
           <a
             class="nav-link nav-hover fw-semibold"
@@ -52,10 +54,7 @@
           </a>
 
           <!-- 🔴 Counter Badge -->
-          <span
-            *ngIf="cartCount > 0"
-            class="cart-badge"
-          >
+          <span *ngIf="cartCount > 0" class="cart-badge">
             {{ cartCount }}
           </span>
         </li>
@@ -109,6 +108,7 @@
             <i class="bi bi-box-arrow-right me-1"></i> Logout
           </button>
         </li>
+
       </ul>
     </div>
   </div>
