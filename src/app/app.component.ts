@@ -84,4 +84,11 @@ export class AppComponent implements OnInit {
 
     this.router.navigate(['/login']);
   }
+
+  closeNavbar() {
+    const navbar = document.getElementById('navbarNav');
+    if (navbar?.classList.contains('show')) {
+      navbar.classList.remove('show');
+    }
+  }
 }

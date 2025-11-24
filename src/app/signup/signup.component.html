@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="container mt-5" [@formFade]>
   <!-- 👑 Brand Header -->
   <div class="brand-header text-center mb-4">
     <img src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1762879382/bg-logo_2_unaoit.png" alt="Palace Perfume" class="brand-logo mb-2" />
@@ -18,13 +18,9 @@
           formControlName="name"
           placeholder="Enter your name"
         />
-        <div *ngIf="f['name'].touched && f['name'].invalid" class="text-danger">
-          <small *ngIf="f['name'].errors?.['required']">
-            Name is required.
-          </small>
-          <small *ngIf="f['name'].errors?.['minlength']">
-            Name must be at least 3 characters.
-          </small>
+        <div *ngIf="f['name'].touched && f['name'].invalid" class="text-danger" [@messageFade]>
+          <small *ngIf="f['name'].errors?.['required']">Name is required.</small>
+          <small *ngIf="f['name'].errors?.['minlength']">Name must be at least 3 characters.</small>
         </div>
       </div>
 
@@ -37,16 +33,9 @@
           formControlName="email"
           placeholder="Enter your email"
         />
-        <div
-          *ngIf="f['email'].touched && f['email'].invalid"
-          class="text-danger"
-        >
-          <small *ngIf="f['email'].errors?.['required']">
-            Email is required.
-          </small>
-          <small *ngIf="f['email'].errors?.['email']">
-            Invalid email format.
-          </small>
+        <div *ngIf="f['email'].touched && f['email'].invalid" class="text-danger" [@messageFade]>
+          <small *ngIf="f['email'].errors?.['required']">Email is required.</small>
+          <small *ngIf="f['email'].errors?.['email']">Invalid email format.</small>
         </div>
       </div>
 
@@ -66,23 +55,12 @@
             (click)="showPassword = !showPassword"
             tabindex="-1"
           >
-            <i
-              class="bi"
-              [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"
-            ></i>
+            <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
           </button>
         </div>
-
-        <div
-          *ngIf="f['password'].touched && f['password'].invalid"
-          class="text-danger mt-1"
-        >
-          <small *ngIf="f['password'].errors?.['required']">
-            Password is required.
-          </small>
-          <small *ngIf="f['password'].errors?.['minlength']">
-            Password must be at least 8 characters long.
-          </small>
+        <div *ngIf="f['password'].touched && f['password'].invalid" class="text-danger mt-1" [@messageFade]>
+          <small *ngIf="f['password'].errors?.['required']">Password is required.</small>
+          <small *ngIf="f['password'].errors?.['minlength']">Password must be at least 8 characters long.</small>
           <small *ngIf="f['password'].errors?.['pattern']">
             Password must include:
             <ul class="mt-1 mb-0 ps-3">
@@ -104,16 +82,9 @@
           formControlName="mobile"
           placeholder="Enter 10-digit mobile number"
         />
-        <div
-          *ngIf="f['mobile'].touched && f['mobile'].invalid"
-          class="text-danger"
-        >
-          <small *ngIf="f['mobile'].errors?.['required']">
-            Mobile number is required.
-          </small>
-          <small *ngIf="f['mobile'].errors?.['pattern']">
-            Enter a valid 10-digit mobile number.
-          </small>
+        <div *ngIf="f['mobile'].touched && f['mobile'].invalid" class="text-danger" [@messageFade]>
+          <small *ngIf="f['mobile'].errors?.['required']">Mobile number is required.</small>
+          <small *ngIf="f['mobile'].errors?.['pattern']">Enter a valid 10-digit mobile number.</small>
         </div>
       </div>
 
@@ -126,16 +97,9 @@
           rows="2"
           placeholder="Enter your address"
         ></textarea>
-        <div
-          *ngIf="f['address'].touched && f['address'].invalid"
-          class="text-danger"
-        >
-          <small *ngIf="f['address'].errors?.['required']">
-            Address is required.
-          </small>
-          <small *ngIf="f['address'].errors?.['minlength']">
-            Address must be at least 5 characters.
-          </small>
+        <div *ngIf="f['address'].touched && f['address'].invalid" class="text-danger" [@messageFade]>
+          <small *ngIf="f['address'].errors?.['required']">Address is required.</small>
+          <small *ngIf="f['address'].errors?.['minlength']">Address must be at least 5 characters.</small>
         </div>
       </div>
 
@@ -148,10 +112,10 @@
     </form>
 
     <!-- Messages -->
-    <div *ngIf="errorMessage" class="alert alert-danger mt-3 text-center">
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3 text-center" [@messageFade]>
       {{ errorMessage }}
     </div>
-    <div *ngIf="successMessage" class="alert alert-success mt-3 text-center">
+    <div *ngIf="successMessage" class="alert alert-success mt-3 text-center" [@messageFade]>
       {{ successMessage }}
     </div>
 

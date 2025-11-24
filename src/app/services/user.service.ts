@@ -7,7 +7,6 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
   private readonly BASE_URL = 'http://localhost:8081/user';
-
   constructor(private http: HttpClient) {}
 
   // =============================

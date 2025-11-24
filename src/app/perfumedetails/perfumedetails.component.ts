@@ -1,36 +1,82 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PerfumeService } from '../services/perfume.service';
-import { CartService } from '../services/cart.service'; // ✅ Inject CartService
+import { CartService } from '../services/cart.service';
+
+import {
+  trigger,
+  style,
+  transition,
+  animate
+} from '@angular/animations';
 
 @Component({
   selector: 'app-perfumedetails',
   templateUrl: './perfumedetails.component.html',
   styleUrls: ['./perfumedetails.component.css'],
   standalone: false,
+
+  animations: [
+    trigger('pageFade', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('600ms ease-out', style({ opacity: 1 }))
+      ])
+    ]),
+
+    trigger('slideRight', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateX(40px)' }),
+        animate(
+          '600ms ease-out',
+          style({ opacity: 1, transform: 'translateX(0)' })
+        )
+      ])
+    ]),
+
+    trigger('imageFade', [
+      transition('* => *', [
+        style({ opacity: 0 }),
+        animate('400ms ease-out', style({ opacity: 1 }))
+      ])
+    ]),
+
+    trigger('cardFade', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'scale(0.95)' }),
+        animate(
+          '500ms ease-out',
+          style({ opacity: 1, transform: 'scale(1)' })
+        )
+      ])
+    ])
+  ]
 })
 export class PerfumedetailsComponent implements OnInit {
   perfume: any = null;
   perfumeId!: number;
 
-  // Carousel
   imageList: string[] = [];
   currentImageIndex: number = 0;
   selectedImage: string = '';
 
-  // Similar perfumes
   similarPerfumes: any[] = [];
 
-  // Toast
   showToast: boolean = false;
   toastMessage: string = '';
   toastType: 'success' | 'error' = 'success';
+
+  // LOADER FLAG
+  isAdding: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private perfumeService: PerfumeService,
     private router: Router,
-    private cartService: CartService // ✅ Added
+    private cartService: CartService
   ) {}
 
   ngOnInit(): void {
@@ -62,7 +108,7 @@ export class PerfumedetailsComponent implements OnInit {
       },
       error: () => {
         this.showToastMessage('❌ Failed to load perfume details.', 'error');
-      },
+      }
     });
   }
 
@@ -79,29 +125,23 @@ export class PerfumedetailsComponent implements OnInit {
       },
       error: () => {
         this.showToastMessage('❌ Failed to fetch similar perfumes.', 'error');
-      },
+      }
     });
   }
 
   nextImage(): void {
-    if (this.imageList.length) {
-      this.currentImageIndex =
-        (this.currentImageIndex + 1) % this.imageList.length;
-    }
+    this.currentImageIndex =
+      (this.currentImageIndex + 1) % this.imageList.length;
   }
 
   prevImage(): void {
-    if (this.imageList.length) {
-      this.currentImageIndex =
-        (this.currentImageIndex - 1 + this.imageList.length) %
-        this.imageList.length;
-    }
+    this.currentImageIndex =
+      (this.currentImageIndex - 1 + this.imageList.length) %
+      this.imageList.length;
   }
 
   setImage(index: number): void {
-    if (index >= 0 && index < this.imageList.length) {
-      this.currentImageIndex = index;
-    }
+    this.currentImageIndex = index;
   }
 
   previewImage(img: string): void {
@@ -113,15 +153,15 @@ export class PerfumedetailsComponent implements OnInit {
     }
   }
 
-  // ===============================
-  // 🛒 Add to cart + update cartCount
-  // ✅ Only increase cart count for unique perfumes
-  // ===============================
+  // UPDATED ADD TO CART (with loader)
   addtocart(perfume: any): void {
+    this.isAdding = true;
+
     const uidStr = sessionStorage.getItem('uid');
     const uid = uidStr ? Number(uidStr) : null;
 
     if (!uid) {
+      this.isAdding = false;
       this.showToastMessage(
         '⚠️ Please log in to add items to your cart.',
         'error'
@@ -129,63 +169,61 @@ export class PerfumedetailsComponent implements OnInit {
       return;
     }
 
-    this.perfumeService.getCartItems(uid).subscribe({
+    this.cartService.getCartItems(uid).subscribe({
       next: (cartItems: any[]) => {
-        const existingItem = cartItems.find((item) => item.id === perfume.id);
+        const existing = cartItems.find(
+          (item) => item.id === perfume.id && item.prodtype === 'perfume'
+        );
 
-        if (existingItem) {
-          // ✅ Already in cart, show message, do NOT increment cart count
+        if (existing) {
+          this.isAdding = false;
           this.showToastMessage(
             `🛑 ${perfume.name} is already in your cart.`,
             'error'
           );
-        } else {
-          const newCartItem = {
-            uid: uid,
-            id: perfume.id,
-            name: perfume.name,
-            description: perfume.description,
-            gender: perfume.gender,
-            price: perfume.price,
-            imageurl: perfume.imageUrl || perfume.imageurl,
-            quantity: 1,
-            latestLaunch: perfume.latestLaunch,
-          };
-
-          this.perfumeService.addtocart(newCartItem).subscribe({
-            next: () => {
-              this.cartService.incrementCartCount(); // ✅ increment only for new perfume
-              this.showToastMessage(
-                '🛒 Perfume added to cart successfully!',
-                'success'
-              );
-            },
-            error: () =>
-              this.showToastMessage(
-                '❌ Failed to add perfume to cart.',
-                'error'
-              ),
-          });
+          return;
         }
+
+        const newItem = {
+          uid: uid,
+          id: perfume.id,
+          name: perfume.name,
+          description: perfume.description,
+          gender: perfume.gender,
+          price: perfume.price,
+          imageurl: perfume.imageurl || perfume.imageUrl,
+          quantity: 1,
+          prodtype: 'perfume'
+        };
+
+        this.cartService.addToCart(newItem).subscribe({
+          next: () => {
+            this.cartService.incrementCartCount();
+            this.isAdding = false;
+            this.showToastMessage(
+              `🛒 ${perfume.name} added to cart successfully!`,
+              'success'
+            );
+          },
+          error: () => {
+            this.isAdding = false;
+            this.showToastMessage('❌ Failed to add to cart.', 'error');
+          }
+        });
       },
       error: () => {
-        this.showToastMessage('❌ Could not fetch cart details.', 'error');
-      },
+        this.isAdding = false;
+        this.showToastMessage('❌ Failed to check cart.', 'error');
+      }
     });
   }
 
-  // ===============================
-  // 🔗 Navigate to similar perfume
-  // ===============================
   goToDetails(id: number): void {
     this.router.navigate(['/perfumes', id]).then(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
 
-  // ===============================
-  // 🔔 Toast controller
-  // ===============================
   showToastMessage(message: string, type: 'success' | 'error') {
     this.toastMessage = message;
     this.toastType = type;

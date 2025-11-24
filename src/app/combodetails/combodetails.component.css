@@ -7,7 +7,7 @@
   transition: all 0.4s ease-in-out;
 }
 
-/* 🖼️ Main Image Carousel */
+/* 🖼️ Main Image Preview */
 .main-preview {
   border-radius: 15px;
   border: 3px solid var(--dun);
@@ -57,6 +57,7 @@
 .thumbnail-img {
   border: 2px solid transparent;
   transition: all 0.3s ease;
+  cursor: pointer !important;
 }
 
 .thumbnail-img:hover {
@@ -70,7 +71,7 @@
   transform: scale(1.12);
 }
 
-/* 🧴 Perfume Details */
+/* 🧴 Combo Details */
 h2.fw-bold {
   color: var(--coffee);
   font-weight: 700;
@@ -118,7 +119,7 @@ p {
   box-shadow: 0 8px 30px rgba(127, 85, 57, 0.4);
 }
 
-/* 🌸 Similar Perfumes Section */
+/* 🌸 Similar Combos Section */
 h4.fw-bold {
   color: var(--coffee);
   letter-spacing: 0.5px;
@@ -149,35 +150,9 @@ h4.fw-bold {
   font-weight: 600;
 }
 
-/* 🥀 No Similar Perfumes */
+/* 🥀 No Similar Combos */
 .text-muted i {
   color: var(--chamoisee);
-}
-
-/* 📱 Responsive */
-@media (max-width: 768px) {
-  .container {
-    padding: 2rem 1rem;
-  }
-
-  .carousel-arrow {
-    width: 36px;
-    height: 36px;
-    font-size: 1rem;
-  }
-
-  .left-arrow {
-    left: -10px;
-  }
-
-  .right-arrow {
-    right: -10px;
-  }
-
-  .thumbnail-img {
-    width: 70px !important;
-    height: 70px !important;
-  }
 }
 
 /* 🌸 Toast Message */
@@ -208,20 +183,20 @@ h4.fw-bold {
   animation: toastPulse 2s infinite;
 }
 
-/* ✅ Success Toast */
+/* Success Toast */
 .toast-container.success {
   background: linear-gradient(135deg, var(--almond), var(--chamoisee));
   color: #fff;
   border: none;
 }
 
-/* ❌ Error Toast */
+/* Error Toast */
 .toast-container.error {
   background: linear-gradient(135deg, #fff5f5, #f8e0de);
   color: var(--coffee);
 }
 
-/* ⚡ Toast Pulse */
+/* Toast Glow Animation */
 @keyframes toastPulse {
   0% {
     box-shadow: 0 0 0 0 rgba(164, 117, 81, 0.4);
@@ -234,75 +209,52 @@ h4.fw-bold {
   }
 }
 
-/* 📱 Responsive */
+/* 📱 Responsive — Mobile Styling */
 @media (max-width: 768px) {
-  .perfume-img {
-    height: 340px;
+  .container {
+    padding: 2rem 1rem;
   }
-  .filter-bar {
-    flex-direction: column;
-    gap: 1rem;
+
+  .carousel-arrow {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
   }
-  .form-select {
-    width: 100%;
+
+  .left-arrow {
+    left: -10px;
+  }
+
+  .right-arrow {
+    right: -10px;
+  }
+
+  .thumbnail-img {
+    width: 70px !important;
+    height: 70px !important;
   }
 }
 
-/* 🌟 New Launch Badge (Theme-Matched Gold Shine) */
-.new-launch-badge {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  z-index: 10;
-  background: linear-gradient(
-    135deg,
-    var(--tan),
-    var(--chamoisee)
-  ); /* 🎨 Using theme colors */
-  color: #fff;
-  font-weight: 700;
-  font-size: 0.9rem;
-  border-radius: 1rem;
-  padding: 6px 14px;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 0 4px 10px rgba(176, 137, 104, 0.4); /* same tone as --chamoisee */
-  animation: glowPulseTheme 2s infinite ease-in-out;
-  pointer-events: none;
-}
-
-/* ✨ Soft Theme Glow Animation */
-@keyframes glowPulseTheme {
-  0% {
-    box-shadow: 0 0 8px rgba(176, 137, 104, 0.4);
-  }
-  50% {
-    box-shadow: 0 0 20px rgba(176, 137, 104, 0.8);
-  }
-  100% {
-    box-shadow: 0 0 8px rgba(176, 137, 104, 0.4);
-  }
-}
-
-/* 📱 Similar Perfumes: 2 cards per row on mobile */
+/* 📱 Similar Combos: 2 per row on mobile */
 @media (max-width: 768px) {
-  .similar-perfumes-row {
+  .similar-combos-row {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 15px !important;
     padding: 0 5px;
   }
 
-  .similar-perfume-col {
+  .similar-combo-col {
     width: 100% !important;
+    height: 340px !important;
     max-width: 100% !important;
     flex: none !important;
     padding: 0 !important;
     margin: 0 !important;
   }
 
-  /* Keep the image height same as desktop */
   .hover-card img {
-    height: 230px !important;; /* same as desktop */
+    height: 230px !important;
     object-fit: cover;
   }
 }

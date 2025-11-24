@@ -20,6 +20,10 @@ import { SignupComponent } from './signup/signup.component';
 import { SearchPerfumeComponent } from './search-perfume/search-perfume.component';
 import { FooterComponent } from './footer/footer.component';
 import { PerfumedetailsComponent } from './perfumedetails/perfumedetails.component';
+import { CombosComponent } from './combo/combo.component';
+import { CombodetailsComponent } from './combodetails/combodetails.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -32,6 +36,8 @@ import { PerfumedetailsComponent } from './perfumedetails/perfumedetails.compone
     SearchPerfumeComponent,
     FooterComponent,
     PerfumedetailsComponent,
+    CombosComponent,
+    CombodetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,6 +45,7 @@ import { PerfumedetailsComponent } from './perfumedetails/perfumedetails.compone
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
   providers: [provideClientHydration(withEventReplay())],
   bootstrap: [AppComponent],

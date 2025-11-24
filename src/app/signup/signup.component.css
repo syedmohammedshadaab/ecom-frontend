@@ -151,6 +151,8 @@
   color: #501a1a;
 }
 
+
+
 /* 📱 Responsive Design */
 @media (max-width: 420px) {
   .signup-card {

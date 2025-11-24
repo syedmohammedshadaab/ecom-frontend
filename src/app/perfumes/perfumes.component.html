@@ -1,4 +1,5 @@
-<div class="container mt-5 perfume-container text-center">
+<div class="container-fluid"></div>
+<div class="container mt-5 perfume-container text-center" @pageFade>
   <!-- 🩶 Section Title -->
   <h2 class="text-center mb-2 fw-bold text-gradient">Perfume Collection</h2>
   <p class="text-muted mb-5 fs-5">
@@ -6,7 +7,9 @@
   </p>
 
   <!-- 🌿 Search & Filter Section -->
-  <div class="filter-bar shadow-sm rounded-4 p-3 d-flex flex-wrap justify-content-center align-items-center gap-3 mb-5">
+  <div
+    class="filter-bar shadow-sm rounded-4 p-3 d-flex flex-wrap justify-content-center align-items-center gap-3 mb-5"
+  >
     <!-- 🔍 Search by Name -->
     <div class="search-input-container">
       <input
@@ -28,8 +31,8 @@
         (change)="applyFilters()"
       >
         <option value="">All Categories</option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
+        <option value="Men">Men</option>
+        <option value="Women">Women</option>
         <option value="unisex">Unisex</option>
       </select>
     </div>
@@ -59,7 +62,10 @@
         [(ngModel)]="showLatestOnly"
         (change)="applyFilters()"
       />
-      <label class="form-check-label fw-semibold text-secondary" for="latestLaunchCheck">
+      <label
+        class="form-check-label fw-semibold text-secondary"
+        for="latestLaunchCheck"
+      >
         <i class="bi bi-stars text-warning me-1"></i> Latest Launch Only
       </label>
     </div>
@@ -79,45 +85,47 @@
 
   <!-- 💎 Perfume Cards -->
   <div class="row justify-content-center">
-    <div class="col-md-3 mb-4" *ngFor="let f of filteredPerfumes">
-      <div class="card perfume-card shadow-sm h-100 border-0 rounded-4 overflow-hidden position-relative">
+    <div
+      class="col-md-4 mb-4"
+      *ngFor="let f of filteredPerfumes"
+      (click)="viewPerfumeDetails(f.id)"
+      style="cursor: pointer"
+      @perfumeAnim
+    >
+      <div
+        class="card perfume-card shadow-sm h-100 border-0 rounded-4 overflow-hidden position-relative"
+      >
         <!-- New Launch Badge -->
-        <span *ngIf="f.latestLaunch" class="badge new-launch-badge">New Launch</span>
+        <span *ngIf="f.latestLaunch" class="badge new-launch-badge"
+          >New Launch</span
+        >
 
         <!-- Perfume Image -->
         <div class="position-relative overflow-hidden">
           <img
-            [src]="f.imageUrl || f.imageurl || 'https://placehold.co/300x200?text=No+Image'"
+            [src]="
+              f.imageUrl ||
+              f.imageurl ||
+              'https://placehold.co/300x200?text=No+Image'
+            "
             class="card-img-top perfume-img"
             alt="{{ f.name }}"
-            (click)="viewPerfumeDetails(f.id)"
-            style="cursor: pointer;"
           />
         </div>
 
         <!-- Card Body -->
         <div class="card-body text-center p-4">
           <h5 class="card-title fw-semibold mb-2">{{ f.name }}</h5>
-          <p class="card-text text-muted small mb-3">{{ f.description }}</p>
 
-          <div class="d-flex justify-content-center align-items-center mb-2 text-secondary">
-            <i class="bi bi-gender-ambiguous me-1"></i>
+          <div
+            class="d-flex justify-content-center align-items-center mb-2 text-secondary"
+          >
             <strong>{{ f.gender }}</strong>
           </div>
 
           <p class="card-text fw-bold mb-3 text-theme-price">
-            <i class="bi bi-cash-stack me-1"></i>
             {{ f.price | currency : "INR" }}
           </p>
-
-          <div class="d-flex justify-content-center gap-2">
-            <button
-              class="btn btn-outline-primary btn-sm d-flex align-items-center"
-              (click)="addtocart(f); $event.stopPropagation()"
-            >
-              <i class="bi bi-cart-plus me-1"></i> Add to Cart
-            </button>
-          </div>
         </div>
       </div>
     </div>

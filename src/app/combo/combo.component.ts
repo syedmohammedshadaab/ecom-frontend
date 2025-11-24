@@ -1,23 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { PerfumeService } from '../services/perfume.service';
+import { ComboService } from '../services/combo.service';
 import { CartService } from '../services/cart.service';
-import {
-  trigger,
-  transition,
-  style,
-  animate,
-  query,
-  stagger,
-} from '@angular/animations';
+
+// ⭐ ADD ANIMATION IMPORTS
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
-  selector: 'app-perfumes',
+  selector: 'app-combo',
   standalone: false,
-  templateUrl: './perfumes.component.html',
-  styleUrls: ['./perfumes.component.css'],
+  templateUrl: './combo.component.html',
+  styleUrls: ['./combo.component.css'],
 
- // ⭐ SAME ANIMATIONS AS COMBO
+  // ⭐ ADD ANIMATIONS HERE
   animations: [
     // PAGE FADE-IN
     trigger('pageFade', [
@@ -27,8 +22,8 @@ import {
       ])
     ]),
 
-    // PERFUME CARD ANIMATION
-    trigger('perfumeAnim', [
+    // COMBO CARD ANIMATION
+    trigger('comboAnim', [
       transition(':enter', [
         style({ opacity: 0, transform: 'scale(0.95)' }),
         animate('400ms ease-out', style({ opacity: 1, transform: 'scale(1)' }))
@@ -36,9 +31,9 @@ import {
     ])
   ]
 })
-export class PerfumesComponent implements OnInit {
-  perfume: any[] = [];
-  filteredPerfumes: any[] = [];
+export class CombosComponent implements OnInit {
+  combos: any[] = [];
+  filteredCombos: any[] = [];
 
   searchName: string = '';
   searchGender: string = '';
@@ -50,53 +45,53 @@ export class PerfumesComponent implements OnInit {
   toastType: 'success' | 'error' = 'success';
 
   constructor(
-    private perfumeService: PerfumeService,
+    private comboService: ComboService,
     private cartService: CartService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.getAllPerfumes();
+    this.getAllCombos();
   }
 
-  getAllPerfumes(): void {
-    this.perfumeService.getallperfume().subscribe({
+  getAllCombos(): void {
+    this.comboService.getAllCombo().subscribe({
       next: (data) => {
-        this.perfume = data;
-        this.filteredPerfumes = data;
+        this.combos = data;
+        this.filteredCombos = data;
       },
-      error: (err) => console.error('Error fetching perfumes:', err),
+      error: (err) => console.error('Error fetching combos:', err),
     });
   }
 
   applyFilters(): void {
-    let temp = [...this.perfume];
+    let temp = [...this.combos];
 
     if (this.searchName.trim()) {
       const name = this.searchName.toLowerCase();
-      temp = temp.filter((p) => p.name.toLowerCase().includes(name));
+      temp = temp.filter((c) => c.name.toLowerCase().includes(name));
     }
 
     if (this.searchGender) {
       temp = temp.filter(
-        (p) => p.gender?.toLowerCase() === this.searchGender.toLowerCase()
+        (c) => c.gender?.toLowerCase() === this.searchGender.toLowerCase()
       );
     }
 
     if (this.selectedPriceRange) {
       const [min, max] = this.selectedPriceRange.split('-').map(Number);
-      temp = temp.filter((p) => p.price >= min && p.price <= max);
+      temp = temp.filter((c) => c.price >= min && c.price <= max);
     }
 
     if (this.showLatestOnly) {
-      temp = temp.filter((p) => p.latestLaunch === true);
+      temp = temp.filter((c) => c.latestLaunch === true);
     }
 
-    this.filteredPerfumes = temp; // 🔥 Animation triggers automatically
+    this.filteredCombos = temp;
   }
 
-  viewPerfumeDetails(id: number) {
-    this.router.navigate(['/perfumes', id]);
+  viewComboDetails(id: number) {
+    this.router.navigate(['/combodetails', id]);
   }
 
   showToastMessage(message: string, type: 'success' | 'error') {

@@ -7,6 +7,8 @@ import { CartComponent } from './cart/cart.component';
 import { SignupComponent } from './signup/signup.component';
 import { SearchPerfumeComponent } from './search-perfume/search-perfume.component';
 import { PerfumedetailsComponent } from './perfumedetails/perfumedetails.component';
+import { CombosComponent } from './combo/combo.component';
+import { CombodetailsComponent } from './combodetails/combodetails.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -16,7 +18,9 @@ const routes: Routes = [
   { path: 'cart', component: CartComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'search-perfume', component: SearchPerfumeComponent },
-  { path: 'perfumes/:id', component: PerfumedetailsComponent }, // Example additional route
+  { path: 'perfumes/:id', component: PerfumedetailsComponent },
+  { path: 'combo', component: CombosComponent },
+  { path: 'combodetails/:cid', component: CombodetailsComponent }, // Example additional route
 ];
 
 @NgModule({

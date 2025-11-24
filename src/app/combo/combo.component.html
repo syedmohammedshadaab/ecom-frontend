@@ -1,0 +1,93 @@
+<div class="container mt-4 perfume-container" @pageFade>
+
+  <!-- 🌟 SECTION TITLE -->
+  <h2 class="text-center mb-2 fw-bold text-gradient">Combo Collection</h2>
+  <p class="text-muted mb-4 fs-5 text-center">
+    Perfectly paired fragrances curated for every mood
+  </p>
+
+  <!-- 🔔 Toast -->
+  <div
+    class="toast-container"
+    [ngClass]="{
+      show: showToast,
+      success: toastType === 'success',
+      error: toastType === 'error'
+    }"
+  >
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="toast-body">{{ toastMessage }}</div>
+      <button type="button" class="btn-close btn-close-white ms-3" (click)="showToast = false"></button>
+    </div>
+  </div>
+
+  <!-- =============== FILTERS =============== -->
+  <div class="filter-bar-wrapper mb-4">
+    <div class="row g-3 align-items-center filter-bar">
+
+      <!-- Search -->
+      <div class="col-lg-4 col-md-6 col-sm-12 search-input-container">
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Search combos..."
+          [(ngModel)]="searchName"
+          (input)="applyFilters()"
+        />
+        <i class="bi bi-search search-icon"></i>
+      </div>
+
+      <!-- Gender -->
+      <div class="col-lg-4 col-md-6 col-sm-6 filter-select-wrapper">
+        <select id="genderSelect" [(ngModel)]="searchGender" (change)="applyFilters()">
+          <option value="">All Genders</option>
+          <option value="Men">Men</option>
+          <option value="Women">Women</option>
+          <option value="Unisex">Unisex</option>
+        </select>
+      </div>
+
+      <!-- Price -->
+      <div class="col-lg-4 col-md-6 col-sm-6 filter-select-wrapper">
+        <select id="priceSelect" [(ngModel)]="selectedPriceRange" (change)="applyFilters()">
+          <option value="">All Prices</option>
+          <option value="0-999">Below ₹999</option>
+          <option value="1000-1999">₹1000 - ₹1999</option>
+          <option value="2000-4999">₹2000 - ₹4999</option>
+          <option value="5000-9999">₹5000 - ₹9999</option>
+        </select>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- =============== COMBO GRID =============== -->
+  <div class="row combo-grid">
+    <div
+      class="col-lg-4 col-md-6 col-sm-6 mb-4"
+      *ngFor="let c of filteredCombos"
+      @comboAnim
+    >
+      <div class="hover-card h-100 text-center">
+        <img
+          [src]="c.imageurl || 'https://placehold.co/300x300?text=No+Image'"
+          class="card-img-top perfume-image"
+          alt="{{ c.name }}"
+          (click)="viewComboDetails(c.cid)"
+        />
+        <div class="card-body">
+          <h6>{{ c.name }}</h6>
+          <p class="text-muted small">{{ c.gender }}</p>
+          <p class="fw-bold">{{ c.price | currency : 'INR' }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NO DATA -->
+  <div *ngIf="filteredCombos.length === 0" class="no-data">
+    <i class="bi bi-emoji-frown fs-3"></i>
+    <p>No combos match your filters. Try adjusting your search or filters.</p>
+  </div>
+
+</div>

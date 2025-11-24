@@ -3,21 +3,57 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 
+// ⬇️ Animation imports
+import {
+  trigger,
+  transition,
+  style,
+  animate,
+} from '@angular/animations';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   standalone: false,
+
+  // ⬇️ Attach animations here
+  animations: [
+    // Whole page fade + slide
+    trigger('pageFadeSlide', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(20px)' }),
+        animate('600ms ease-out', style({ opacity: 1, transform: 'translateY(0)' })),
+      ]),
+    ]),
+
+    // Login box animation
+    trigger('boxFade', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('800ms ease-out', style({ opacity: 1 })),
+      ]),
+    ]),
+
+    // Toast animation
+    trigger('toastAnim', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(-20px)' }),
+        animate('300ms ease-out', style({ opacity: 1, transform: 'translateY(0)' })),
+      ]),
+      transition(':leave', [
+        animate('300ms ease-in', style({ opacity: 0, transform: 'translateY(-20px)' })),
+      ]),
+    ]),
+  ],
 })
 export class LoginComponent {
   loginForm!: FormGroup;
   loading = false;
   errorMessage: string = '';
 
-  // ✅ Password show/hide toggle
   showPassword: boolean = false;
 
-  // ✅ Toast message properties
   showToast: boolean = false;
   toastMessage: string = '';
   toastType: 'success' | 'error' = 'success';
@@ -52,20 +88,17 @@ export class LoginComponent {
       next: (res) => {
         this.loading = false;
 
-        // ✅ Store user details
         if (typeof window !== 'undefined') {
           sessionStorage.setItem('uid', res.uid);
           sessionStorage.setItem('username', res.name);
         }
         this.userService.setUser(res);
 
-        // ✅ Show success toast
         this.showToastMessage(
           '✅ Login Successful! Welcome back, ' + res.name,
           'success'
         );
 
-        // Redirect to home after 2 seconds
         setTimeout(() => {
           this.router.navigate(['/home']);
         }, 2000);
@@ -78,7 +111,6 @@ export class LoginComponent {
     });
   }
 
-  // ✅ Toast helper
   showToastMessage(message: string, type: 'success' | 'error') {
     this.toastMessage = message;
     this.toastType = type;
@@ -86,6 +118,6 @@ export class LoginComponent {
 
     setTimeout(() => {
       this.showToast = false;
-    }, 3000); // Auto hide after 3 seconds
+    }, 3000);
   }
 }

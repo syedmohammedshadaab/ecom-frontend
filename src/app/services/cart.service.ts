@@ -85,6 +85,8 @@ export class CartService {
   // ======================================================
   private handleError(error: HttpErrorResponse) {
     console.error('🛑 CartService Error:', error);
-    return throwError(() => new Error(error.message || 'Something went wrong!'));
+    return throwError(
+      () => new Error(error.message || 'Something went wrong!')
+    );
   }
 }

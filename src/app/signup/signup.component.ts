@@ -2,12 +2,39 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
+import {
+  trigger,
+  transition,
+  style,
+  animate,
+  query,
+  stagger,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
   standalone: false,
+  animations: [
+    // Fade-in animation for the whole form
+    trigger('formFade', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(-20px)' }),
+        animate('500ms ease-out', style({ opacity: 1, transform: 'translateY(0)' })),
+      ]),
+    ]),
+    // Animation for toast/error/success messages
+    trigger('messageFade', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(-10px)' }),
+        animate('400ms ease-out', style({ opacity: 1, transform: 'translateY(0)' })),
+      ]),
+      transition(':leave', [
+        animate('400ms ease-in', style({ opacity: 0, transform: 'translateY(-10px)' })),
+      ]),
+    ]),
+  ],
 })
 export class SignupComponent implements OnInit {
   signupForm!: FormGroup;
@@ -38,7 +65,6 @@ export class SignupComponent implements OnInit {
         [
           Validators.required,
           Validators.minLength(8),
-          // ✅ Strong password: upper, lower, number, special char
           Validators.pattern(
             '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-={}\\[\\]|:;"<>,.?/~`]).{8,}$'
           ),
@@ -49,18 +75,15 @@ export class SignupComponent implements OnInit {
     });
   }
 
-  // ✅ Getter for easy access in template
   get f() {
     return this.signupForm.controls;
   }
 
-  // ✅ Custom validator to prevent only whitespace
   noWhitespaceValidator(control: any) {
     const isWhitespace = (control.value || '').trim().length === 0;
     return !isWhitespace ? null : { whitespace: true };
   }
 
-  // ✅ Submit form
   onSubmit(): void {
     if (this.signupForm.invalid) {
       this.errorMessage = '⚠️ Please correct the highlighted fields.';
@@ -74,7 +97,6 @@ export class SignupComponent implements OnInit {
     this.errorMessage = '';
     this.successMessage = '';
 
-    // ✅ Trim all string inputs before sending to backend
     const formData = Object.fromEntries(
       Object.entries(this.signupForm.value).map(([k, v]) => [
         k,

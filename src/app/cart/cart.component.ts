@@ -2,24 +2,51 @@ import { Component, OnInit } from '@angular/core';
 import { CartService } from '../services/cart.service';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css'],
   standalone: false,
+
+  animations: [
+    trigger('pageFade', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('600ms ease-out', style({ opacity: 1 }))
+      ])
+    ]),
+
+    trigger('itemSlide', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(12px)' }),
+        animate('400ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+      ])
+    ])
+  ]
 })
 export class CartComponent implements OnInit {
+
   cartItems: any[] = [];
-  totalPrice: number = 0;
-  showToast: boolean = false;
-  toastMessage: string = '';
+  totalPrice = 0;
+  finalTotal = 0;
+
+  couponCode = '';
+  couponApplied = false;
+  couponMessage = '';
+  discount = 0;
+
+  showToast = false;
+  toastMessage = '';
   toastType: 'success' | 'error' = 'success';
+
   uid: number | null = null;
 
-  // 🌸 Custom Modal States
-  showConfirmModal: boolean = false;
+  showConfirmModal = false;
   itemToDelete: number | null = null;
+
+  showClearCartModal = false;
 
   constructor(
     private cartService: CartService,
@@ -34,141 +61,188 @@ export class CartComponent implements OnInit {
       this.loadCart();
     } else {
       this.showToastMessage('⚠️ Please log in to view your cart.', 'error');
-      setTimeout(() => {
-        this.router.navigate(['/login']);
-      }, 2500);
+      setTimeout(() => this.router.navigate(['/login']), 2000);
     }
   }
 
-  // ✅ Load all items
   loadCart(): void {
     if (!this.uid) return;
 
     this.cartService.getCartItems(this.uid).subscribe({
-      next: (response: any) => {
-        this.cartItems = response;
+      next: (res) => {
+        this.cartItems = res;
         this.calculateTotal();
-
-        // ✅ Update cart count reactively
         this.cartService.setCartCount(this.cartItems.length);
       },
-      error: (err) => {
-        console.error('Error loading cart:', err);
-        this.showToastMessage(
-          '❌ Failed to load cart. Try again later.',
-          'error'
-        );
-      },
+      error: () => this.showToastMessage('❌ Failed to load cart.', 'error'),
     });
   }
 
-  // ✅ Open themed confirmation modal
-  openConfirmModal(cartId: number): void {
+  /* ---------------- COUPON SYSTEM ---------------- */
+
+  applyCoupon(): void {
+    const code = this.couponCode.trim().toUpperCase();
+
+    if (!code) {
+      this.couponMessage = '⚠️ Please enter a coupon code.';
+      return;
+    }
+
+    if (this.couponApplied) {
+      this.couponMessage = '✔️ Coupon already applied.';
+      return;
+    }
+
+    this.validateCoupon(code);
+  }
+
+  validateCoupon(code: string): void {
+    if (code === 'PERFUME10') {
+      this.discount = this.totalPrice * 0.1;
+      this.couponMessage = '🎉 10% discount applied!';
+      this.couponApplied = true;
+    }
+
+    else if (code === 'SAVE200') {
+      if (this.totalPrice >= 1000) {
+        this.discount = 200;
+        this.couponMessage = '🎉 ₹200 discount applied!';
+        this.couponApplied = true;
+      } else {
+        this.discount = 0;
+        this.couponApplied = false;
+        this.couponMessage = '❌ Total must be at least ₹1000 for SAVE200.';
+      }
+    }
+
+    else {
+      this.discount = 0;
+      this.couponApplied = false;
+      this.couponMessage = '❌ Invalid coupon.';
+    }
+
+    this.updateFinalTotal();
+  }
+
+  revalidateCouponAfterChange(): void {
+    if (!this.couponApplied || !this.couponCode.trim()) return;
+
+    this.validateCoupon(this.couponCode.trim().toUpperCase());
+  }
+
+  removeCoupon(): void {
+    this.discount = 0;
+    this.couponApplied = false;
+    this.couponMessage = '❌ Coupon removed.';
+    this.couponCode = '';
+    this.updateFinalTotal();
+  }
+
+  /* ---------------- TOTAL CALCULATION ---------------- */
+
+  calculateTotal(): void {
+    this.totalPrice = this.cartItems.reduce(
+      (sum, item) => sum + (item.price ?? 0) * (item.quantity ?? 1),
+      0
+    );
+
+    this.revalidateCouponAfterChange(); // 🟢 IMPORTANT FIX ADDED
+    this.updateFinalTotal();
+  }
+
+  updateFinalTotal(): void {
+    this.finalTotal = this.totalPrice - this.discount;
+    if (this.finalTotal < 0) this.finalTotal = 0;
+  }
+
+  /* ---------------- QUANTITY UPDATE ---------------- */
+
+  updateQuantity(item: any, qty: number): void {
+    if (qty < 1) return;
+
+    this.cartService.updateCartItem(item.cartId || item.cartid, { ...item, quantity: qty })
+      .subscribe({
+        next: () => {
+          item.quantity = qty;
+          this.calculateTotal();
+          this.showToastMessage(`🔁 Updated quantity for ${item.name}`, 'success');
+        },
+        error: () => this.showToastMessage('❌ Failed to update quantity.', 'error'),
+      });
+  }
+
+  /* ---------------- ITEM DELETE ---------------- */
+
+  openConfirmModal(cartId: number) {
     this.itemToDelete = cartId;
     this.showConfirmModal = true;
   }
 
-  // ✅ Confirm deletion
   confirmDelete(): void {
     if (!this.itemToDelete) return;
 
     this.cartService.deleteCartItem(this.itemToDelete).subscribe({
       next: () => {
         this.cartItems = this.cartItems.filter(
-          (item) =>
-            item.cartid !== this.itemToDelete &&
-            item.cartId !== this.itemToDelete
+          i => i.cartId !== this.itemToDelete && i.cartid !== this.itemToDelete
         );
 
-        this.calculateTotal();
-        this.showToastMessage('🗑️ Item removed successfully!', 'success');
-
-        // ✅ Update cart count reactively
+        this.calculateTotal(); // 🟢 FIX: auto recalculates coupon
         this.cartService.setCartCount(this.cartItems.length);
-      },
-      error: (err) => {
-        console.error('Error deleting item:', err);
-        this.showToastMessage('❌ Failed to remove item.', 'error');
+
+        this.showToastMessage('🗑️ Item removed!', 'success');
       },
       complete: () => {
         this.showConfirmModal = false;
         this.itemToDelete = null;
       },
+      error: () => this.showToastMessage('❌ Remove failed.', 'error'),
     });
   }
 
-  // ✅ Cancel deletion
-  cancelDelete(): void {
+  cancelDelete() {
     this.showConfirmModal = false;
     this.itemToDelete = null;
   }
 
-  // ✅ Calculate total
-  calculateTotal(): void {
-    this.totalPrice = this.cartItems.reduce((sum: number, item: any) => {
-      const quantity = item.quantity ?? 1;
-      const price = item.price ?? 0;
-      return sum + price * quantity;
-    }, 0);
+  /* ---------------- CLEAR CART ---------------- */
+
+  openClearCartConfirm() {
+    this.showClearCartModal = true;
   }
 
-  // ✅ Update quantity
-  updateQuantity(item: any, newQty: number): void {
-    if (newQty < 1) return;
-
-    const updatedItem = { ...item, quantity: newQty };
-
-    this.cartService
-      .updateCartItem(item.cartId || item.cartid, updatedItem)
-      .subscribe({
-        next: () => {
-          item.quantity = newQty;
-          this.calculateTotal();
-          this.showToastMessage(
-            `🔁 Updated quantity for ${item.name}`,
-            'success'
-          );
-        },
-        error: (err) => {
-          console.error('Error updating quantity:', err);
-          this.showToastMessage('❌ Failed to update quantity.', 'error');
-        },
-      });
+  cancelClearCart() {
+    this.showClearCartModal = false;
   }
 
-  // ✅ Toast Notification
-  showToastMessage(
-    message: string,
-    type: 'success' | 'error' = 'success'
-  ): void {
+  confirmClearCart(): void {
+    if (!this.uid) return;
+
+    this.showClearCartModal = false;
+    this.showToastMessage('🧹 Clearing cart...', 'success');
+
+    this.cartService.clearCart(this.uid).subscribe({
+      next: () => {
+        this.cartItems = [];
+        this.totalPrice = 0;
+        this.discount = 0;
+        this.finalTotal = 0;
+        this.couponApplied = false;
+        this.couponCode = '';
+
+        this.cartService.resetCartCount();
+        this.showToastMessage('🗑️ Cart cleared!', 'success');
+      },
+      error: () => this.showToastMessage('❌ Failed to clear cart.', 'error'),
+    });
+  }
+
+  /* ---------------- TOAST ---------------- */
+
+  showToastMessage(message: string, type: 'success' | 'error') {
     this.toastMessage = message;
     this.toastType = type;
     this.showToast = true;
-    setTimeout(() => (this.showToast = false), 2500);
-  }
-
-  // 🗑️ Clear Cart Button
-  clearCart() {
-    if (!this.uid) {
-      this.showToastMessage('⚠️ Please log in to clear the cart.', 'error');
-      return;
-    }
-
-    if (confirm('Are you sure you want to clear the entire cart?')) {
-      this.cartService.clearCart(this.uid).subscribe({
-        next: () => {
-          this.cartItems = [];
-          this.totalPrice = 0;
-          this.showToastMessage('🗑️ Cart cleared successfully!', 'success');
-
-          // ✅ Reset cart count reactively
-          this.cartService.resetCartCount();
-        },
-        error: (err) => {
-          console.error('Error clearing cart:', err);
-          this.showToastMessage('❌ Failed to clear cart!', 'error');
-        },
-      });
-    }
+    setTimeout(() => (this.showToast = false), 2200);
   }
 }

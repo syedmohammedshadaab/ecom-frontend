@@ -1,4 +1,4 @@
-<div class="container mt-5 cart-container">
+<div class="container mt-5 cart-container" @pageFade>
 
   <!-- Header -->
   <div class="cart-header d-flex justify-content-between align-items-center mb-4">
@@ -8,8 +8,7 @@
     <button
       *ngIf="cartItems.length > 0"
       class="btn btn-danger clear-cart-btn"
-      (click)="clearCart()"
-    >
+      (click)="openClearCartConfirm()">
       <i class="bi bi-trash me-1"></i> Clear Cart
     </button>
   </div>
@@ -18,9 +17,8 @@
   <div *ngIf="cartItems.length === 0 && uid" class="text-center mt-5 empty-cart">
     <img
       src="https://cdn-icons-png.flaticon.com/512/2038/2038854.png"
-      alt="Empty cart"
-      class="mb-3"
-    />
+      width="130"
+      class="mb-3" />
     <h5 class="fw-semibold">Your cart is empty 😢</h5>
     <p class="text-muted">Add some perfumes to make it smell divine!</p>
     <a routerLink="/perfumes" class="btn btn-theme">
@@ -28,72 +26,103 @@
     </a>
   </div>
 
-  <!-- MAIN GRID: LEFT (ITEMS) + RIGHT (SUMMARY) -->
+  <!-- MAIN GRID -->
   <div *ngIf="cartItems.length > 0" class="cart-grid">
 
-    <!-- LEFT SIDE: ITEMS -->
+    <!-- LEFT: CART ITEMS -->
     <div class="cart-items">
-      <div class="cart-item" *ngFor="let item of cartItems">
+      <div class="cart-item" *ngFor="let item of cartItems" @itemSlide>
         <img
           [src]="item.imageUrl || item.imageurl || 'https://placehold.co/100x100?text=No+Image'"
           alt="{{ item.name }}"
-          class="cart-item-img"
-        />
+          class="cart-item-img" />
 
-        <div class="cart-item-info flex-grow-1">
+        <div class="cart-item-info">
           <h5>{{ item.name }}</h5>
           <p><strong>Gender:</strong> {{ item.gender }}</p>
 
           <p class="fw-bold text-theme-price">
             <i class="bi bi-cash-stack"></i>
-            {{ item.price | currency : "INR" }}
+            {{ item.price | currency : 'INR' }}
           </p>
 
           <!-- Quantity Controls -->
-          <div class="quantity-controls d-flex align-items-center gap-2 mt-1">
+          <div class="quantity-controls d-flex align-items-center gap-3 mt-1">
             <button
               class="btn btn-outline-secondary btn-sm"
               (click)="updateQuantity(item, item.quantity - 1)"
-              [disabled]="item.quantity <= 1"
-            >
-              −
-            </button>
+              [disabled]="item.quantity <= 1">-</button>
 
             <span class="fw-semibold">{{ item.quantity }}</span>
 
             <button
               class="btn btn-outline-secondary btn-sm"
-              (click)="updateQuantity(item, item.quantity + 1)"
-            >
-              +
-            </button>
+              (click)="updateQuantity(item, item.quantity + 1)">+</button>
           </div>
 
           <p class="mt-2 text-success fw-bold subtotal">
-            Subtotal: ₹{{ item.price * item.quantity | number : "1.2-2" }}
+            Subtotal: ₹{{ item.price * item.quantity | number : '1.2-2' }}
           </p>
         </div>
 
         <!-- Remove Button -->
         <button
           class="btn btn-outline-danger btn-sm remove-btn"
-          (click)="openConfirmModal(item.cartId || item.cartid)"
-        >
+          (click)="openConfirmModal(item.cartId || item.cartid)">
           <i class="bi bi-trash"></i>
         </button>
       </div>
     </div>
 
-    <!-- RIGHT SIDE: BILL SUMMARY -->
+    <!-- RIGHT: BILL SUMMARY -->
     <div class="bill-summary shadow-sm p-4 rounded-4">
       <h4 class="fw-bold mb-3">Bill Summary</h4>
 
-      <div class="d-flex justify-content-between mb-2">
-        <span>Items Total</span>
-        <strong>₹{{ totalPrice | number : "1.2-2" }}</strong>
+      <div *ngFor="let item of cartItems" class="bill-item d-flex justify-content-between mb-2">
+        <div>
+          <strong>{{ item.name }}</strong> × {{ item.quantity }}
+          <div class="text-muted small">₹{{ item.price | number : '1.2-2' }} each</div>
+        </div>
+        <strong>₹{{ (item.price * item.quantity) | number : '1.2-2' }}</strong>
       </div>
 
+      <hr />
+
       <div class="d-flex justify-content-between mb-2">
+        <span>Items Total</span>
+        <strong>₹{{ totalPrice | number : '1.2-2' }}</strong>
+      </div>
+
+      <!-- Coupon Section -->
+      <div class="coupon-box mt-3">
+        <label class="fw-semibold mb-2">Apply Coupon</label>
+
+        <div class="d-flex gap-2">
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="couponCode"
+            [disabled]="couponApplied"
+            placeholder="Enter coupon code" />
+
+          <button *ngIf="!couponApplied" class="btn btn-theme-outline" (click)="applyCoupon()">Apply</button>
+          <button *ngIf="couponApplied" class="btn btn-danger" (click)="removeCoupon()">Remove</button>
+        </div>
+
+        <p *ngIf="couponMessage"
+           class="mt-2 fw-semibold"
+           [ngClass]="{ 'text-success': couponApplied, 'text-danger': !couponApplied }">
+          {{ couponMessage }}
+        </p>
+      </div>
+
+      <!-- Discount -->
+      <div *ngIf="discount > 0" class="d-flex justify-content-between mt-3">
+        <span class="text-success fw-bold">Discount Applied</span>
+        <strong class="text-success">− ₹{{ discount | number : '1.2-2' }}</strong>
+      </div>
+
+      <div class="d-flex justify-content-between mb-2 mt-2">
         <span>Delivery Charges</span>
         <strong class="text-success">FREE</strong>
       </div>
@@ -102,7 +131,7 @@
 
       <div class="d-flex justify-content-between mb-3 fs-5">
         <span><strong>Final Total</strong></span>
-        <strong class="text-primary">₹{{ totalPrice | number : "1.2-2" }}</strong>
+        <strong class="text-primary">₹{{ finalTotal | number : '1.2-2' }}</strong>
       </div>
 
       <button class="btn btn-theme-outline w-100 py-2 fs-6">
@@ -111,7 +140,7 @@
     </div>
   </div>
 
-  <!-- Confirm Remove Modal -->
+  <!-- Item Delete Confirm Modal -->
   <div *ngIf="showConfirmModal" class="modal-overlay">
     <div class="modal-content text-center p-4">
       <i class="bi bi-exclamation-triangle text-warning fs-1"></i>
@@ -121,6 +150,20 @@
       <div class="d-flex justify-content-center gap-3 mt-3">
         <button class="btn btn-confirm px-4" (click)="confirmDelete()">Yes, Remove</button>
         <button class="btn btn-cancel px-4" (click)="cancelDelete()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Clear Cart Confirm Modal -->
+  <div *ngIf="showClearCartModal" class="modal-overlay">
+    <div class="modal-content text-center p-4">
+      <i class="bi bi-trash text-danger fs-1"></i>
+      <h5 class="fw-bold mt-3 mb-2">Clear Entire Cart?</h5>
+      <p class="text-muted">This action cannot be undone.</p>
+
+      <div class="d-flex justify-content-center gap-3 mt-3">
+        <button class="btn btn-confirm px-4" (click)="confirmClearCart()">Yes, Clear</button>
+        <button class="btn btn-cancel px-4" (click)="cancelClearCart()">Cancel</button>
       </div>
     </div>
   </div>

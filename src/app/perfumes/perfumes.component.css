@@ -111,7 +111,7 @@
 /* 🖼️ Perfume Image — Keep Original Size */
 .perfume-img {
   width: 100%;
-  height: 500px !important;
+  height: 370px !important;
   object-fit: cover;
   border-bottom: 2px solid var(--tan, #d2b48c);
 }
@@ -321,15 +321,57 @@
 
 /* 📱 Responsive */
 @media (max-width: 768px) {
+  /* Search Bar */
   .search-input-container {
     max-width: 100%;
   }
+
   .search-input {
     padding: 10px 38px 10px 14px;
     font-size: 0.9rem;
   }
+
   .search-input-container .search-icon {
     font-size: 1.1rem;
   }
-}
 
+  /* ⭐ FORCE 2 CARDS PER ROW */
+  .perfume-container .row {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 14px !important;
+  }
+
+  /* Bootstrap column fix */
+  .perfume-container .col-md-3 {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Card full width inside grid */
+  .perfume-card {
+    width: 100% !important;
+    border-radius: 1rem;
+  }
+
+  /* Image fit properly */
+  .perfume-card img,
+  .card img {
+    width: 100%;
+    height: 200px !important; 
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  /* Title, price adjustments */
+  .card-title {
+    font-size: 0.95rem;
+  }
+
+  .text-theme-price {
+    font-size: 1rem;
+  }
+}

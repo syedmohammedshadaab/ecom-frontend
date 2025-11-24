@@ -1,8 +1,15 @@
-<div class="login-container">
-  <div class="login-box">
+<div
+  class="login-container"
+  [@pageFadeSlide] 
+>
+  <div class="login-box" [@boxFade]>
     <!-- 👑 Brand Logo -->
     <div class="brand-header mb-4 text-center">
-      <img src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1762879382/bg-logo_2_unaoit.png" alt="Palace Perfume" class="brand-logo mb-2" />
+      <img
+        src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1762879382/bg-logo_2_unaoit.png"
+        alt="Palace Perfume"
+        class="brand-logo mb-2"
+      />
       <p class="brand-tagline">Where Elegance Meets Fragrance</p>
     </div>
 
@@ -60,7 +67,7 @@
   </div>
 </div>
 
-<!-- ✅ Toast Notification -->
+<!-- ⚡ Animated Toast -->
 <div
   *ngIf="showToast"
   class="toast-message show"
@@ -69,6 +76,7 @@
     error: toastType === 'error'
   }"
   role="alert"
+  @toastAnim
 >
   <div class="d-flex align-items-center justify-content-between">
     <div>
