@@ -6,7 +6,8 @@ import { BehaviorSubject, Observable, tap, catchError } from 'rxjs';
   providedIn: 'root',
 })
 export class PerfumeService {
-  private baseUrl = 'http://localhost:8081';
+  // private baseUrl = 'http://0.0.0.0:8081';
+  private baseUrl = 'https://ecommerce-backenc.onrender.com';
 
   // ⭐ Cart Counter BehaviorSubject
   private cartCount = new BehaviorSubject<number>(0);
@@ -71,8 +72,6 @@ export class PerfumeService {
       .delete(`${this.baseUrl}/deletecart/${cartId}`, {
         responseType: 'text',
       })
-      .pipe(
-        tap(() => this.refreshCartCount(uid))
-      );
+      .pipe(tap(() => this.refreshCartCount(uid)));
   }
 }

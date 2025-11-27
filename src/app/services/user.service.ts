@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class UserService {
-  private readonly BASE_URL = 'http://localhost:8081/user';
+  // private readonly BASE_URL = 'http://0.0.0.0:8081/user';
+  private readonly BASE_URL = 'https://ecommerce-backenc.onrender.com/user';
   constructor(private http: HttpClient) {}
 
   // =============================

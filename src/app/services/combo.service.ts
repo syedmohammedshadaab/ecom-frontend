@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ComboService {
-  private baseUrl = 'http://localhost:8081';
+  // private baseUrl = 'http://0.0.0.0:8081';
+  private baseUrl = 'https://ecommerce-backenc.onrender.com';
 
   constructor(private http: HttpClient) {}
 

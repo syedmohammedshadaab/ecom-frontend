@@ -7,7 +7,8 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class CartService {
-  private baseUrl = 'http://localhost:8081/cart';
+  // private baseUrl = 'http://0.0.0.0:8081/cart';
+  private baseUrl = 'https://ecommerce-backenc.onrender.com/cart';
 
   // ✅ BehaviorSubject with safe sessionStorage check
   private initialCount = (() => {
