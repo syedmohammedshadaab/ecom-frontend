@@ -1,5 +1,4 @@
 <div class="home-wrapper" @pageFade>
-
   <!-- Toast -->
   <div
     class="toast-container"
@@ -11,7 +10,11 @@
   >
     <div class="d-flex align-items-center justify-content-between">
       <div class="toast-body">{{ toastMessage }}</div>
-      <button type="button" class="btn-close btn-close-white" (click)="showToast = false"></button>
+      <button
+        type="button"
+        class="btn-close btn-close-white"
+        (click)="showToast = false"
+      ></button>
     </div>
   </div>
 
@@ -22,37 +25,78 @@
       <p>Use these coupons during checkout to enjoy special discounts:</p>
 
       <div class="d-flex justify-content-center flex-wrap gap-3 mt-3">
-        <div class="coupon-code" (click)="copyCoupon('PERFUME10')" title="Click to copy!">PERFUME10</div>
-        <div class="coupon-code" (click)="copyCoupon('SAVE200')" title="Click to copy!">SAVE200</div>
+        <div
+          class="coupon-code"
+          (click)="copyCoupon('PERFUME10')"
+          title="Click to copy!"
+        >
+          PERFUME10
+        </div>
+        <div
+          class="coupon-code"
+          (click)="copyCoupon('SAVE200')"
+          title="Click to copy!"
+        >
+          SAVE200
+        </div>
       </div>
     </div>
   </section>
 
   <!-- 🌸 Hero Carousel -->
-  <div id="carCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000" @heroFade>
-
+  <div
+    id="carCarousel"
+    class="carousel slide"
+    data-bs-ride="carousel"
+    data-bs-interval="4000"
+    @heroFade
+  >
     <!-- Indicators -->
     <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carCarousel" data-bs-slide-to="0" class="active"></button>
-      <button type="button" data-bs-target="#carCarousel" data-bs-slide-to="1"></button>
-      <button type="button" data-bs-target="#carCarousel" data-bs-slide-to="2"></button>
+      <button
+        type="button"
+        data-bs-target="#carCarousel"
+        data-bs-slide-to="0"
+        class="active"
+      ></button>
+      <button
+        type="button"
+        data-bs-target="#carCarousel"
+        data-bs-slide-to="1"
+      ></button>
+      <button
+        type="button"
+        data-bs-target="#carCarousel"
+        data-bs-slide-to="2"
+      ></button>
     </div>
 
     <!-- Slides -->
     <div class="carousel-inner rounded-4 shadow-lg overflow-hidden">
       <div class="carousel-item active fade-slide-up">
-        <img src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1763641708/mens_eegci0.jpg"
-             class="d-block w-100 carousel-img zoom-in" alt="Slide 1" />
+        <img
+          src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1763641708/mens_eegci0.jpg"
+          class="d-block w-100 carousel-img zoom-in"
+          alt="Slide 1"
+        />
         <div class="carousel-caption d-none d-md-block text-shadow fade-in">
           <h2 class="fw-bold">Luxury You Can Feel</h2>
           <p>Discover premium collections that define your style.</p>
-          <button class="btn btn-gradient px-4 py-2 rounded-pill mt-2" routerLink="/perfumes">Explore Now</button>
+          <button
+            class="btn btn-gradient px-4 py-2 rounded-pill mt-2"
+            routerLink="/perfumes"
+          >
+            Explore Now
+          </button>
         </div>
       </div>
 
       <div class="carousel-item fade-slide-up">
-        <img src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1763640705/pexels-33844953-21614757_l3shf4.jpg"
-             class="d-block w-100 carousel-img zoom-in" alt="Slide 2" />
+        <img
+          src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1763640705/pexels-33844953-21614757_l3shf4.jpg"
+          class="d-block w-100 carousel-img zoom-in"
+          alt="Slide 2"
+        />
         <div class="carousel-caption d-none d-md-block text-shadow fade-in">
           <h2 class="fw-bold">Drive With Elegance</h2>
           <p>Experience unmatched quality and sophistication.</p>
@@ -60,8 +104,11 @@
       </div>
 
       <div class="carousel-item fade-slide-up">
-        <img src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1763642437/pexels-rehman-yousaf-321165099-14490634_kvus6b.jpg"
-             class="d-block w-100 carousel-img zoom-in" alt="Slide 3" />
+        <img
+          src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1763642437/pexels-rehman-yousaf-321165099-14490634_kvus6b.jpg"
+          class="d-block w-100 carousel-img zoom-in"
+          alt="Slide 3"
+        />
         <div class="carousel-caption d-none d-md-block text-shadow fade-in">
           <h2 class="fw-bold">Style That Speaks</h2>
           <p>Make every moment luxurious.</p>
@@ -70,10 +117,20 @@
     </div>
 
     <!-- Controls -->
-    <button class="carousel-control-prev" type="button" data-bs-target="#carCarousel" data-bs-slide="prev">
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-bs-target="#carCarousel"
+      data-bs-slide="prev"
+    >
       <span class="carousel-control-prev-icon"></span>
     </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carCarousel" data-bs-slide="next">
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#carCarousel"
+      data-bs-slide="next"
+    >
       <span class="carousel-control-next-icon"></span>
     </button>
   </div>
@@ -84,39 +141,63 @@
       <h3 class="fw-bold mb-4 text-gradient">Featured Perfumes</h3>
 
       <div class="row g-4" @staggerCards>
-
-        <div class="col-md-3 col-sm-6">
+        <div class="col-md-4 col-sm-6">
           <div class="perfume-card p-3 rounded-4 shadow-sm h-100">
-            <img src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1763641708/mens_eegci0.jpg"
-                 class="w-100 rounded-4 mb-3" alt="Perfume 1">
+            <img
+              src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1763641708/mens_eegci0.jpg"
+              class="w-100 rounded-4 mb-3"
+              alt="Perfume 1"
+            />
             <h5 class="fw-bold">Eternal Musk</h5>
             <p class="text-muted">A timeless blend of musk and floral notes.</p>
-            <button class="btn btn-gradient px-3 py-2 rounded-pill" routerLink="/perfumes">Shop Now</button>
+            <button
+              class="btn btn-gradient px-3 py-2 rounded-pill"
+              routerLink="/perfumes"
+            >
+              Shop Now
+            </button>
           </div>
         </div>
 
-        <div class="col-md-3 col-sm-6">
+        <div class="col-md-4 col-sm-6">
           <div class="perfume-card p-3 rounded-4 shadow-sm h-100">
-            <img src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1763642437/pexels-rehman-yousaf-321165099-14490634_kvus6b.jpg"
-                 class="w-100 rounded-4 mb-3" alt="Perfume 2">
+            <img
+              src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1763642437/pexels-rehman-yousaf-321165099-14490634_kvus6b.jpg"
+              class="w-100 rounded-4 mb-3"
+              alt="Perfume 2"
+            />
             <h5 class="fw-bold">Royal Oud</h5>
-            <p class="text-muted">Rich oud essence perfect for evening elegance.</p>
-            <button class="btn btn-gradient px-3 py-2 rounded-pill" routerLink="/perfumes">Shop Now</button>
+            <p class="text-muted">
+              Rich oud essence perfect for evening elegance.
+            </p>
+            <button
+              class="btn btn-gradient px-3 py-2 rounded-pill"
+              routerLink="/perfumes"
+            >
+              Shop Now
+            </button>
           </div>
         </div>
 
-        <div class="col-md-3 col-sm-6">
+        <div class="col-md-4 col-sm-6">
           <div class="perfume-card p-3 rounded-4 shadow-sm h-100">
-            <img src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1763640705/pexels-33844953-21614757_l3shf4.jpg"
-                 class="w-100 rounded-4 mb-3" alt="Perfume 3">
+            <img
+              src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1763640705/pexels-33844953-21614757_l3shf4.jpg"
+              class="w-100 rounded-4 mb-3"
+              alt="Perfume 3"
+            />
             <h5 class="fw-bold">Golden Blossom</h5>
-            <p class="text-muted">Floral and warm notes that linger beautifully.</p>
-            <button class="btn btn-gradient px-3 py-2 rounded-pill" routerLink="/perfumes">Shop Now</button>
+            <p class="text-muted">
+              Floral and warm notes that linger beautifully.
+            </p>
+            <button
+              class="btn btn-gradient px-3 py-2 rounded-pill"
+              routerLink="/perfumes"
+            >
+              Shop Now
+            </button>
           </div>
         </div>
-
-
-
       </div>
     </div>
   </section>
@@ -157,40 +238,62 @@
     <div class="container">
       <h3 class="fw-bold mb-5">What Our Customers Say</h3>
 
-      <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div
+        id="testimonialCarousel"
+        class="carousel slide"
+        data-bs-ride="carousel"
+      >
         <div class="carousel-inner">
-
           <div class="carousel-item active fade-slide-up">
             <blockquote class="blockquote mb-4">
-              <p>"Absolutely amazing! The scent lasts all day and feels luxurious."</p>
+              <p>
+                "Absolutely amazing! The scent lasts all day and feels
+                luxurious."
+              </p>
             </blockquote>
-            <footer class="blockquote-footer text-light mt-3"><cite>Sarah Johnson</cite></footer>
+            <footer class="blockquote-footer text-light mt-3">
+              <cite>Sarah Johnson</cite>
+            </footer>
           </div>
 
           <div class="carousel-item fade-slide-up">
             <blockquote class="blockquote mb-4">
               <p>"Fast delivery and excellent quality. Highly recommended!"</p>
             </blockquote>
-            <footer class="blockquote-footer text-light mt-3"><cite>Michael Brown</cite></footer>
+            <footer class="blockquote-footer text-light mt-3">
+              <cite>Michael Brown</cite>
+            </footer>
           </div>
 
           <div class="carousel-item fade-slide-up">
             <blockquote class="blockquote mb-4">
-              <p>"Beautifully designed packaging and the fragrance is divine."</p>
+              <p>
+                "Beautifully designed packaging and the fragrance is divine."
+              </p>
             </blockquote>
-            <footer class="blockquote-footer text-light mt-3"><cite>Emily Carter</cite></footer>
+            <footer class="blockquote-footer text-light mt-3">
+              <cite>Emily Carter</cite>
+            </footer>
           </div>
-
         </div>
 
-        <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#testimonialCarousel"
+          data-bs-slide="prev"
+        >
           <span class="carousel-control-prev-icon"></span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#testimonialCarousel"
+          data-bs-slide="next"
+        >
           <span class="carousel-control-next-icon"></span>
         </button>
       </div>
-
     </div>
   </section>
 
@@ -201,25 +304,58 @@
 
       <div class="brands-wrapper">
         <div class="brands-track">
-
-          <img src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1763637424/guess_tdxuf0.jpg" alt="Brand 1" />
-          <img src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1763637540/ajmal_ajlubz.webp" alt="Brand 2" />
-          <img src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1763638112/Ahmed-Al-Maghribi_ohwtmw.webp" alt="Brand 3" />
-          <img src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1763638331/creed_pgkjap.jpg" alt="Brand 4" />
-          <img src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1763638456/swissarabian_di1npm.jpg" alt="Brand 5" />
-          <img src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1763638602/arabianoud_px5w1f.png" alt="Brand 6" />
+          <img
+            src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1763637424/guess_tdxuf0.jpg"
+            alt="Brand 1"
+          />
+          <img
+            src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1763637540/ajmal_ajlubz.webp"
+            alt="Brand 2"
+          />
+          <img
+            src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1763638112/Ahmed-Al-Maghribi_ohwtmw.webp"
+            alt="Brand 3"
+          />
+          <img
+            src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1763638331/creed_pgkjap.jpg"
+            alt="Brand 4"
+          />
+          <img
+            src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1763638456/swissarabian_di1npm.jpg"
+            alt="Brand 5"
+          />
+          <img
+            src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1763638602/arabianoud_px5w1f.png"
+            alt="Brand 6"
+          />
 
           <!-- duplicated logos -->
-          <img src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1763637424/guess_tdxuf0.jpg" alt="Brand 1" />
-          <img src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1763637540/ajmal_ajlubz.webp" alt="Brand 2" />
-          <img src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1763638112/Ahmed-Al-Maghribi_ohwtmw.webp" alt="Brand 3" />
-          <img src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1763638331/creed_pgkjap.jpg" alt="Brand 4" />
-          <img src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1763638456/swissarabian_di1npm.jpg" alt="Brand 5" />
-          <img src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1763638602/arabianoud_px5w1f.png" alt="Brand 6" />
-
+          <img
+            src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1763637424/guess_tdxuf0.jpg"
+            alt="Brand 1"
+          />
+          <img
+            src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1763637540/ajmal_ajlubz.webp"
+            alt="Brand 2"
+          />
+          <img
+            src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1763638112/Ahmed-Al-Maghribi_ohwtmw.webp"
+            alt="Brand 3"
+          />
+          <img
+            src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1763638331/creed_pgkjap.jpg"
+            alt="Brand 4"
+          />
+          <img
+            src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1763638456/swissarabian_di1npm.jpg"
+            alt="Brand 5"
+          />
+          <img
+            src="https://res.cloudinary.com/dqxlmkag1/image/upload/v1763638602/arabianoud_px5w1f.png"
+            alt="Brand 6"
+          />
         </div>
       </div>
     </div>
   </section>
-
 </div>
