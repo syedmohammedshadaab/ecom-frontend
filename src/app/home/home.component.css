@@ -1,6 +1,7 @@
 /* 🌅 Hero Carousel */
 .carousel-img {
-  height: 88vh;
+  width: 100%;
+  height: 70vh; /* Updated from 88vh */
   object-fit: cover;
   filter: brightness(0.72) contrast(1.05);
   transition: transform 1.5s ease, filter 1s ease;
@@ -177,7 +178,7 @@ blockquote-footer cite {
 /* 🎟️ Coupon Section */
 .coupon-section {
   background: linear-gradient(135deg, #fdf6e3, #fff5e1);
-  padding: 15px 0; /* compact height */
+  padding: 15px 0;
   text-align: center;
 }
 
@@ -293,7 +294,7 @@ blockquote-footer cite {
 
 /* 📱 Mobile Responsiveness */
 @media (max-width: 768px) {
-  .carousel-img { height: 55vh; width: 100%; }
+  .carousel-img { height: 45vh !important; width: 100%; } /* Updated */
   .carousel-item.active .carousel-img { transform: scale(1.05); }
   .featured-perfumes .perfume-card { flex: 0 0 48%; margin-bottom: 15px; }
   .featured-perfumes { display: flex; flex-wrap: wrap; gap: 4%; justify-content: center; }
@@ -302,4 +303,9 @@ blockquote-footer cite {
   blockquote-footer { font-size: 0.85rem; }
   .btn-gradient { padding: 8px 16px; font-size: 0.9rem; }
   .coupon-section { padding: 10px 0; }
+}
+
+/* 📱 Extra Small Screens */
+@media (max-width: 480px) {
+  .carousel-img { height: 38vh !important; }
 }
