@@ -259,13 +259,20 @@
     padding: 0 10px;
   }
 
-  .footer-section.links,
-  .footer-section.contact {
+  .footer-section.links {
     flex: unset; /* prevent stretching */
     max-width: 150px;
     text-align: center; /* center text in each section */
     margin-left: 5px; /* small gap from Quick Links */
     margin-right: 10px; /* spacing from right edge in mobile view */
+  }
+
+  .footer-section.contact {
+    flex: unset; /* prevent stretching */
+    max-width: 150px;
+    text-align: center; /* center text in each section */
+    margin-left: 0px; /* small gap from Quick Links */
+    margin-right: 30px; /* spacing from right edge in mobile view */
   }
 
   /* Responsive text sizes */
