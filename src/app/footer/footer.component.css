@@ -264,6 +264,8 @@
     flex: unset; /* prevent stretching */
     max-width: 150px;
     text-align: center; /* center text in each section */
+    margin-left: 10px; /* small gap from Quick Links */
+    margin-right: 15px; /* spacing from right edge in mobile view */
   }
 
   /* Responsive text sizes */
@@ -286,9 +288,4 @@
     text-align: center;
     padding: 0 15px;
   }
-    .footer-section.contact {
-    margin-left: 10px; /* small gap from Quick Links */
-    margin-right: 15px; /* spacing from right edge in mobile view */
-  }
-
 }
