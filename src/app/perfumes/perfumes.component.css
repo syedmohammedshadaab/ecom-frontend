@@ -292,23 +292,30 @@
 
   /* Reduce card body padding */
   .perfume-card .card-body {
-    padding: 0.4rem 0.6rem; /* smaller padding all around */
+    padding: 0.3rem 0.5rem; /* smaller padding all around */
   }
 
   .perfume-card .card-title {
     font-size: 0.85rem; /* smaller title */
     margin-top: 0.2rem;
-    margin-bottom: 0.2rem; /* reduce gap after title */
+    margin-bottom: 0.15rem; /* reduce gap after title */
+    line-height: 1.1;      /* tighter line spacing */
   }
 
   .perfume-card .d-flex strong {
     font-size: 0.8rem; /* smaller gender text */
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.15rem;
+    line-height: 1.1;
   }
 
   .perfume-card .text-theme-price {
     font-size: 0.85rem; /* smaller price */
     margin-bottom: 0; /* remove extra margin */
+    line-height: 1.1;
+  }
+   /* Remove extra space under image */
+  .perfume-card .perfume-img {
+    margin-bottom: 0;
   }
 
   .filter-bar {
