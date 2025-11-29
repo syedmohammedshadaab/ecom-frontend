@@ -22,8 +22,8 @@
       <i class="bi bi-search search-icon"></i>
     </div>
 
-    <!-- 👇 Wrap gender + price for mobile layout -->
-    <div class="filters-row">
+    <!-- 👇 Wrap gender + price + latest launch -->
+    <div class="filters-row d-flex flex-wrap justify-content-center gap-3">
       <!-- Gender Filter -->
       <div class="filter-select-wrapper">
         <select
@@ -54,23 +54,25 @@
           <option value="5000-10000">₹5000 - ₹10000</option>
         </select>
       </div>
-    </div>
 
-    <!-- Latest Launch Filter -->
-    <div class="form-check ms-2">
-      <input
-        class="form-check-input"
-        type="checkbox"
-        id="latestLaunchCheck"
-        [(ngModel)]="showLatestOnly"
-        (change)="applyFilters()"
-      />
-      <label
-        class="form-check-label fw-semibold text-secondary"
-        for="latestLaunchCheck"
-      >
-        <i class="bi bi-stars text-warning me-1"></i> Latest Launch Only
-      </label>
+      <!-- Latest Launch Filter -->
+      <div class="form-check-wrapper">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="latestLaunchCheck"
+            [(ngModel)]="showLatestOnly"
+            (change)="applyFilters()"
+          />
+          <label
+            class="form-check-label fw-semibold text-secondary"
+            for="latestLaunchCheck"
+          >
+            <i class="bi bi-stars text-warning me-1"></i> Latest Launch Only
+          </label>
+        </div>
+      </div>
     </div>
   </div>
 
