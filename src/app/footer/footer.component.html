@@ -1,5 +1,6 @@
 <footer class="footer mt-5" @fadeSlide>
   <div class="footer-container">
+
     <!-- 🌸 About Section -->
     <div class="footer-section about" @fadeSlide>
       <div class="footer-logo-container">
@@ -23,43 +24,36 @@
       </div>
     </div>
 
-    <!-- 🔗 Quick Links -->
-    <div class="footer-section links" @fadeSlide>
-      <h4>Quick Links</h4>
-      <ul>
-        <li>
-          <a routerLink="/home"><i class="bi bi-house-door"></i> Home</a>
-        </li>
-        <li>
-          <a routerLink="/perfumes"><i class="bi bi-bag-heart"></i> Perfumes</a>
-        </li>
-        <li>
-          <a routerLink="/cart"><i class="bi bi-cart4"></i> Cart</a>
-        </li>
-        <li>
-          <a routerLink="/search-perfume"
-            ><i class="bi bi-search"></i> Search</a
-          >
-        </li>
-      </ul>
-    </div>
+    <!-- ⭐ Quick Links & Contact Wrapper -->
+    <div class="links-contact-wrapper">
 
-    <!-- 📞 Contact -->
-    <div class="footer-section contact" @fadeSlide>
-      <h4>Contact</h4>
-      <p><i class="bi bi-geo-alt"></i> Mysuru, Karnataka</p>
-      <p><i class="bi bi-telephone"></i> +91 **********</p>
-      <p><i class="bi bi-envelope"></i> support&#64;****.com</p>
+      <!-- 🔗 Quick Links -->
+      <div class="footer-section links" @fadeSlide>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a routerLink="/home"><i class="bi bi-house-door"></i> Home</a></li>
+          <li><a routerLink="/perfumes"><i class="bi bi-bag-heart"></i> Perfumes</a></li>
+          <li><a routerLink="/cart"><i class="bi bi-cart4"></i> Cart</a></li>
+          <li><a routerLink="/search-perfume"><i class="bi bi-search"></i> Search</a></li>
+        </ul>
+      </div>
+
+      <!-- 📞 Contact -->
+      <div class="footer-section contact" @fadeSlide>
+        <h4>Contact</h4>
+        <p><i class="bi bi-geo-alt"></i> Mysuru, Karnataka</p>
+        <p><i class="bi bi-telephone"></i> +91 **********</p>
+        <p><i class="bi bi-envelope"></i> support&#64;****.com</p>
+      </div>
+
     </div>
   </div>
 
   <div class="footer-bottom" @fadeSlide>
     <p>
-      © {{ currentYear }} <strong>Perfume Palace</strong> — Where Elegance Meets
-      Aroma
+      © {{ currentYear }} <strong>Perfume Palace</strong> — Where Elegance Meets Aroma
     </p>
 
-    <!-- ⭐ Added credit line -->
     <p class="created-by">
       Designed & Developed by <strong>Syed Mohammed Shadaab</strong>
     </p>
