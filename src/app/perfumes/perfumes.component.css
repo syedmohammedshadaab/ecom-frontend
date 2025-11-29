@@ -290,32 +290,25 @@
     height: 340px;
   }
 
-
- /* Reduce card body padding */
+  /* Reduce card body padding */
   .perfume-card .card-body {
-    padding: 0rem 0rem 0rem 0rem; /* smaller padding */
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem; /* reduce padding */
   }
 
-  /* Reduce title font size & spacing */
   .perfume-card .card-title {
-    font-size: 1rem;
-    margin-bottom: 0.25rem;
+    font-size: 0.85rem; /* smaller title */
+    margin-bottom: 0.2rem;
   }
 
-  /* Reduce gender text size */
   .perfume-card .d-flex strong {
-    font-size: 0.8rem;
-    margin-bottom: 0.25rem;
+    font-size: 0.8rem; /* smaller gender text */
+    margin-bottom: 0.2rem;
   }
 
-  /* Reduce price font size */
   .perfume-card .text-theme-price {
-    font-size: 0.9rem;
-    margin-bottom: 0;
+    font-size: 0.9rem; /* smaller price */
+    margin-bottom: 0; /* remove extra margin */
   }
-
-
-
 
   .filter-bar {
     flex-direction: column;
