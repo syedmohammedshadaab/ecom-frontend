@@ -196,6 +196,13 @@
   box-shadow: 0 -5px 30px rgba(176, 137, 104, 0.25);
 }
 
+/* Contact Right */
+.footer-section.contact {
+  text-align: right;
+  margin-left: 30px; /* spacing from Quick Links on desktop */
+  margin-right: 20px; /* added spacing from the right edge */
+}
+
 /* 📱 Mobile */
 @media (max-width: 768px) {
   .footer {
@@ -279,4 +286,9 @@
     text-align: center;
     padding: 0 15px;
   }
+    .footer-section.contact {
+    margin-left: 10px; /* small gap from Quick Links */
+    margin-right: 15px; /* spacing from right edge in mobile view */
+  }
+
 }
