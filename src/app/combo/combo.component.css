@@ -145,7 +145,10 @@
 /* ===== COMBO GRID ===== */
 .combo-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* Auto-fit cards */
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(260px, 1fr)
+  ); /* Auto-fit cards */
   gap: 20px;
   justify-content: center;
   justify-items: center;
@@ -169,7 +172,7 @@
   transition: all 0.35s ease-in-out;
   position: relative;
   width: 100%;
-  max-width: 260px;  /* Uniform width for all cards */
+  max-width: 260px; /* Uniform width for all cards */
   min-height: 380px; /* Uniform height for all cards */
 }
 
@@ -277,23 +280,5 @@
 
   .card-body p {
     font-size: 0.85rem;
-  }
-}
-
-/* ===== VERY SMALL DEVICES ===== */
-@media (max-width: 480px) {
-  .combo-grid {
-    grid-template-columns: 1fr; /* 1 card per row */
-    gap: 12px;
-    justify-items: center;
-  }
-
-  .hover-card {
-    width: 100%;
-    min-height: 360px;
-  }
-
-  .card-img-top.perfume-image {
-    height: 160px;
   }
 }
