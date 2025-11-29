@@ -292,12 +292,13 @@
 
   /* Reduce card body padding */
   .perfume-card .card-body {
-    padding: 0.5rem 0.5rem 0.5rem 0.5rem; /* reduce padding */
+    padding: 0.4rem 0.6rem; /* smaller padding all around */
   }
 
   .perfume-card .card-title {
     font-size: 0.85rem; /* smaller title */
-    margin-bottom: 0.2rem;
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem; /* reduce gap after title */
   }
 
   .perfume-card .d-flex strong {
@@ -306,7 +307,7 @@
   }
 
   .perfume-card .text-theme-price {
-    font-size: 0.9rem; /* smaller price */
+    font-size: 0.85rem; /* smaller price */
     margin-bottom: 0; /* remove extra margin */
   }
 
