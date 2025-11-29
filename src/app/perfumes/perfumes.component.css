@@ -293,12 +293,12 @@
 
  /* Reduce card body padding */
   .perfume-card .card-body {
-    padding: 0.5rem 0.5rem 0.75rem 0.5rem; /* smaller padding */
+    padding: 0.10rem 0.10rem 0.10rem 0rem; /* smaller padding */
   }
 
   /* Reduce title font size & spacing */
   .perfume-card .card-title {
-    font-size: 0.85rem;
+    font-size: 1rem;
     margin-bottom: 0.25rem;
   }
 
