@@ -2,7 +2,7 @@
 .footer {
   background: linear-gradient(135deg, #6f4e37, #9c6644);
   color: var(--text-light);
-  padding: 45px 20px 15px; /* reduced height */
+  padding: 45px 20px 15px;
   font-family: "Poppins", sans-serif;
   position: relative;
   overflow: hidden;
@@ -42,7 +42,7 @@
 }
 
 .footer-logo {
-  width: 110px; /* smaller + refined */
+  width: 110px;
   height: auto;
   object-fit: contain;
   border-radius: 10px;
@@ -162,18 +162,30 @@
   font-weight: 600;
 }
 
+/* ⭐ Credit line */
+.created-by {
+  margin-top: 5px;
+  font-size: 13px;
+  opacity: 0.85;
+  color: var(--tan);
+}
+
+.created-by strong {
+  color: var(--almond);
+  font-weight: 600;
+}
+
 /* ✨ Subtle luxury hover glow */
 .footer:hover {
   box-shadow: 0 -5px 30px rgba(176, 137, 104, 0.25);
 }
 
-/* 📱 Clean & Readable Mobile Footer */
+/* 📱 Mobile */
 @media (max-width: 768px) {
   .footer {
     padding: 32px 16px 12px;
   }
 
-  /* Stack layout (clean spacing) */
   .footer-container {
     flex-direction: column;
     align-items: center;
@@ -181,44 +193,23 @@
     gap: 18px;
   }
 
-  /* Each section */
   .footer-section {
     width: 100%;
     max-width: 320px;
     text-align: center;
   }
 
-  /* Headings slightly bigger */
   .footer-section h3,
   .footer-section h4 {
     font-size: 15px;
-    font-weight: 600;
     margin-bottom: 6px;
   }
 
-  /* Text bigger + cleaner */
   .footer-section p,
   .footer-section li,
   .footer-section a {
     font-size: 13px;
     line-height: 1.5;
-    margin-bottom: 4px;
-  }
-
-  /* Clean list */
-  .footer-section ul {
-    padding: 0;
-    margin: 0 auto;
-    width: fit-content;
-  }
-
-  .footer-section ul li {
-    margin-bottom: 5px;
-  }
-
-  /* Logo clean + center */
-  .footer-logo-container {
-    width: 100%;
   }
 
   .footer-logo {
@@ -226,25 +217,12 @@
     margin-bottom: 8px;
   }
 
-  /* Social icons cleaner */
-  .social-icons {
-    justify-content: center;
-    gap: 14px;
-    margin-top: 6px;
-  }
-
-  /* Tagline */
   .tagline {
     max-width: 260px;
     font-size: 12.5px;
-    line-height: 1.5;
-    margin-top: 6px;
   }
 
-  /* Footer bottom */
   .footer-bottom {
     font-size: 11.5px;
-    margin-top: 12px;
   }
 }
-
