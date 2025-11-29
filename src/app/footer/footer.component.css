@@ -264,8 +264,8 @@
     flex: unset; /* prevent stretching */
     max-width: 150px;
     text-align: center; /* center text in each section */
-    margin-left: 10px; /* small gap from Quick Links */
-    margin-right: 35px; /* spacing from right edge in mobile view */
+    margin-left: 30px; /* small gap from Quick Links */
+    margin-right: 10px; /* spacing from right edge in mobile view */
   }
 
   /* Responsive text sizes */
