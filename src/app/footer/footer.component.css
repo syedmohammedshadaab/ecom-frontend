@@ -263,8 +263,8 @@
     flex: unset; /* prevent stretching */
     max-width: 150px;
     text-align: center; /* center text in each section */
-    margin-left: 5px; /* small gap from Quick Links */
-    margin-right: 10px; /* spacing from right edge in mobile view */
+    margin-left: 20px; /* small gap from Quick Links */
+    margin-right: 0px; /* spacing from right edge in mobile view */
   }
 
   .footer-section.contact {
