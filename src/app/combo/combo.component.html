@@ -1,5 +1,4 @@
 <div class="container mt-4 perfume-container" @pageFade>
-
   <!-- 🌟 SECTION TITLE -->
   <h2 class="text-center mb-2 fw-bold text-gradient">Combo Collection</h2>
   <p class="text-muted mb-4 fs-5 text-center">
@@ -17,16 +16,19 @@
   >
     <div class="d-flex align-items-center justify-content-between">
       <div class="toast-body">{{ toastMessage }}</div>
-      <button type="button" class="btn-close btn-close-white ms-3" (click)="showToast = false"></button>
+      <button
+        type="button"
+        class="btn-close btn-close-white ms-3"
+        (click)="showToast = false"
+      ></button>
     </div>
   </div>
 
   <!-- =============== FILTERS =============== -->
   <div class="filter-bar-wrapper mb-4">
-    <div class="row g-3 align-items-center filter-bar">
-
+    <div class="filter-bar">
       <!-- Search -->
-      <div class="col-lg-4 col-md-6 col-sm-12 search-input-container">
+      <div class="search-input-container">
         <input
           type="text"
           class="search-input"
@@ -38,8 +40,12 @@
       </div>
 
       <!-- Gender -->
-      <div class="col-lg-4 col-md-6 col-sm-6 filter-select-wrapper">
-        <select id="genderSelect" [(ngModel)]="searchGender" (change)="applyFilters()">
+      <div class="filter-select-wrapper">
+        <select
+          id="genderSelect"
+          [(ngModel)]="searchGender"
+          (change)="applyFilters()"
+        >
           <option value="">All Genders</option>
           <option value="Men">Men</option>
           <option value="Women">Women</option>
@@ -48,8 +54,12 @@
       </div>
 
       <!-- Price -->
-      <div class="col-lg-4 col-md-6 col-sm-6 filter-select-wrapper">
-        <select id="priceSelect" [(ngModel)]="selectedPriceRange" (change)="applyFilters()">
+      <div class="filter-select-wrapper">
+        <select
+          id="priceSelect"
+          [(ngModel)]="selectedPriceRange"
+          (change)="applyFilters()"
+        >
           <option value="">All Prices</option>
           <option value="0-999">Below ₹999</option>
           <option value="1000-1999">₹1000 - ₹1999</option>
@@ -57,29 +67,22 @@
           <option value="5000-9999">₹5000 - ₹9999</option>
         </select>
       </div>
-
     </div>
   </div>
 
   <!-- =============== COMBO GRID =============== -->
   <div class="combo-grid">
-    <div
-      class="combo-card-wrapper"
-      *ngFor="let c of filteredCombos"
-      @comboAnim
-    >
-      <div class="hover-card h-100 text-center">
-        <img
-          [src]="c.imageurl || 'https://placehold.co/300x300?text=No+Image'"
-          class="card-img-top perfume-image"
-          alt="{{ c.name }}"
-          (click)="viewComboDetails(c.cid)"
-        />
-        <div class="card-body">
-          <h6>{{ c.name }}</h6>
-          <p class="text-muted small">{{ c.gender }}</p>
-          <p class="fw-bold">{{ c.price | currency : 'INR' }}</p>
-        </div>
+    <div class="hover-card" *ngFor="let c of filteredCombos" @comboAnim>
+      <img
+        [src]="c.imageurl || 'https://placehold.co/300x300?text=No+Image'"
+        class="card-img-top perfume-image"
+        alt="{{ c.name }}"
+        (click)="viewComboDetails(c.cid)"
+      />
+      <div class="card-body">
+        <h6>{{ c.name }}</h6>
+        <p class="text-muted small">{{ c.gender }}</p>
+        <p class="fw-bold">{{ c.price | currency : 'INR' }}</p>
       </div>
     </div>
   </div>
@@ -89,5 +92,4 @@
     <i class="bi bi-emoji-frown fs-3"></i>
     <p>No combos match your filters. Try adjusting your search or filters.</p>
   </div>
-
 </div>
