@@ -22,35 +22,38 @@
       <i class="bi bi-search search-icon"></i>
     </div>
 
-    <!-- Gender Filter -->
-    <div class="filter-select-wrapper">
-      <select
-        id="genderSelect"
-        class="form-select"
-        [(ngModel)]="searchGender"
-        (change)="applyFilters()"
-      >
-        <option value="">All Categories</option>
-        <option value="Men">Men</option>
-        <option value="Women">Women</option>
-        <option value="unisex">Unisex</option>
-      </select>
-    </div>
+    <!-- 👇 Wrap gender + price for mobile layout -->
+    <div class="filters-row">
+      <!-- Gender Filter -->
+      <div class="filter-select-wrapper">
+        <select
+          id="genderSelect"
+          class="form-select"
+          [(ngModel)]="searchGender"
+          (change)="applyFilters()"
+        >
+          <option value="">All Categories</option>
+          <option value="Men">Men</option>
+          <option value="Women">Women</option>
+          <option value="unisex">Unisex</option>
+        </select>
+      </div>
 
-    <!-- Price Filter -->
-    <div class="filter-select-wrapper">
-      <select
-        id="priceSelect"
-        class="form-select"
-        [(ngModel)]="selectedPriceRange"
-        (change)="applyFilters()"
-      >
-        <option value="">All Prices</option>
-        <option value="100-500">₹100 - ₹500</option>
-        <option value="500-1000">₹500 - ₹1000</option>
-        <option value="1000-5000">₹1000 - ₹5000</option>
-        <option value="5000-10000">₹5000 - ₹10000</option>
-      </select>
+      <!-- Price Filter -->
+      <div class="filter-select-wrapper">
+        <select
+          id="priceSelect"
+          class="form-select"
+          [(ngModel)]="selectedPriceRange"
+          (change)="applyFilters()"
+        >
+          <option value="">All Prices</option>
+          <option value="100-500">₹100 - ₹500</option>
+          <option value="500-1000">₹500 - ₹1000</option>
+          <option value="1000-5000">₹1000 - ₹5000</option>
+          <option value="5000-10000">₹5000 - ₹10000</option>
+        </select>
+      </div>
     </div>
 
     <!-- Latest Launch Filter -->

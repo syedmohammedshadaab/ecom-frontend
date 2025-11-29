@@ -26,7 +26,7 @@
   -webkit-text-fill-color: transparent;
 }
 
-/* 🌿 Filter Section (Refined Luxury Gradient) */
+/* 🌿 Filter Section */
 .filter-bar {
   background: linear-gradient(135deg, #faf5ef, #f2e3d5);
   border: 1px solid rgba(176, 137, 104, 0.3);
@@ -35,10 +35,8 @@
   padding: 1.2rem 2rem;
   transition: all 0.4s ease;
 }
-#genderSelect {
-  background-color: var(--chamoisee);
-  color: #fff;
-}
+
+#genderSelect,
 #priceSelect {
   background-color: var(--chamoisee);
   color: #fff;
@@ -80,20 +78,23 @@
   color: #fff;
 }
 
-/* 🌟 Checkbox (Golden Accent) */
+/* 🌟 Checkbox */
 .form-check-input {
   accent-color: var(--chamoisee);
   width: 18px;
   height: 18px;
   box-shadow: 0 2px 6px rgba(176, 137, 104, 0.15);
+  vertical-align: middle;
+  margin-right: 0.3rem; /* reduce space between checkbox and label */
 }
 
 .form-check-label {
   color: var(--coffee);
   font-weight: 500;
+  display: inline-block;
 }
 
-/* 💎 Perfume Card (Luxury Elevation) */
+/* 💎 Perfume Card */
 .perfume-card {
   border: none;
   border-radius: 1.8rem;
@@ -101,6 +102,7 @@
   box-shadow: 0 6px 16px rgba(176, 137, 104, 0.15);
   overflow: hidden;
   transition: all 0.35s ease-in-out;
+  position: relative; /* for badge */
 }
 
 .perfume-card:hover {
@@ -108,7 +110,7 @@
   box-shadow: 0 14px 28px rgba(176, 137, 104, 0.25);
 }
 
-/* 🖼️ Perfume Image — Keep Original Size */
+/* 🖼️ Perfume Image */
 .perfume-img {
   width: 100%;
   height: 370px !important;
@@ -166,29 +168,24 @@
   box-shadow: 0 8px 22px rgba(127, 85, 57, 0.35);
 }
 
-/* 🌟 New Launch Badge (Theme-Matched Gold Shine) */
+/* 🌟 New Launch Badge */
 .new-launch-badge {
   position: absolute;
   top: 12px;
   right: 12px;
   z-index: 10;
-  background: linear-gradient(
-    135deg,
-    var(--tan),
-    var(--chamoisee)
-  ); /* 🎨 Using theme colors */
+  background: linear-gradient(135deg, var(--tan), var(--chamoisee));
   color: #fff;
   font-weight: 700;
   font-size: 0.9rem;
   border-radius: 1rem;
   padding: 6px 14px;
   border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 0 4px 10px rgba(176, 137, 104, 0.4); /* same tone as --chamoisee */
+  box-shadow: 0 4px 10px rgba(176, 137, 104, 0.4);
   animation: glowPulseTheme 2s infinite ease-in-out;
   pointer-events: none;
 }
 
-/* ✨ Soft Theme Glow Animation */
 @keyframes glowPulseTheme {
   0% {
     box-shadow: 0 0 8px rgba(176, 137, 104, 0.4);
@@ -201,13 +198,7 @@
   }
 }
 
-/* Ensure card allows absolute badge placement */
-.perfume-card {
-  position: relative;
-  overflow: hidden;
-}
-
-/* 🌸 Toast Message */
+/* 🌸 Toast */
 .toast-container {
   position: fixed;
   top: 25px;
@@ -234,21 +225,16 @@
   transform: translate(-50%, 0);
   animation: toastPulse 2s infinite;
 }
-
-/* ✅ Success Toast */
 .toast-container.success {
   background: linear-gradient(135deg, var(--almond), var(--chamoisee));
   color: #fff;
   border: none;
 }
-
-/* ❌ Error Toast */
 .toast-container.error {
   background: linear-gradient(135deg, #fff5f5, #f8e0de);
   color: var(--coffee);
 }
 
-/* ⚡ Toast Pulse */
 @keyframes toastPulse {
   0% {
     box-shadow: 0 0 0 0 rgba(164, 117, 81, 0.4);
@@ -261,7 +247,44 @@
   }
 }
 
-/* 📱 Responsive */
+/* 🌟 Search Input */
+.search-input-container {
+  position: relative;
+  width: 100%;
+  max-width: 280px;
+  margin: 0 auto;
+  display: inline-block;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 40px 10px 16px;
+  border-radius: 2rem;
+  border: none;
+  font-size: 0.95rem;
+  background: linear-gradient(135deg, var(--almond), var(--dun));
+  color: var(--text-dark);
+  box-shadow: 0 3px 8px rgba(176, 137, 104, 0.2);
+  transition: all 0.3s ease;
+  height: 42px;
+}
+
+.search-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(176, 137, 104, 0.3);
+}
+
+.search-input-container .search-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.25rem;
+  color: var(--chamoisee);
+  pointer-events: none;
+}
+
+/* 📱 Mobile Responsive */
 @media (max-width: 768px) {
   .perfume-img {
     height: 340px;
@@ -273,105 +296,92 @@
   .form-select {
     width: 100%;
   }
-}
 
-/* 🌟 Search Input Container */
-.search-input-container {
-  position: relative;
-  width: 100%; /* full width for mobile */
-  max-width: 280px; /* desktop max width */
-  margin: 0 auto; /* center horizontally */
-  display: inline-block; /* prevent flex issues */
-}
-
-/* 🔍 Search Input */
-.search-input {
-  width: 100%; /* fill container */
-  padding: 10px 40px 10px 16px; /* right padding for icon */
-  border-radius: 2rem;
-  border: none;
-  font-size: 0.95rem;
-  background: linear-gradient(135deg, var(--almond), var(--dun));
-  color: var(--text-dark);
-  box-shadow: 0 3px 8px rgba(176, 137, 104, 0.2);
-  transition: all 0.3s ease;
-  height: 42px; /* fixed height for alignment */
-  display: block;
-  line-height: 1.2;
-}
-
-.search-input:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(176, 137, 104, 0.3);
-}
-
-/* 🔍 Search Icon */
-.search-input-container .search-icon {
-  position: absolute;
-  right: 12px; /* icon on right */
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 1.25rem;
-  color: var(--chamoisee);
-  pointer-events: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* 📱 Responsive */
-@media (max-width: 768px) {
-  /* Search Bar */
   .search-input-container {
+    width: 100%;
     max-width: 100%;
+    margin-bottom: 0.75rem;
   }
-
   .search-input {
     padding: 10px 38px 10px 14px;
     font-size: 0.9rem;
   }
-
   .search-input-container .search-icon {
     font-size: 1.1rem;
   }
 
-  /* ⭐ FORCE 2 CARDS PER ROW */
+  /* Filters Row */
+  .filters-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    width: 100%;
+  }
+  .filter-select-wrapper {
+    flex: 1 1 45%;
+    min-width: 120px;
+  }
+
+  /* ✅ Checkbox Fix */
+  .form-check {
+    width: auto;
+    margin-top: 0.5rem;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.25rem;
+  }
+  .form-check-input {
+    margin: 0;
+  }
+  .form-check-label {
+    margin: 0;
+  }
+
+  /* Perfume Cards: 2 per row */
   .perfume-container .row {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 14px !important;
   }
-
-  /* Bootstrap column fix */
-  .perfume-container .col-md-3 {
-    width: 100% !important;
-    max-width: 100% !important;
-    flex: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-
-  /* Card full width inside grid */
   .perfume-card {
     width: 100% !important;
-    border-radius: 1rem;
+  }
+  .perfume-card img {
+    height: 240px !important;
   }
 
-  /* Image fit properly */
-  .perfume-card img,
-  .card img {
-    width: 100%;
-    height: 200px !important; 
-    object-fit: cover;
-    border-radius: 12px;
-  }
-
-  /* Title, price adjustments */
   .card-title {
     font-size: 0.95rem;
   }
-
   .text-theme-price {
     font-size: 1rem;
+  }
+}
+
+/* ✅ Desktop/Laptop view */
+@media (min-width: 769px) {
+  .filter-bar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .filters-row {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .filter-select-wrapper {
+    flex: 0 0 auto;
+    min-width: auto;
+  }
+  .form-check {
+    width: auto;
+    margin-top: 0;
+    text-align: left;
   }
 }
