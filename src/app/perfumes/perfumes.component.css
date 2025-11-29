@@ -295,8 +295,11 @@
     gap: 1rem;
   }
 
+  /* ✅ Fix select text cutoff */
   .form-select {
     width: 100%;
+    padding: 8px 12px; /* reduced horizontal padding */
+    font-size: 0.95rem;
   }
 
   .search-input-container {
@@ -330,16 +333,16 @@
 
   /* Latest Launch checkbox wrapper */
   .form-check-wrapper {
-    flex: 1 1 100%; /* full width on mobile */
+    flex: 1 1 100%; /* full width */
     display: flex;
     justify-content: center; /* center horizontally */
     margin-top: 0.5rem;
   }
 
-  /* ✅ Checkbox Fix */
   .form-check {
     display: flex;
     align-items: center;
+    justify-content: center; /* center checkbox + label */
     gap: 0.25rem;
     margin: 0;
   }
@@ -350,6 +353,7 @@
 
   .form-check-label {
     margin: 0;
+    white-space: nowrap; /* prevent line break cutting words */
   }
 
   /* Perfume Cards: 2 per row */
@@ -390,7 +394,7 @@
     flex-wrap: nowrap;
     justify-content: center;
     gap: 1rem;
-    align-items: center; /* align gender, price, and checkbox vertically */
+    align-items: center;
   }
 
   .filter-select-wrapper {
@@ -398,17 +402,18 @@
     min-width: auto;
   }
 
-  /* Latest Launch checkbox wrapper on desktop */
+  /* Latest Launch checkbox wrapper */
   .form-check-wrapper {
-    flex: 0 0 auto; /* respect content width */
+    flex: 0 0 auto;
     display: flex;
-    justify-content: flex-start; /* align with other filters */
+    justify-content: center; /* center with gender & price filters */
     margin-top: 0;
   }
 
   .form-check {
     display: flex;
     align-items: center;
+    justify-content: center; /* center checkbox + label */
     gap: 0.25rem;
     margin: 0;
   }
