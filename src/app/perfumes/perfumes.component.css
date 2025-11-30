@@ -490,6 +490,7 @@
   /* Keep image SAME SIZE but make top boxy */
   .perfume-img {
     height: 345px !important; /* SAME as before */
+    object-fit: cover;
     border-radius: 14px 14px 0 0 !important;
   }
 }
