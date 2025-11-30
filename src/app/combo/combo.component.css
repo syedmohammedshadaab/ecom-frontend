@@ -152,7 +152,7 @@
 /* 🔥 DESKTOP IMAGE FIX */
 .card-img-top.perfume-image {
   width: 100%;
-  height: 300px !important;   /* FIXED: shortened from 370px */
+  height: 300px !important;
   object-fit: cover;
   border-bottom: 2px solid var(--tan);
   transition: 0.3s ease;
@@ -161,7 +161,25 @@
   transform: scale(1.02);
 }
 
-/* Desktop card-body compact */
+/* ===== DESKTOP CARD-BODY FIX (NEW) ===== */
+@media (min-width: 769px) {
+  .card-body {
+    padding: 1.15rem 1.25rem !important;
+  }
+
+  .card-body h6 {
+    font-size: 1.05rem;
+    margin-bottom: 0.6rem !important;
+  }
+
+  .card-body p {
+    font-size: 0.95rem;
+    margin: 0.55rem 0 !important;
+    line-height: 1.35;
+  }
+}
+
+/* ===== DEFAULT CARD BODY (mobile overrides later) ===== */
 .card-body {
   text-align: center;
   padding: 0.8rem !important;
@@ -196,7 +214,7 @@
   color: #fff;
 }
 
-/* ===== DESKTOP GRID (unchanged layout, fixed look) ===== */
+/* ===== DESKTOP GRID ===== */
 .combo-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -217,7 +235,6 @@
     grid-column: span 2;
   }
 
-  /* ===== MOBILE GRID → 2 CARDS ===== */
   .combo-grid {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 12px !important;
@@ -228,7 +245,6 @@
     background: #fff;
   }
 
-  /* ===== MOBILE: small image ===== */
   .card-img-top.perfume-image {
     height: 140px !important;
     border-radius: 12px 12px 0 0;
