@@ -286,7 +286,6 @@
 
 /* 📱 Mobile Responsive */
 @media (max-width: 768px) {
-
   /* Make cards boxy */
   .perfume-card {
     width: 100% !important;
@@ -408,13 +407,12 @@
   .perfume-container .row {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 10px !important; 
+    gap: 10px !important;
   }
 }
 
 /* 💻 Desktop/Laptop view */
 @media (min-width: 769px) {
-
   .filter-bar {
     flex-direction: row;
     align-items: center;
@@ -450,19 +448,14 @@
     margin: 0;
   }
 
-
-
-
-
-
-   /* Make desktop cards more boxy & compact */
+  /* Make desktop cards more boxy & compact */
   .perfume-card {
     border-radius: 14px !important;
     padding: 0 !important;
   }
 
   .perfume-card .card-body {
-    padding: 0.6rem 0.7rem !important;  /* reduce spacing */
+    padding: 0.6rem 0.7rem !important; /* reduce spacing */
   }
 
   /* Reduce title size */
@@ -496,7 +489,7 @@
 
   /* Keep image SAME SIZE but make top boxy */
   .perfume-img {
-    height: 370px !important;   /* SAME as before */
+    height: 320px !important; /* SAME as before */
     border-radius: 14px 14px 0 0 !important;
   }
 }
