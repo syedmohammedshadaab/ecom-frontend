@@ -487,9 +487,11 @@
     margin-bottom: 4px !important;
   }
 
-  /* Keep image SAME SIZE but make top boxy */
+  /* Keep image same size, proportional */
   .perfume-img {
-    height: 345px !important; /* SAME as before */
+    width: 100%;
+    height: auto;         /* adjust with card width */
+    max-height: 350px;    /* ensures boxy look */
     object-fit: cover;
     border-radius: 14px 14px 0 0 !important;
   }
