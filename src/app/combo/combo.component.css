@@ -238,7 +238,7 @@
   .combo-grid {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 12px !important;
-    column-gap: 8px !important; /* 🔥 Middle gap between side-by-side cards */
+    column-gap: 16px !important; /* 🔥 Middle gap between side-by-side cards */
     row-gap: 12px !important;   /* Vertical gap */
   }
 
