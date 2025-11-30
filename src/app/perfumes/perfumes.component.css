@@ -489,7 +489,7 @@
 
   /* Keep image SAME SIZE but make top boxy */
   .perfume-img {
-    height: 340px !important; /* SAME as before */
+    height: 345px !important; /* SAME as before */
     border-radius: 14px 14px 0 0 !important;
   }
 }
