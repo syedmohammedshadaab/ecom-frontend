@@ -133,7 +133,7 @@
   color: #fff;
 }
 
-/* ===== COMBO CARDS ===== */
+/* ===== COMBO CARDS (DESKTOP) ===== */
 .hover-card {
   border-radius: 1.8rem;
   overflow: hidden;
@@ -158,25 +158,35 @@
 .hover-card:hover .card-img-top.perfume-image {
   transform: scale(1.02);
 }
+
 .card-body {
-  text-align: center; /* Center all text inside the card */
+  text-align: center;
+  padding: 10px 12px !important; /* FIX: remove tall/ugly spacing */
 }
 
 .card-body h6 {
   color: var(--coffee);
   font-weight: 700;
-  margin-bottom: 1rem; /* keeps space below title */
-  font-size: 1.1rem;
+  margin-bottom: 6px !important;
+  font-size: 1.05rem;
+  line-height: 1.2;
 }
 
 .card-body p {
   color: var(--chamoisee);
   font-weight: 700;
-  font-size: 0.95rem;
-  margin: 1rem 0; /* small vertical spacing between lines */
+  font-size: 0.92rem;
+  margin: 4px 0 !important;
+  line-height: 1.2;
 }
 
-
+/* FIX long cards on desktop */
+.hover-card {
+  height: auto !important;
+}
+.card-body > * {
+  margin-bottom: 4px !important;
+}
 
 /* ===== NO DATA ===== */
 .no-data {
@@ -192,17 +202,18 @@
   color: #fff;
 }
 
-/* ===== COMBO GRID ===== */
+/* ===== COMBO GRID (DESKTOP) ===== */
 .combo-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 cards desktop/laptop */
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 }
 
-/* ===== MOBILE RESPONSIVE ===== */
+/* ==========================================================
+   ===== MOBILE RESPONSIVE (UPDATED SAME AS PERFUME.CSS) =====
+   ========================================================== */
 @media (max-width: 768px) {
 
-  /* 🔹 Compact filter bar - unchanged */
   .filter-bar {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -229,18 +240,12 @@
     border-radius: 1.5rem;
   }
 
-  /* ============================================
-     🔥 BOXY + COMPACT CARD STYLE (same as perfume.css)
-     ============================================ */
-
-  /* 2 compact boxy cards per row */
+  /* ===== MOBILE CARDS (COMPACT BOX LIKE PERFUME.CSS) ===== */
   .combo-grid {
-    display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 12px !important;
   }
 
-  /* Card container boxy look */
   .combo-card {
     width: 100%;
     border-radius: 12px;
@@ -248,7 +253,6 @@
     background: #fff;
   }
 
-  /* Keep your image height same (140px) */
   .card-img-top.perfume-image {
     height: 140px !important;
     object-fit: cover;
@@ -257,38 +261,32 @@
     padding: 0 !important;
   }
 
-  /* Compact card body like perfume.css */
   .card-body {
     padding: 0.45rem 0.55rem !important;
   }
 
-  /* Compact title */
   .card-body h6 {
     font-size: 0.80rem !important;
     margin: 0.12rem 0 0.10rem !important;
     line-height: 1.1;
   }
 
-  /* Compact description / text */
   .card-body p {
     font-size: 0.75rem !important;
     margin-bottom: 0.12rem !important;
     line-height: 1.15;
   }
 
-  /* Compact any internal gap */
   .card-body > * {
     margin-bottom: 2px !important;
   }
 
-  /* Price styling compact (if exists) */
   .price-tag, .text-theme-price {
     font-size: 0.85rem !important;
     margin: 0 !important;
     line-height: 1.1 !important;
   }
 
-  /* Toast */
   .toast-container {
     min-width: 220px;
     max-width: 350px;
