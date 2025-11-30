@@ -449,4 +449,54 @@
     gap: 0.25rem;
     margin: 0;
   }
+
+
+
+
+
+
+   /* Make desktop cards more boxy & compact */
+  .perfume-card {
+    border-radius: 14px !important;
+    padding: 0 !important;
+  }
+
+  .perfume-card .card-body {
+    padding: 0.6rem 0.7rem !important;  /* reduce spacing */
+  }
+
+  /* Reduce title size */
+  .perfume-card .card-title {
+    font-size: 0.95rem !important;
+    margin-bottom: 0.25rem !important;
+    line-height: 1.1;
+  }
+
+  /* Reduce description text */
+  .perfume-card .card-text {
+    font-size: 0.82rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+
+  /* Gender text */
+  .perfume-card .d-flex strong {
+    font-size: 0.85rem !important;
+  }
+
+  /* Price text smaller */
+  .perfume-card .text-theme-price {
+    font-size: 0.95rem !important;
+    margin: 0 !important;
+  }
+
+  /* Reduce vertical spacing between elements */
+  .perfume-card .card-body > * {
+    margin-bottom: 4px !important;
+  }
+
+  /* Keep image SAME SIZE but make top boxy */
+  .perfume-img {
+    height: 370px !important;   /* SAME as before */
+    border-radius: 14px 14px 0 0 !important;
+  }
 }
