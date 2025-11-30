@@ -286,52 +286,67 @@
 
 /* 📱 Mobile Responsive */
 @media (max-width: 768px) {
-  .perfume-img {
-    height: 340px;
-  }
+
+  /* Make cards boxy */
   .perfume-card {
-    width: 100%; /* takes full width of its grid cell */
-    max-width: 380px; /* increase max width */
-    margin: 0 auto; /* center within cell */
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto;
+    border-radius: 10px;
   }
 
-  /* Reduce card body padding */
-  .perfume-card .card-body {
-    padding: 0.3rem 0.5rem; /* smaller padding all around */
-  }
-
-  .perfume-card .card-title {
-    font-size: 0.85rem; /* smaller title */
-    margin-top: 0.2rem;
-    margin-bottom: 0.15rem; /* reduce gap after title */
-    line-height: 1.1; /* tighter line spacing */
-  }
-
-  .perfume-card .d-flex strong {
-    font-size: 0.8rem; /* smaller gender text */
-    margin-bottom: 0.15rem;
-    line-height: 1.1;
-  }
-
-  .perfume-card .text-theme-price {
-    font-size: 0.85rem; /* smaller price */
-    margin-bottom: 0; /* remove extra margin */
-    line-height: 1.1;
-  }
-  /* Remove extra space under image */
-  .perfume-card .perfume-img {
+  /* Boxy image */
+  .perfume-card img {
+    height: 180px !important; /* reduced height for boxy look */
+    object-fit: cover;
     margin-bottom: 0;
+    border-radius: 10px 10px 0 0;
   }
 
+  .perfume-img {
+    height: 180px !important;
+  }
+
+  /* Compact card body */
+  .perfume-card .card-body {
+    padding: 0.4rem 0.5rem !important;
+  }
+
+  /* Compact title */
+  .perfume-card .card-title {
+    font-size: 0.8rem !important;
+    margin: 0.15rem 0 0.1rem;
+    line-height: 1.1;
+  }
+
+  /* Gender text */
+  .perfume-card .d-flex strong {
+    font-size: 0.75rem !important;
+    margin-bottom: 0.1rem;
+    line-height: 1;
+  }
+
+  /* Price text */
+  .perfume-card .text-theme-price {
+    font-size: 0.85rem !important;
+    margin: 0;
+    line-height: 1.1;
+  }
+
+  /* Reduce internal spacing */
+  .perfume-card .card-body > * {
+    margin-bottom: 2px !important;
+  }
+
+  /* Fix select, filter bar */
   .filter-bar {
     flex-direction: column;
     gap: 1rem;
   }
 
-  /* ✅ Fix select text cutoff */
   .form-select {
     width: 100%;
-    padding: 8px 12px; /* reduced horizontal padding */
+    padding: 8px 12px;
     font-size: 0.95rem;
   }
 
@@ -364,18 +379,18 @@
     min-width: 120px;
   }
 
-  /* Latest Launch checkbox wrapper */
+  /* Latest Launch Checkbox */
   .form-check-wrapper {
-    flex: 1 1 100%; /* full width */
+    flex: 1 1 100%;
     display: flex;
-    justify-content: center; /* center horizontally */
+    justify-content: center;
     margin-top: 0.5rem;
   }
 
   .form-check {
     display: flex;
     align-items: center;
-    justify-content: center; /* center checkbox + label */
+    justify-content: center;
     gap: 0.25rem;
     margin: 0;
   }
@@ -386,35 +401,20 @@
 
   .form-check-label {
     margin: 0;
-    white-space: nowrap; /* prevent line break cutting words */
+    white-space: nowrap;
   }
 
-  /* Perfume Cards: 2 per row */
+  /* 2 compact boxy cards per row */
   .perfume-container .row {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 14px !important;
-  }
-
-  .perfume-card {
-    width: 100% !important;
-  }
-
-  .perfume-card img {
-    height: 240px !important;
-  }
-
-  .card-title {
-    font-size: 0.95rem;
-  }
-
-  .text-theme-price {
-    font-size: 1rem;
+    gap: 10px !important; 
   }
 }
 
-/* ✅ Desktop/Laptop view */
+/* 💻 Desktop/Laptop view */
 @media (min-width: 769px) {
+
   .filter-bar {
     flex-direction: row;
     align-items: center;
@@ -435,18 +435,17 @@
     min-width: auto;
   }
 
-  /* Latest Launch checkbox wrapper */
   .form-check-wrapper {
     flex: 0 0 auto;
     display: flex;
-    justify-content: center; /* center with gender & price filters */
+    justify-content: center;
     margin-top: 0;
   }
 
   .form-check {
     display: flex;
     align-items: center;
-    justify-content: center; /* center checkbox + label */
+    justify-content: center;
     gap: 0.25rem;
     margin: 0;
   }
