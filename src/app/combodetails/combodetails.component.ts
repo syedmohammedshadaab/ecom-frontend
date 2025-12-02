@@ -75,6 +75,10 @@ export class CombodetailsComponent implements OnInit {
       this.comboId = Number(params.get('cid'));
       if (this.comboId) this.fetchComboDetails();
     });
+
+    setTimeout(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, 0);
   }
 
   fetchComboDetails(): void {

@@ -86,6 +86,10 @@ export class PerfumedetailsComponent implements OnInit {
         this.fetchPerfumeDetails();
       }
     });
+
+    setTimeout(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, 0);
   }
 
   fetchPerfumeDetails(): void {
