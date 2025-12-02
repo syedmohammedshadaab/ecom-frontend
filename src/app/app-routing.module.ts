@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PerfumesComponent } from './perfumes/perfumes.component'; // ✅ import your component
+import { PerfumesComponent } from './perfumes/perfumes.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { CartComponent } from './cart/cart.component';
@@ -20,11 +20,17 @@ const routes: Routes = [
   { path: 'search-perfume', component: SearchPerfumeComponent },
   { path: 'perfumes/:id', component: PerfumedetailsComponent },
   { path: 'combo', component: CombosComponent },
-  { path: 'combodetails/:cid', component: CombodetailsComponent }, // Example additional route
+  { path: 'combodetails/:cid', component: CombodetailsComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes, {
+      scrollPositionRestoration: 'top',   // 👈 always scroll page to top
+      anchorScrolling: 'enabled',         // 👈 smooth scrolling for #anchors
+      scrollOffset: [0, 0],               // 👈 exact top position
+    }),
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
