@@ -1,4 +1,6 @@
-/* 🌿 Elegant Navbar Container */
+/* -----------------------------------------
+   🌸 PREMIUM PERFUME NAVBAR (Updated Fully)
+------------------------------------------ */
 .perfume-navbar {
   background: rgba(237, 224, 212, 0.85);
   backdrop-filter: blur(16px);
@@ -6,12 +8,12 @@
   transition: all 0.4s ease;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
   border-radius: 0 0 25px 25px;
-  padding: 8px 24px; /* ↓ Slimmer padding for smaller height */
+  padding: 8px 24px;
   z-index: 999;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 70px; /* ↓ Controlled, sleek height */
+  height: 70px;
 }
 
 /* 🌿 Navbar Links */
@@ -49,7 +51,7 @@
   width: 100%;
 }
 
-/* 🌸 Gradient Brand Text */
+/* 🌸 Gradient Title Text */
 .text-gradient {
   background: linear-gradient(135deg, var(--chamoisee), var(--tan));
   -webkit-background-clip: text;
@@ -85,7 +87,7 @@
   box-shadow: 0 10px 25px rgba(127, 85, 57, 0.35);
 }
 
-/* 🌿 Outline Gradient Button */
+/* 🌿 Outline Button */
 .btn-outline-gradient {
   border: 2px solid;
   border-image-slice: 1;
@@ -138,9 +140,9 @@
   transition: all 0.3s ease;
 }
 
-/* 🌸 Brand Logo - Larger but classy */
+/* 🌸 Brand Logo */
 .brand-logo {
-  height: 70px; /* ↑ Increased logo size */
+  height: 70px;
   width: auto;
   object-fit: contain;
   transition: transform 0.3s ease, filter 0.3s ease;
@@ -160,7 +162,6 @@
   border-radius: 16px;
   padding: 8px 14px;
   box-shadow: 0 3px 10px rgba(176, 137, 104, 0.2);
-  transition: all 0.3s ease;
 }
 
 /* 👤 User Card */
@@ -181,107 +182,78 @@
   background: #fff8f2;
 }
 
-/* 📱 Responsive */
+/* 📱 MOBILE RESPONSIVE UPDATES */
 @media (max-width: 768px) {
+
   .perfume-navbar {
-    padding: 10px 18px;
-    border-radius: 0 0 20px 20px;
-    height: auto;
+    height: auto !important;
+    padding: 12px 18px !important;
+    flex-wrap: wrap;
+    border-radius: 0 0 18px 18px;
   }
+
   .text-gradient {
     font-size: 1.3rem;
   }
+
+  /* 🌸 Mobile 60px Logo (Option A) */
+  .brand-logo {
+    height: 60px !important;
+    margin-bottom: 8px;
+  }
+
+  /* Mobile Nav */
   .perfume-navbar .nav-link {
-    padding: 8px 14px;
+    display: block;
+    padding: 12px 16px !important;
+    margin: 6px 0;
     border-radius: 12px;
+    text-align: left;
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  .perfume-navbar .nav-link::after {
+    display: none;
+  }
+
+  .navbar-toggler {
+    padding: 6px 10px !important;
+    margin-left: auto;
+  }
+
+  .cart-icon-wrapper {
+    position: relative;
+    margin-left: 12px;
+  }
+
+  .cart-badge {
+    top: -6px !important;
+    right: -6px !important;
+  }
+
+  .navbar-collapse {
+    background: rgba(237, 224, 212, 0.95);
+    backdrop-filter: blur(12px);
+    padding: 14px;
+    border-radius: 0 0 18px 18px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    margin-top: 10px;
+  }
+}
+
+/* 📱 TABLET VIEW */
+@media (max-width: 992px) and (min-width: 769px) {
+  .perfume-navbar {
+    height: auto;
+    padding: 12px 24px;
   }
   .brand-logo {
-    height: 52px; /* Slightly smaller for mobile */
+    height: 58px;
   }
 }
 
-/* 🌸 Luxury Logout Toast */
-.luxury-toast {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(20, 20, 20, 0.65);
-  backdrop-filter: blur(10px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1050;
-  animation: fadeInBg 0.3s ease-in-out;
-}
-
-.luxury-toast-content {
-  background: linear-gradient(135deg, #f8f2ec, #e9d8c5);
-  border: 1px solid rgba(176, 137, 104, 0.5);
-  box-shadow: 0 8px 25px rgba(127, 85, 57, 0.25);
-  color: var(--coffee);
-  padding: 2rem 2.5rem;
-  border-radius: 1.2rem;
-  width: 360px;
-  max-width: 90%;
-  transition: all 0.3s ease;
-}
-
-.luxury-toast-content h5 {
-  font-weight: 700;
-  font-size: 1.3rem;
-  color: var(--chamoisee);
-  text-shadow: 0 0 6px rgba(176, 137, 104, 0.3);
-}
-
-.toast-subtitle {
-  color: var(--coffee);
-  font-size: 0.95rem;
-  opacity: 0.8;
-  margin-bottom: 1rem;
-}
-
-.btn-luxury {
-  background: linear-gradient(135deg, var(--tan), var(--chamoisee));
-  color: #fff;
-  border: none;
-  border-radius: 50px;
-  padding: 8px 22px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(176, 137, 104, 0.35);
-}
-
-.btn-luxury:hover {
-  background: linear-gradient(135deg, var(--chamoisee), var(--tan));
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(127, 85, 57, 0.45);
-}
-
-.btn-outline-light {
-  border: 1.8px solid var(--chamoisee);
-  color: var(--chamoisee);
-  border-radius: 50px;
-  padding: 8px 22px;
-  transition: all 0.3s ease;
-}
-
-.btn-outline-light:hover {
-  background-color: var(--chamoisee);
-  color: #fffaf0;
-  transform: translateY(-1px);
-}
-
-@keyframes fadeInBg {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
+/* 🛒 Cart Badge */
 .cart-badge {
   position: absolute;
   top: -6px;
@@ -296,73 +268,4 @@
   text-align: center;
   line-height: 16px;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
-}
-
-/* 📱 Mobile Navbar Fix */
-@media (max-width: 768px) {
-  .perfume-navbar {
-    height: auto !important;
-    padding: 12px 18px !important;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    border-radius: 0 0 18px 18px;
-  }
-
-  /* 🔽 Make dropdown menu clean */
-  .navbar-collapse {
-    background: rgba(237, 224, 212, 0.95);
-    backdrop-filter: blur(12px);
-    padding: 14px;
-    border-radius: 0 0 18px 18px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-    margin-top: 10px;
-  }
-
-  /* 🌿 Links inside mobile */
-  .perfume-navbar .nav-link {
-    display: block;
-    padding: 12px 16px !important;
-    margin: 6px 0;
-    border-radius: 12px;
-    text-align: left;
-    width: 100%;
-    font-size: 1rem;
-  }
-
-  .perfume-navbar .nav-link::after {
-    display: none; /* Remove hover underline on mobile */
-  }
-
-  /* 📌 Fix brand alignment */
-  .brand-logo {
-    height: 50px !important;
-    margin-bottom: 8px;
-  }
-
-  /* 🔘 Fix toggler so it doesn't shift layout */
-  .navbar-toggler {
-    padding: 6px 10px !important;
-    margin-left: auto;
-  }
-
-  /* 🛒 Fix cart position in mobile */
-  .cart-icon-wrapper {
-    position: relative;
-    margin-left: 12px;
-  }
-
-  .cart-badge {
-    top: -6px !important;
-    right: -6px !important;
-  }
-}
-@media (max-width: 992px) and (min-width: 769px) {
-  .perfume-navbar {
-    height: auto;
-    padding: 12px 24px;
-  }
-
-  .brand-logo {
-    height: 58px;
-  }
 }
