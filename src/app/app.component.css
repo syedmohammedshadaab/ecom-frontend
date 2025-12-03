@@ -245,8 +245,10 @@
 /* 📱 TABLET VIEW */
 @media (max-width: 992px) and (min-width: 769px) {
   .perfume-navbar {
-    height: auto;
-    padding: 12px 24px;
+    height: 62px !important;        /* 🔥 Reduced height */
+    padding: 6px 14px !important;   /* 🔥 Smaller padding */
+    flex-wrap: nowrap !important;   /* Keeps items aligned */
+    border-radius: 0 0 14px 14px;
   }
   .brand-logo {
     height: 58px;
