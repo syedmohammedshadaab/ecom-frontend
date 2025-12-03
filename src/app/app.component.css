@@ -1,6 +1,4 @@
-/* -----------------------------------------
-   🌸 PREMIUM PERFUME NAVBAR (Updated Fully)
------------------------------------------- */
+/* 🌿 Elegant Navbar Container */
 .perfume-navbar {
   background: rgba(237, 224, 212, 0.85);
   backdrop-filter: blur(16px);
@@ -8,12 +6,12 @@
   transition: all 0.4s ease;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
   border-radius: 0 0 25px 25px;
-  padding: 8px 24px;
+  padding: 8px 24px; /* ↓ Slimmer padding for smaller height */
   z-index: 999;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 70px;
+  height: 70px; /* ↓ Controlled, sleek height */
 }
 
 /* 🌿 Navbar Links */
@@ -51,7 +49,7 @@
   width: 100%;
 }
 
-/* 🌸 Gradient Title Text */
+/* 🌸 Gradient Brand Text */
 .text-gradient {
   background: linear-gradient(135deg, var(--chamoisee), var(--tan));
   -webkit-background-clip: text;
@@ -87,7 +85,7 @@
   box-shadow: 0 10px 25px rgba(127, 85, 57, 0.35);
 }
 
-/* 🌿 Outline Button */
+/* 🌿 Outline Gradient Button */
 .btn-outline-gradient {
   border: 2px solid;
   border-image-slice: 1;
@@ -140,9 +138,9 @@
   transition: all 0.3s ease;
 }
 
-/* 🌸 Brand Logo */
+/* 🌸 Brand Logo - Larger but classy */
 .brand-logo {
-  height: 70px;
+  height: 70px; /* ↑ Increased logo size */
   width: auto;
   object-fit: contain;
   transition: transform 0.3s ease, filter 0.3s ease;
@@ -162,6 +160,7 @@
   border-radius: 16px;
   padding: 8px 14px;
   box-shadow: 0 3px 10px rgba(176, 137, 104, 0.2);
+  transition: all 0.3s ease;
 }
 
 /* 👤 User Card */
@@ -182,13 +181,130 @@
   background: #fff8f2;
 }
 
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .perfume-navbar {
+    padding: 10px 18px;
+    border-radius: 0 0 20px 20px;
+    height: auto;
+  }
+  .text-gradient {
+    font-size: 1.3rem;
+  }
+  .perfume-navbar .nav-link {
+    padding: 8px 14px;
+    border-radius: 12px;
+  }
+  .brand-logo {
+    height: 52px; /* Slightly smaller for mobile */
+  }
+}
+
+/* 🌸 Luxury Logout Toast */
+.luxury-toast {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(20, 20, 20, 0.65);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+  animation: fadeInBg 0.3s ease-in-out;
+}
+
+.luxury-toast-content {
+  background: linear-gradient(135deg, #f8f2ec, #e9d8c5);
+  border: 1px solid rgba(176, 137, 104, 0.5);
+  box-shadow: 0 8px 25px rgba(127, 85, 57, 0.25);
+  color: var(--coffee);
+  padding: 2rem 2.5rem;
+  border-radius: 1.2rem;
+  width: 360px;
+  max-width: 90%;
+  transition: all 0.3s ease;
+}
+
+.luxury-toast-content h5 {
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--chamoisee);
+  text-shadow: 0 0 6px rgba(176, 137, 104, 0.3);
+}
+
+.toast-subtitle {
+  color: var(--coffee);
+  font-size: 0.95rem;
+  opacity: 0.8;
+  margin-bottom: 1rem;
+}
+
+.btn-luxury {
+  background: linear-gradient(135deg, var(--tan), var(--chamoisee));
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 8px 22px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(176, 137, 104, 0.35);
+}
+
+.btn-luxury:hover {
+  background: linear-gradient(135deg, var(--chamoisee), var(--tan));
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(127, 85, 57, 0.45);
+}
+
+.btn-outline-light {
+  border: 1.8px solid var(--chamoisee);
+  color: var(--chamoisee);
+  border-radius: 50px;
+  padding: 8px 22px;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-light:hover {
+  background-color: var(--chamoisee);
+  color: #fffaf0;
+  transform: translateY(-1px);
+}
+
+@keyframes fadeInBg {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  background: #ff3b3b;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 50%;
+  padding: 2px 6px;
+  min-width: 20px;
+  text-align: center;
+  line-height: 16px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
+
 /* 📱 MOBILE RESPONSIVE (Only for screens ≤ 768px) */
 @media (max-width: 768px) {
 
-  /* Navbar container */
+  /* 🔻 Reduced navbar height */
   .perfume-navbar {
     height: auto !important;
-    padding: 12px 18px !important;
+    padding: 6px 14px !important;   /* ⬅️ reduced padding */
     flex-wrap: wrap;
     border-radius: 0 0 18px 18px;
   }
@@ -249,30 +365,13 @@
 
 }
 
-/* 📱 TABLET VIEW */
 @media (max-width: 992px) and (min-width: 769px) {
   .perfume-navbar {
     height: auto;
     padding: 12px 24px;
   }
+
   .brand-logo {
     height: 58px;
   }
-}
-
-/* 🛒 Cart Badge */
-.cart-badge {
-  position: absolute;
-  top: -6px;
-  right: -10px;
-  background: #ff3b3b;
-  color: #fff;
-  font-size: 12px;
-  font-weight: 700;
-  border-radius: 50%;
-  padding: 2px 6px;
-  min-width: 20px;
-  text-align: center;
-  line-height: 16px;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
 }
