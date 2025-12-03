@@ -182,46 +182,51 @@
   background: #fff8f2;
 }
 
-/* 📱 MOBILE RESPONSIVE UPDATES */
+/* 📱 MOBILE RESPONSIVE (Only for screens ≤ 768px) */
 @media (max-width: 768px) {
 
+  /* Navbar container */
   .perfume-navbar {
-    height: 58px !important;  /* reduced from auto/70px */
-    padding: 6px 14px !important; /* tighter padding */
-    flex-wrap: nowrap; /* prevents items from breaking */
-    border-radius: 0 0 16px 16px;
+    height: auto !important;
+    padding: 12px 18px !important;
+    flex-wrap: wrap;
+    border-radius: 0 0 18px 18px;
   }
 
+  /* Title (Perfotiva etc.) */
   .text-gradient {
     font-size: 1.3rem;
   }
 
-  /* 🌸 Mobile 60px Logo (Option A) */
+  /* Logo size */
   .brand-logo {
     height: 60px !important;
     margin-bottom: 8px;
   }
 
-  /* Mobile Nav */
+  /* Mobile Navigation Links */
   .perfume-navbar .nav-link {
     display: block;
     padding: 12px 16px !important;
     margin: 6px 0;
-    border-radius: 12px;
-    text-align: left;
     width: 100%;
+    text-align: left;
+    border-radius: 12px;
     font-size: 1rem;
   }
 
+  /* Remove underline effects in mobile */
   .perfume-navbar .nav-link::after {
-    display: none;
+    display: none !important;
   }
 
+  /* Hamburger icon button */
   .navbar-toggler {
     padding: 6px 10px !important;
     margin-left: auto;
   }
 
+  /* Cart Icon */
   .cart-icon-wrapper {
     position: relative;
     margin-left: 12px;
@@ -232,6 +237,7 @@
     right: -6px !important;
   }
 
+  /* Dropdown mobile menu background */
   .navbar-collapse {
     background: rgba(237, 224, 212, 0.95);
     backdrop-filter: blur(12px);
@@ -240,6 +246,7 @@
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
     margin-top: 10px;
   }
+
 }
 
 /* 📱 TABLET VIEW */
