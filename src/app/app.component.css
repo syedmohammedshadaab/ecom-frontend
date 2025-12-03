@@ -186,10 +186,10 @@
 @media (max-width: 768px) {
 
   .perfume-navbar {
-    height: auto !important;
-    padding: 12px 18px !important;
-    flex-wrap: wrap;
-    border-radius: 0 0 18px 18px;
+    height: 58px !important;  /* reduced from auto/70px */
+    padding: 6px 14px !important; /* tighter padding */
+    flex-wrap: nowrap; /* prevents items from breaking */
+    border-radius: 0 0 16px 16px;
   }
 
   .text-gradient {
