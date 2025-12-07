@@ -416,14 +416,17 @@
     padding: 10px 0;
   }
 
-  /* 📱 FIX: Coupon buttons stacked on mobile */
+  /* 🔥 FIXED: Keep coupon buttons side-by-side on mobile */
   .coupon-section .d-flex {
-    flex-direction: column !important;
-    gap: 12px !important;
+    flex-direction: row !important;    /* side by side */
+    flex-wrap: wrap;                   /* allow wrapping if needed */
+    justify-content: center;
+    gap: 10px;
   }
 
   .coupon-code {
-    width: 100%;
+    width: auto;                       /* prevent full width stretch */
+    min-width: 120px;                  /* looks nicer */
     text-align: center;
   }
 }
