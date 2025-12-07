@@ -344,44 +344,57 @@
 }
 
 /* ------------------------- */
-/* 🎟️  Clickable Coupon Section (from home) */
+/* 🎟️  THEMED CLICKABLE COUPON SECTION */
 /* ------------------------- */
 
 .coupon-section {
-  background: linear-gradient(135deg, #fdf6e3, #fff5e1);
-  padding: 15px 0;
+  background: linear-gradient(135deg, var(--almond), var(--dun));
+  padding: 18px 0;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 14px rgba(176, 137, 104, 0.15);
   text-align: center;
 }
 
-.coupon-section p {
-  color: #6f4e37;
-  font-weight: 500;
-  margin-bottom: 1.0rem;
+.coupon-section h3 {
+  color: var(--coffee);
+  font-weight: 700;
+  margin-bottom: 10px;
 }
 
+.coupon-section p {
+  color: var(--coffee);
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+/* Coupon Box */
 .coupon-code {
   cursor: pointer;
-  padding: 10px 20px;
+  padding: 10px 22px;
   border-radius: 50px;
-  background: linear-gradient(135deg, #bfa36f, #f2e6c4);
-  color: #3e2f25;
-  font-weight: 600;
+  background: linear-gradient(135deg, var(--tan), var(--chamoisee));
+  color: var(--coffee);
+  font-weight: 700;
   font-size: 0.95rem;
-  box-shadow: 0 4px 15px rgba(191, 163, 111, 0.3);
+  box-shadow: 0 4px 16px rgba(127, 85, 57, 0.2);
   transition: all 0.3s ease;
   user-select: none;
   position: relative;
 }
 
+/* Hover */
 .coupon-code:hover {
-  transform: translateY(-4px) scale(1.04);
-  box-shadow: 0 8px 25px rgba(191, 163, 111, 0.5);
+  transform: translateY(-3px) scale(1.04);
+  background: linear-gradient(135deg, var(--chamoisee), var(--tan));
+  box-shadow: 0 8px 22px rgba(127, 85, 57, 0.28);
 }
 
+/* 📋 Icon on Hover */
 .coupon-code::after {
   content: "📋";
   position: absolute;
-  right: 10px;
+  right: 12px;
   top: 50%;
   transform: translateY(-50%);
   opacity: 0;
@@ -392,14 +405,15 @@
   opacity: 1;
 }
 
-/* MOBILE */
+/* Mobile */
 @media (max-width: 768px) {
-  .cart-grid {
-    grid-template-columns: 1fr;
+  .coupon-section {
+    padding: 12px 0;
   }
 
-  .coupon-section {
-    padding: 10px 0;
+  .coupon-code {
+    padding: 8px 18px;
+    font-size: 0.85rem;
   }
 }
 
