@@ -15,6 +15,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
         animate('600ms ease-out', style({ opacity: 1 }))
       ])
     ]),
+
     trigger('itemSlide', [
       transition(':enter', [
         style({ opacity: 0, transform: 'translateY(12px)' }),
@@ -24,6 +25,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
   ]
 })
 export class CartComponent implements OnInit {
+
   cartItems: any[] = [];
   totalPrice = 0;
   finalTotal = 0;
@@ -38,8 +40,10 @@ export class CartComponent implements OnInit {
   toastType: 'success' | 'error' = 'success';
 
   uid: number | null = null;
+
   showConfirmModal = false;
   itemToDelete: number | null = null;
+
   showClearCartModal = false;
 
   constructor(
@@ -61,6 +65,7 @@ export class CartComponent implements OnInit {
 
   loadCart(): void {
     if (!this.uid) return;
+
     this.cartService.getCartItems(this.uid).subscribe({
       next: (res) => {
         this.cartItems = res;
@@ -145,12 +150,18 @@ export class CartComponent implements OnInit {
   }
 
   /* ---------------- ITEM DELETE ---------------- */
-  openConfirmModal(cartId: number) { this.itemToDelete = cartId; this.showConfirmModal = true; }
+  openConfirmModal(cartId: number) {
+    this.itemToDelete = cartId;
+    this.showConfirmModal = true;
+  }
+
   confirmDelete(): void {
     if (!this.itemToDelete) return;
     this.cartService.deleteCartItem(this.itemToDelete).subscribe({
       next: () => {
-        this.cartItems = this.cartItems.filter(i => i.cartId !== this.itemToDelete && i.cartid !== this.itemToDelete);
+        this.cartItems = this.cartItems.filter(
+          i => i.cartId !== this.itemToDelete && i.cartid !== this.itemToDelete
+        );
         this.calculateTotal();
         this.cartService.setCartCount(this.cartItems.length);
         this.showToastMessage('🗑️ Item removed!', 'success');
@@ -159,15 +170,18 @@ export class CartComponent implements OnInit {
       error: () => this.showToastMessage('❌ Remove failed.', 'error'),
     });
   }
+
   cancelDelete() { this.showConfirmModal = false; this.itemToDelete = null; }
 
   /* ---------------- CLEAR CART ---------------- */
   openClearCartConfirm() { this.showClearCartModal = true; }
   cancelClearCart() { this.showClearCartModal = false; }
+
   confirmClearCart(): void {
     if (!this.uid) return;
     this.showClearCartModal = false;
     this.showToastMessage('🧹 Clearing cart...', 'success');
+
     this.cartService.clearCart(this.uid).subscribe({
       next: () => {
         this.cartItems = [];
@@ -191,7 +205,7 @@ export class CartComponent implements OnInit {
     setTimeout(() => (this.showToast = false), 2200);
   }
 
-  /* ---------------- COPY + APPLY COUPON ---------------- */
+  /* ---------------- COPY + AUTO APPLY COUPON ---------------- */
   copyCoupon(code: string): void {
     const upper = code.trim().toUpperCase();
     if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -205,11 +219,9 @@ export class CartComponent implements OnInit {
       textarea.style.opacity = '0';
       document.body.appendChild(textarea);
       textarea.select();
-      try { document.execCommand('copy'); this.showToastMessage(`Coupon "${upper}" copied!`, 'success'); }
-      catch { this.showToastMessage('Failed to copy coupon!', 'error'); }
+      try { document.execCommand('copy'); } catch {}
       document.body.removeChild(textarea);
     }
-
     this.couponCode = upper;
     this.applyCoupon();
   }

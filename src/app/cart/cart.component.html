@@ -74,27 +74,25 @@
       </div>
     </div>
 
-    <!-- RIGHT: BILL SUMMARY -->
+    <!-- RIGHT: BILL SUMMARY + COUPONS -->
     <div class="bill-summary-wrapper">
 
-      <!-- 🎟️ Coupon Section -->
-      <section class="coupon-section py-4 text-center" @fadeUp>
-        <div class="container">
-          <h4 class="fw-bold text-gradient mb-2">Exclusive Offers</h4>
-          <p class="text-muted">Click to copy and apply these coupon codes:</p>
+      <!-- 🎟️ Modern Exclusive Offers Section -->
+      <section class="coupon-section py-4 text-center mb-4" @fadeUp>
+        <h4 class="fw-bold text-gradient mb-2">Exclusive Offers</h4>
+        <p class="text-muted">Click to copy & apply these coupons instantly:</p>
 
-          <div class="d-flex justify-content-center flex-wrap gap-3 mt-3">
-            <div class="coupon-code" (click)="copyCoupon('PERFUME10')" title="Click to copy!">
-              PERFUME10
-            </div>
-            <div class="coupon-code" (click)="copyCoupon('SAVE200')" title="Click to copy!">
-              SAVE200
-            </div>
-          </div>
+        <div class="d-flex justify-content-center flex-wrap gap-3 mt-3">
+          <button class="coupon-code" (click)="copyCoupon('PERFUME10')" title="Click to copy & apply!">
+            PERFUME10
+          </button>
+          <button class="coupon-code" (click)="copyCoupon('SAVE200')" title="Click to copy & apply!">
+            SAVE200
+          </button>
         </div>
       </section>
 
-      <!-- Bill Summary -->
+      <!-- Actual Bill Summary -->
       <div class="bill-summary shadow-sm p-4 rounded-4">
         <h4 class="fw-bold mb-3">Bill Summary</h4>
 
@@ -113,9 +111,10 @@
           <strong>₹{{ totalPrice | number : '1.2-2' }}</strong>
         </div>
 
-        <!-- Coupon Box -->
+        <!-- Coupon Input Section -->
         <div class="coupon-box mt-3">
           <label class="fw-semibold mb-2">Apply Coupon</label>
+
           <div class="d-flex gap-2">
             <input
               type="text"
@@ -123,9 +122,11 @@
               [(ngModel)]="couponCode"
               [disabled]="couponApplied"
               placeholder="Enter coupon code" />
+
             <button *ngIf="!couponApplied" class="btn btn-theme-outline" (click)="applyCoupon()">Apply</button>
             <button *ngIf="couponApplied" class="btn btn-danger" (click)="removeCoupon()">Remove</button>
           </div>
+
           <p *ngIf="couponMessage"
              class="mt-2 fw-semibold"
              [ngClass]="{ 'text-success': couponApplied, 'text-danger': !couponApplied }">
@@ -158,12 +159,13 @@
     </div>
   </div>
 
-  <!-- Modals & Toast (unchanged) -->
+  <!-- Item Delete Confirm Modal -->
   <div *ngIf="showConfirmModal" class="modal-overlay">
     <div class="modal-content text-center p-4">
       <i class="bi bi-exclamation-triangle text-warning fs-1"></i>
       <h5 class="fw-bold mt-3 mb-2">Remove Item?</h5>
       <p class="text-muted">Are you sure you want to remove this perfume?</p>
+
       <div class="d-flex justify-content-center gap-3 mt-3">
         <button class="btn btn-confirm px-4" (click)="confirmDelete()">Yes, Remove</button>
         <button class="btn btn-cancel px-4" (click)="cancelDelete()">Cancel</button>
@@ -171,11 +173,13 @@
     </div>
   </div>
 
+  <!-- Clear Cart Confirm Modal -->
   <div *ngIf="showClearCartModal" class="modal-overlay">
     <div class="modal-content text-center p-4">
       <i class="bi bi-trash text-danger fs-1"></i>
       <h5 class="fw-bold mt-3 mb-2">Clear Entire Cart?</h5>
       <p class="text-muted">This action cannot be undone.</p>
+
       <div class="d-flex justify-content-center gap-3 mt-3">
         <button class="btn btn-confirm px-4" (click)="confirmClearCart()">Yes, Clear</button>
         <button class="btn btn-cancel px-4" (click)="cancelClearCart()">Cancel</button>
@@ -183,7 +187,9 @@
     </div>
   </div>
 
+  <!-- Toast -->
   <div *ngIf="showToast" class="toast-container show" [ngClass]="toastType">
     <div class="toast-body">{{ toastMessage }}</div>
   </div>
+
 </div>
