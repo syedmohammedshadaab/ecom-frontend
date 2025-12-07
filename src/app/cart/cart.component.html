@@ -75,68 +75,90 @@
     </div>
 
     <!-- RIGHT: BILL SUMMARY -->
-    <div class="bill-summary shadow-sm p-4 rounded-4">
-      <h4 class="fw-bold mb-3">Bill Summary</h4>
+    <!-- INSERT: Coupon section (clickable codes) just BEFORE bill-summary so user can easily copy/apply -->
+    <div class="bill-summary-wrapper">
 
-      <div *ngFor="let item of cartItems" class="bill-item d-flex justify-content-between mb-2">
-        <div>
-          <strong>{{ item.name }}</strong> × {{ item.quantity }}
-          <div class="text-muted small">₹{{ item.price | number : '1.2-2' }} each</div>
+      <!-- 🎟️ Coupon Section (copied from home exactly) -->
+      <section class="coupon-section py-4 text-center mb-4" @fadeUp>
+        <div class="container">
+          <h4 class="fw-bold text-gradient mb-2">Exclusive Offers</h4>
+          <p class="text-muted">Click to copy and apply these coupon codes:</p>
+
+          <div class="d-flex justify-content-center flex-wrap gap-3 mt-3">
+            <div class="coupon-code" (click)="copyCoupon('PERFUME10')" title="Click to copy!">
+              PERFUME10
+            </div>
+            <div class="coupon-code" (click)="copyCoupon('SAVE200')" title="Click to copy!">
+              SAVE200
+            </div>
+          </div>
         </div>
-        <strong>₹{{ (item.price * item.quantity) | number : '1.2-2' }}</strong>
-      </div>
+      </section>
 
-      <hr />
+      <!-- Actual Bill Summary (unchanged) -->
+      <div class="bill-summary shadow-sm p-4 rounded-4">
+        <h4 class="fw-bold mb-3">Bill Summary</h4>
 
-      <div class="d-flex justify-content-between mb-2">
-        <span>Items Total</span>
-        <strong>₹{{ totalPrice | number : '1.2-2' }}</strong>
-      </div>
-
-      <!-- Coupon Section -->
-      <div class="coupon-box mt-3">
-        <label class="fw-semibold mb-2">Apply Coupon</label>
-
-        <div class="d-flex gap-2">
-          <input
-            type="text"
-            class="form-control"
-            [(ngModel)]="couponCode"
-            [disabled]="couponApplied"
-            placeholder="Enter coupon code" />
-
-          <button *ngIf="!couponApplied" class="btn btn-theme-outline" (click)="applyCoupon()">Apply</button>
-          <button *ngIf="couponApplied" class="btn btn-danger" (click)="removeCoupon()">Remove</button>
+        <div *ngFor="let item of cartItems" class="bill-item d-flex justify-content-between mb-2">
+          <div>
+            <strong>{{ item.name }}</strong> × {{ item.quantity }}
+            <div class="text-muted small">₹{{ item.price | number : '1.2-2' }} each</div>
+          </div>
+          <strong>₹{{ (item.price * item.quantity) | number : '1.2-2' }}</strong>
         </div>
 
-        <p *ngIf="couponMessage"
-           class="mt-2 fw-semibold"
-           [ngClass]="{ 'text-success': couponApplied, 'text-danger': !couponApplied }">
-          {{ couponMessage }}
-        </p>
+        <hr />
+
+        <div class="d-flex justify-content-between mb-2">
+          <span>Items Total</span>
+          <strong>₹{{ totalPrice | number : '1.2-2' }}</strong>
+        </div>
+
+        <!-- Coupon Section (existing - keep as-is) -->
+        <div class="coupon-box mt-3">
+          <label class="fw-semibold mb-2">Apply Coupon</label>
+
+          <div class="d-flex gap-2">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="couponCode"
+              [disabled]="couponApplied"
+              placeholder="Enter coupon code" />
+
+            <button *ngIf="!couponApplied" class="btn btn-theme-outline" (click)="applyCoupon()">Apply</button>
+            <button *ngIf="couponApplied" class="btn btn-danger" (click)="removeCoupon()">Remove</button>
+          </div>
+
+          <p *ngIf="couponMessage"
+             class="mt-2 fw-semibold"
+             [ngClass]="{ 'text-success': couponApplied, 'text-danger': !couponApplied }">
+            {{ couponMessage }}
+          </p>
+        </div>
+
+        <!-- Discount -->
+        <div *ngIf="discount > 0" class="d-flex justify-content-between mt-3">
+          <span class="text-success fw-bold">Discount Applied</span>
+          <strong class="text-success">− ₹{{ discount | number : '1.2-2' }}</strong>
+        </div>
+
+        <div class="d-flex justify-content-between mb-2 mt-2">
+          <span>Delivery Charges</span>
+          <strong class="text-success">FREE</strong>
+        </div>
+
+        <hr />
+
+        <div class="d-flex justify-content-between mb-3 fs-5">
+          <span><strong>Final Total</strong></span>
+          <strong class="text-primary">₹{{ finalTotal | number : '1.2-2' }}</strong>
+        </div>
+
+        <button class="btn btn-theme-outline w-100 py-2 fs-6">
+          <i class="bi bi-credit-card"></i> Proceed to Checkout
+        </button>
       </div>
-
-      <!-- Discount -->
-      <div *ngIf="discount > 0" class="d-flex justify-content-between mt-3">
-        <span class="text-success fw-bold">Discount Applied</span>
-        <strong class="text-success">− ₹{{ discount | number : '1.2-2' }}</strong>
-      </div>
-
-      <div class="d-flex justify-content-between mb-2 mt-2">
-        <span>Delivery Charges</span>
-        <strong class="text-success">FREE</strong>
-      </div>
-
-      <hr />
-
-      <div class="d-flex justify-content-between mb-3 fs-5">
-        <span><strong>Final Total</strong></span>
-        <strong class="text-primary">₹{{ finalTotal | number : '1.2-2' }}</strong>
-      </div>
-
-      <button class="btn btn-theme-outline w-100 py-2 fs-6">
-        <i class="bi bi-credit-card"></i> Proceed to Checkout
-      </button>
     </div>
   </div>
 

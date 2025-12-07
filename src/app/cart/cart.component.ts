@@ -245,4 +245,48 @@ export class CartComponent implements OnInit {
     this.showToast = true;
     setTimeout(() => (this.showToast = false), 2200);
   }
+
+  /* ---------------- NEW: Copy coupon + auto-apply ---------------- */
+  /* This method re-uses your existing toast + applyCoupon logic.
+     - Copies coupon to clipboard
+     - sets couponCode and calls applyCoupon() to validate & apply
+  */
+  copyCoupon(code: string): void {
+    const upper = code.trim().toUpperCase();
+
+    // Copy to clipboard (modern API)
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(upper)
+        .then(() => {
+          this.showToastMessage(`Coupon "${upper}" copied!`, 'success');
+        })
+        .catch(() => {
+          this.showToastMessage('Failed to copy coupon!', 'error');
+        });
+    } else {
+      // Fallback
+      const textarea = document.createElement('textarea');
+      textarea.value = upper;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+
+      try {
+        const success = document.execCommand('copy');
+        success
+          ? this.showToastMessage(`Coupon "${upper}" copied!`, 'success')
+          : this.showToastMessage('Failed to copy coupon!', 'error');
+      } catch {
+        this.showToastMessage('Failed to copy coupon!', 'error');
+      }
+
+      document.body.removeChild(textarea);
+    }
+
+    // Auto-set to input and try apply (no changes to existing applyCoupon implementation)
+    this.couponCode = upper;
+    // call applyCoupon to reuse existing validation flow (it will set couponApplied, discount, messages)
+    this.applyCoupon();
+  }
 }

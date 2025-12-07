@@ -343,10 +343,63 @@
   margin-top: 8px;
 }
 
+/* ------------------------- */
+/* 🎟️  Clickable Coupon Section (from home) */
+/* ------------------------- */
+
+.coupon-section {
+  background: linear-gradient(135deg, #fdf6e3, #fff5e1);
+  padding: 15px 0;
+  text-align: center;
+}
+
+.coupon-section p {
+  color: #6f4e37;
+  font-weight: 500;
+  margin-bottom: 1.0rem;
+}
+
+.coupon-code {
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #bfa36f, #f2e6c4);
+  color: #3e2f25;
+  font-weight: 600;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 15px rgba(191, 163, 111, 0.3);
+  transition: all 0.3s ease;
+  user-select: none;
+  position: relative;
+}
+
+.coupon-code:hover {
+  transform: translateY(-4px) scale(1.04);
+  box-shadow: 0 8px 25px rgba(191, 163, 111, 0.5);
+}
+
+.coupon-code::after {
+  content: "📋";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.coupon-code:hover::after {
+  opacity: 1;
+}
+
 /* MOBILE */
 @media (max-width: 768px) {
   .cart-grid {
     grid-template-columns: 1fr;
+  }
+
+  .coupon-section {
+    padding: 10px 0;
   }
 }
 
