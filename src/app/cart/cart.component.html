@@ -75,11 +75,10 @@
     </div>
 
     <!-- RIGHT: BILL SUMMARY -->
-    <!-- INSERT: Coupon section (clickable codes) just BEFORE bill-summary so user can easily copy/apply -->
     <div class="bill-summary-wrapper">
 
-      <!-- 🎟️ Coupon Section (copied from home exactly) -->
-      <section class="coupon-section py-4 text-center mb-4" @fadeUp>
+      <!-- 🎟️ Coupon Section -->
+      <section class="coupon-section py-4 text-center" @fadeUp>
         <div class="container">
           <h4 class="fw-bold text-gradient mb-2">Exclusive Offers</h4>
           <p class="text-muted">Click to copy and apply these coupon codes:</p>
@@ -95,7 +94,7 @@
         </div>
       </section>
 
-      <!-- Actual Bill Summary (unchanged) -->
+      <!-- Bill Summary -->
       <div class="bill-summary shadow-sm p-4 rounded-4">
         <h4 class="fw-bold mb-3">Bill Summary</h4>
 
@@ -114,10 +113,9 @@
           <strong>₹{{ totalPrice | number : '1.2-2' }}</strong>
         </div>
 
-        <!-- Coupon Section (existing - keep as-is) -->
+        <!-- Coupon Box -->
         <div class="coupon-box mt-3">
           <label class="fw-semibold mb-2">Apply Coupon</label>
-
           <div class="d-flex gap-2">
             <input
               type="text"
@@ -125,11 +123,9 @@
               [(ngModel)]="couponCode"
               [disabled]="couponApplied"
               placeholder="Enter coupon code" />
-
             <button *ngIf="!couponApplied" class="btn btn-theme-outline" (click)="applyCoupon()">Apply</button>
             <button *ngIf="couponApplied" class="btn btn-danger" (click)="removeCoupon()">Remove</button>
           </div>
-
           <p *ngIf="couponMessage"
              class="mt-2 fw-semibold"
              [ngClass]="{ 'text-success': couponApplied, 'text-danger': !couponApplied }">
@@ -162,13 +158,12 @@
     </div>
   </div>
 
-  <!-- Item Delete Confirm Modal -->
+  <!-- Modals & Toast (unchanged) -->
   <div *ngIf="showConfirmModal" class="modal-overlay">
     <div class="modal-content text-center p-4">
       <i class="bi bi-exclamation-triangle text-warning fs-1"></i>
       <h5 class="fw-bold mt-3 mb-2">Remove Item?</h5>
       <p class="text-muted">Are you sure you want to remove this perfume?</p>
-
       <div class="d-flex justify-content-center gap-3 mt-3">
         <button class="btn btn-confirm px-4" (click)="confirmDelete()">Yes, Remove</button>
         <button class="btn btn-cancel px-4" (click)="cancelDelete()">Cancel</button>
@@ -176,13 +171,11 @@
     </div>
   </div>
 
-  <!-- Clear Cart Confirm Modal -->
   <div *ngIf="showClearCartModal" class="modal-overlay">
     <div class="modal-content text-center p-4">
       <i class="bi bi-trash text-danger fs-1"></i>
       <h5 class="fw-bold mt-3 mb-2">Clear Entire Cart?</h5>
       <p class="text-muted">This action cannot be undone.</p>
-
       <div class="d-flex justify-content-center gap-3 mt-3">
         <button class="btn btn-confirm px-4" (click)="confirmClearCart()">Yes, Clear</button>
         <button class="btn btn-cancel px-4" (click)="cancelClearCart()">Cancel</button>
@@ -190,7 +183,6 @@
     </div>
   </div>
 
-  <!-- Toast -->
   <div *ngIf="showToast" class="toast-container show" [ngClass]="toastType">
     <div class="toast-body">{{ toastMessage }}</div>
   </div>

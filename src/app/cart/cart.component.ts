@@ -8,8 +8,6 @@ import { trigger, transition, style, animate } from '@angular/animations';
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css'],
-  standalone: false,
-
   animations: [
     trigger('pageFade', [
       transition(':enter', [
@@ -17,7 +15,6 @@ import { trigger, transition, style, animate } from '@angular/animations';
         animate('600ms ease-out', style({ opacity: 1 }))
       ])
     ]),
-
     trigger('itemSlide', [
       transition(':enter', [
         style({ opacity: 0, transform: 'translateY(12px)' }),
@@ -27,7 +24,6 @@ import { trigger, transition, style, animate } from '@angular/animations';
   ]
 })
 export class CartComponent implements OnInit {
-
   cartItems: any[] = [];
   totalPrice = 0;
   finalTotal = 0;
@@ -42,10 +38,8 @@ export class CartComponent implements OnInit {
   toastType: 'success' | 'error' = 'success';
 
   uid: number | null = null;
-
   showConfirmModal = false;
   itemToDelete: number | null = null;
-
   showClearCartModal = false;
 
   constructor(
@@ -67,7 +61,6 @@ export class CartComponent implements OnInit {
 
   loadCart(): void {
     if (!this.uid) return;
-
     this.cartService.getCartItems(this.uid).subscribe({
       next: (res) => {
         this.cartItems = res;
@@ -79,20 +72,10 @@ export class CartComponent implements OnInit {
   }
 
   /* ---------------- COUPON SYSTEM ---------------- */
-
   applyCoupon(): void {
     const code = this.couponCode.trim().toUpperCase();
-
-    if (!code) {
-      this.couponMessage = '⚠️ Please enter a coupon code.';
-      return;
-    }
-
-    if (this.couponApplied) {
-      this.couponMessage = '✔️ Coupon already applied.';
-      return;
-    }
-
+    if (!code) { this.couponMessage = '⚠️ Please enter a coupon code.'; return; }
+    if (this.couponApplied) { this.couponMessage = '✔️ Coupon already applied.'; return; }
     this.validateCoupon(code);
   }
 
@@ -101,9 +84,7 @@ export class CartComponent implements OnInit {
       this.discount = this.totalPrice * 0.1;
       this.couponMessage = '🎉 10% discount applied!';
       this.couponApplied = true;
-    }
-
-    else if (code === 'SAVE200') {
+    } else if (code === 'SAVE200') {
       if (this.totalPrice >= 1000) {
         this.discount = 200;
         this.couponMessage = '🎉 ₹200 discount applied!';
@@ -113,20 +94,16 @@ export class CartComponent implements OnInit {
         this.couponApplied = false;
         this.couponMessage = '❌ Total must be at least ₹1000 for SAVE200.';
       }
-    }
-
-    else {
+    } else {
       this.discount = 0;
       this.couponApplied = false;
       this.couponMessage = '❌ Invalid coupon.';
     }
-
     this.updateFinalTotal();
   }
 
   revalidateCouponAfterChange(): void {
     if (!this.couponApplied || !this.couponCode.trim()) return;
-
     this.validateCoupon(this.couponCode.trim().toUpperCase());
   }
 
@@ -139,14 +116,12 @@ export class CartComponent implements OnInit {
   }
 
   /* ---------------- TOTAL CALCULATION ---------------- */
-
   calculateTotal(): void {
     this.totalPrice = this.cartItems.reduce(
       (sum, item) => sum + (item.price ?? 0) * (item.quantity ?? 1),
       0
     );
-
-    this.revalidateCouponAfterChange(); // 🟢 IMPORTANT FIX ADDED
+    this.revalidateCouponAfterChange();
     this.updateFinalTotal();
   }
 
@@ -156,10 +131,8 @@ export class CartComponent implements OnInit {
   }
 
   /* ---------------- QUANTITY UPDATE ---------------- */
-
   updateQuantity(item: any, qty: number): void {
     if (qty < 1) return;
-
     this.cartService.updateCartItem(item.cartId || item.cartid, { ...item, quantity: qty })
       .subscribe({
         next: () => {
@@ -172,55 +145,29 @@ export class CartComponent implements OnInit {
   }
 
   /* ---------------- ITEM DELETE ---------------- */
-
-  openConfirmModal(cartId: number) {
-    this.itemToDelete = cartId;
-    this.showConfirmModal = true;
-  }
-
+  openConfirmModal(cartId: number) { this.itemToDelete = cartId; this.showConfirmModal = true; }
   confirmDelete(): void {
     if (!this.itemToDelete) return;
-
     this.cartService.deleteCartItem(this.itemToDelete).subscribe({
       next: () => {
-        this.cartItems = this.cartItems.filter(
-          i => i.cartId !== this.itemToDelete && i.cartid !== this.itemToDelete
-        );
-
-        this.calculateTotal(); // 🟢 FIX: auto recalculates coupon
+        this.cartItems = this.cartItems.filter(i => i.cartId !== this.itemToDelete && i.cartid !== this.itemToDelete);
+        this.calculateTotal();
         this.cartService.setCartCount(this.cartItems.length);
-
         this.showToastMessage('🗑️ Item removed!', 'success');
       },
-      complete: () => {
-        this.showConfirmModal = false;
-        this.itemToDelete = null;
-      },
+      complete: () => { this.showConfirmModal = false; this.itemToDelete = null; },
       error: () => this.showToastMessage('❌ Remove failed.', 'error'),
     });
   }
-
-  cancelDelete() {
-    this.showConfirmModal = false;
-    this.itemToDelete = null;
-  }
+  cancelDelete() { this.showConfirmModal = false; this.itemToDelete = null; }
 
   /* ---------------- CLEAR CART ---------------- */
-
-  openClearCartConfirm() {
-    this.showClearCartModal = true;
-  }
-
-  cancelClearCart() {
-    this.showClearCartModal = false;
-  }
-
+  openClearCartConfirm() { this.showClearCartModal = true; }
+  cancelClearCart() { this.showClearCartModal = false; }
   confirmClearCart(): void {
     if (!this.uid) return;
-
     this.showClearCartModal = false;
     this.showToastMessage('🧹 Clearing cart...', 'success');
-
     this.cartService.clearCart(this.uid).subscribe({
       next: () => {
         this.cartItems = [];
@@ -229,7 +176,6 @@ export class CartComponent implements OnInit {
         this.finalTotal = 0;
         this.couponApplied = false;
         this.couponCode = '';
-
         this.cartService.resetCartCount();
         this.showToastMessage('🗑️ Cart cleared!', 'success');
       },
@@ -238,7 +184,6 @@ export class CartComponent implements OnInit {
   }
 
   /* ---------------- TOAST ---------------- */
-
   showToastMessage(message: string, type: 'success' | 'error') {
     this.toastMessage = message;
     this.toastType = type;
@@ -246,47 +191,26 @@ export class CartComponent implements OnInit {
     setTimeout(() => (this.showToast = false), 2200);
   }
 
-  /* ---------------- NEW: Copy coupon + auto-apply ---------------- */
-  /* This method re-uses your existing toast + applyCoupon logic.
-     - Copies coupon to clipboard
-     - sets couponCode and calls applyCoupon() to validate & apply
-  */
+  /* ---------------- COPY + APPLY COUPON ---------------- */
   copyCoupon(code: string): void {
     const upper = code.trim().toUpperCase();
-
-    // Copy to clipboard (modern API)
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(upper)
-        .then(() => {
-          this.showToastMessage(`Coupon "${upper}" copied!`, 'success');
-        })
-        .catch(() => {
-          this.showToastMessage('Failed to copy coupon!', 'error');
-        });
+        .then(() => this.showToastMessage(`Coupon "${upper}" copied!`, 'success'))
+        .catch(() => this.showToastMessage('Failed to copy coupon!', 'error'));
     } else {
-      // Fallback
       const textarea = document.createElement('textarea');
       textarea.value = upper;
       textarea.style.position = 'fixed';
       textarea.style.opacity = '0';
       document.body.appendChild(textarea);
       textarea.select();
-
-      try {
-        const success = document.execCommand('copy');
-        success
-          ? this.showToastMessage(`Coupon "${upper}" copied!`, 'success')
-          : this.showToastMessage('Failed to copy coupon!', 'error');
-      } catch {
-        this.showToastMessage('Failed to copy coupon!', 'error');
-      }
-
+      try { document.execCommand('copy'); this.showToastMessage(`Coupon "${upper}" copied!`, 'success'); }
+      catch { this.showToastMessage('Failed to copy coupon!', 'error'); }
       document.body.removeChild(textarea);
     }
 
-    // Auto-set to input and try apply (no changes to existing applyCoupon implementation)
     this.couponCode = upper;
-    // call applyCoupon to reuse existing validation flow (it will set couponApplied, discount, messages)
     this.applyCoupon();
   }
 }
