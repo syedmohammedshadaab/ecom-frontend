@@ -432,6 +432,11 @@
     width: 48% !important;        /* each button gets equal space */
     min-width: unset !important;
     text-align: center;
+
+    /* NEW → Center text properly */
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
   }
 }
 
