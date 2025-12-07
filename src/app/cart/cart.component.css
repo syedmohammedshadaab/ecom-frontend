@@ -414,19 +414,23 @@
 
   .coupon-section {
     padding: 10px 0;
+    width: 100%;
   }
 
-  /* 🔥 FIXED: Keep coupon buttons side-by-side on mobile */
+  /* FIXED MOBILE BUTTON LAYOUT */
   .coupon-section .d-flex {
-    flex-direction: row !important;    /* side by side */
-    flex-wrap: wrap;                   /* allow wrapping if needed */
-    justify-content: center;
+    display: flex;
+    flex-direction: row !important;          /* side by side */
+    justify-content: space-between !important; /* spread evenly */
+    align-items: center;
+    width: 100%;                               /* take full width */
     gap: 10px;
   }
 
+  /* FIX: Both buttons same size on mobile */
   .coupon-code {
-    width: auto;                       /* prevent full width stretch */
-    min-width: 120px;                  /* looks nicer */
+    width: 48% !important;        /* each button gets equal space */
+    min-width: unset !important;
     text-align: center;
   }
 }
