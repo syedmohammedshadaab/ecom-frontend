@@ -405,15 +405,15 @@
   opacity: 1;
 }
 
-/* Mobile */
+
+/* MOBILE */
 @media (max-width: 768px) {
-  .coupon-section {
-    padding: 12px 0;
+  .cart-grid {
+    grid-template-columns: 1fr;
   }
 
-  .coupon-code {
-    padding: 8px 18px;
-    font-size: 0.85rem;
+  .coupon-section {
+    padding: 10px 0;
   }
 }
 
