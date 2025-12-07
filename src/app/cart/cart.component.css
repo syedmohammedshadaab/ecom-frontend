@@ -415,6 +415,17 @@
   .coupon-section {
     padding: 10px 0;
   }
+
+  /* 📱 FIX: Coupon buttons stacked on mobile */
+  .coupon-section .d-flex {
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+
+  .coupon-code {
+    width: 100%;
+    text-align: center;
+  }
 }
 
 /* CART ITEM BOX */
