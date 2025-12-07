@@ -423,20 +423,22 @@
     flex-direction: row !important;          /* side by side */
     justify-content: space-between !important; /* spread evenly */
     align-items: center;
-    width: 100%;                               /* take full width */
+    width: 100%;                               /* full width */
     gap: 10px;
   }
 
   /* FIX: Both buttons same size on mobile */
   .coupon-code {
-    width: 48% !important;        /* each button gets equal space */
+    width: 48% !important;                    /* equal size buttons */
     min-width: unset !important;
     text-align: center;
 
-    /* NEW → Center text properly */
-    display: flex !important;
+    display: flex !important;                 /* center text */
     justify-content: center !important;
     align-items: center !important;
+
+    /* 🔥 IMPORTANT FIX — prevents shrinking in desktop simulation */
+    flex-shrink: 0 !important;
   }
 }
 
