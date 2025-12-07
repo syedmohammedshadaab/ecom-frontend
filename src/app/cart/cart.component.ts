@@ -8,6 +8,8 @@ import { trigger, transition, style, animate } from '@angular/animations';
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css'],
+  standalone: false,
+
   animations: [
     trigger('pageFade', [
       transition(':enter', [
@@ -76,11 +78,19 @@ export class CartComponent implements OnInit {
     });
   }
 
-  /* ---------------- COUPON SYSTEM ---------------- */
   applyCoupon(): void {
     const code = this.couponCode.trim().toUpperCase();
-    if (!code) { this.couponMessage = '⚠️ Please enter a coupon code.'; return; }
-    if (this.couponApplied) { this.couponMessage = '✔️ Coupon already applied.'; return; }
+
+    if (!code) {
+      this.couponMessage = '⚠️ Please enter a coupon code.';
+      return;
+    }
+
+    if (this.couponApplied) {
+      this.couponMessage = '✔️ Coupon already applied.';
+      return;
+    }
+
     this.validateCoupon(code);
   }
 
@@ -104,6 +114,7 @@ export class CartComponent implements OnInit {
       this.couponApplied = false;
       this.couponMessage = '❌ Invalid coupon.';
     }
+
     this.updateFinalTotal();
   }
 
@@ -120,12 +131,12 @@ export class CartComponent implements OnInit {
     this.updateFinalTotal();
   }
 
-  /* ---------------- TOTAL CALCULATION ---------------- */
   calculateTotal(): void {
     this.totalPrice = this.cartItems.reduce(
       (sum, item) => sum + (item.price ?? 0) * (item.quantity ?? 1),
       0
     );
+
     this.revalidateCouponAfterChange();
     this.updateFinalTotal();
   }
@@ -135,9 +146,9 @@ export class CartComponent implements OnInit {
     if (this.finalTotal < 0) this.finalTotal = 0;
   }
 
-  /* ---------------- QUANTITY UPDATE ---------------- */
   updateQuantity(item: any, qty: number): void {
     if (qty < 1) return;
+
     this.cartService.updateCartItem(item.cartId || item.cartid, { ...item, quantity: qty })
       .subscribe({
         next: () => {
@@ -149,7 +160,6 @@ export class CartComponent implements OnInit {
       });
   }
 
-  /* ---------------- ITEM DELETE ---------------- */
   openConfirmModal(cartId: number) {
     this.itemToDelete = cartId;
     this.showConfirmModal = true;
@@ -157,6 +167,7 @@ export class CartComponent implements OnInit {
 
   confirmDelete(): void {
     if (!this.itemToDelete) return;
+
     this.cartService.deleteCartItem(this.itemToDelete).subscribe({
       next: () => {
         this.cartItems = this.cartItems.filter(
@@ -166,19 +177,30 @@ export class CartComponent implements OnInit {
         this.cartService.setCartCount(this.cartItems.length);
         this.showToastMessage('🗑️ Item removed!', 'success');
       },
-      complete: () => { this.showConfirmModal = false; this.itemToDelete = null; },
+      complete: () => {
+        this.showConfirmModal = false;
+        this.itemToDelete = null;
+      },
       error: () => this.showToastMessage('❌ Remove failed.', 'error'),
     });
   }
 
-  cancelDelete() { this.showConfirmModal = false; this.itemToDelete = null; }
+  cancelDelete() {
+    this.showConfirmModal = false;
+    this.itemToDelete = null;
+  }
 
-  /* ---------------- CLEAR CART ---------------- */
-  openClearCartConfirm() { this.showClearCartModal = true; }
-  cancelClearCart() { this.showClearCartModal = false; }
+  openClearCartConfirm() {
+    this.showClearCartModal = true;
+  }
+
+  cancelClearCart() {
+    this.showClearCartModal = false;
+  }
 
   confirmClearCart(): void {
     if (!this.uid) return;
+
     this.showClearCartModal = false;
     this.showToastMessage('🧹 Clearing cart...', 'success');
 
@@ -190,6 +212,7 @@ export class CartComponent implements OnInit {
         this.finalTotal = 0;
         this.couponApplied = false;
         this.couponCode = '';
+
         this.cartService.resetCartCount();
         this.showToastMessage('🗑️ Cart cleared!', 'success');
       },
@@ -197,7 +220,6 @@ export class CartComponent implements OnInit {
     });
   }
 
-  /* ---------------- TOAST ---------------- */
   showToastMessage(message: string, type: 'success' | 'error') {
     this.toastMessage = message;
     this.toastType = type;
@@ -205,13 +227,17 @@ export class CartComponent implements OnInit {
     setTimeout(() => (this.showToast = false), 2200);
   }
 
-  /* ---------------- COPY + AUTO APPLY COUPON ---------------- */
   copyCoupon(code: string): void {
     const upper = code.trim().toUpperCase();
+
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(upper)
-        .then(() => this.showToastMessage(`Coupon "${upper}" copied!`, 'success'))
-        .catch(() => this.showToastMessage('Failed to copy coupon!', 'error'));
+        .then(() => {
+          this.showToastMessage(`Coupon "${upper}" copied!`, 'success');
+        })
+        .catch(() => {
+          this.showToastMessage('Failed to copy coupon!', 'error');
+        });
     } else {
       const textarea = document.createElement('textarea');
       textarea.value = upper;
@@ -219,9 +245,19 @@ export class CartComponent implements OnInit {
       textarea.style.opacity = '0';
       document.body.appendChild(textarea);
       textarea.select();
-      try { document.execCommand('copy'); } catch {}
+
+      try {
+        const success = document.execCommand('copy');
+        success
+          ? this.showToastMessage(`Coupon "${upper}" copied!`, 'success')
+          : this.showToastMessage('Failed to copy coupon!', 'error');
+      } catch {
+        this.showToastMessage('Failed to copy coupon!', 'error');
+      }
+
       document.body.removeChild(textarea);
     }
+
     this.couponCode = upper;
     this.applyCoupon();
   }

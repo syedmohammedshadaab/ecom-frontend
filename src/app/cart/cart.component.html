@@ -74,23 +74,8 @@
       </div>
     </div>
 
-    <!-- RIGHT: BILL SUMMARY + COUPONS -->
+    <!-- RIGHT: BILL SUMMARY -->
     <div class="bill-summary-wrapper">
-
-      <!-- 🎟️ Modern Exclusive Offers Section -->
-      <section class="coupon-section py-4 text-center mb-4" @fadeUp>
-        <h4 class="fw-bold text-gradient mb-2">Exclusive Offers</h4>
-        <p class="text-muted">Click to copy & apply these coupons instantly:</p>
-
-        <div class="d-flex justify-content-center flex-wrap gap-3 mt-3">
-          <button class="coupon-code" (click)="copyCoupon('PERFUME10')" title="Click to copy & apply!">
-            PERFUME10
-          </button>
-          <button class="coupon-code" (click)="copyCoupon('SAVE200')" title="Click to copy & apply!">
-            SAVE200
-          </button>
-        </div>
-      </section>
 
       <!-- Actual Bill Summary -->
       <div class="bill-summary shadow-sm p-4 rounded-4">
@@ -111,8 +96,21 @@
           <strong>₹{{ totalPrice | number : '1.2-2' }}</strong>
         </div>
 
-        <!-- Coupon Input Section -->
-        <div class="coupon-box mt-3">
+        <!-- 🎟️ Coupon Clickable Codes -->
+        <div class="coupon-section py-2 text-center mb-3">
+          <p class="text-muted mb-1">Click to copy and apply these coupon codes:</p>
+          <div class="d-flex justify-content-center flex-wrap gap-2">
+            <div class="coupon-code" (click)="copyCoupon('PERFUME10')" title="Click to copy!">
+              PERFUME10
+            </div>
+            <div class="coupon-code" (click)="copyCoupon('SAVE200')" title="Click to copy!">
+              SAVE200
+            </div>
+          </div>
+        </div>
+
+        <!-- Coupon Input -->
+        <div class="coupon-box mt-2">
           <label class="fw-semibold mb-2">Apply Coupon</label>
 
           <div class="d-flex gap-2">
@@ -191,5 +189,4 @@
   <div *ngIf="showToast" class="toast-container show" [ngClass]="toastType">
     <div class="toast-body">{{ toastMessage }}</div>
   </div>
-
 </div>
