@@ -221,7 +221,6 @@
   gap: 24px;
 }
 
-/* ===== MOBILE RESPONSIVE ===== */
 @media (max-width: 768px) {
 
   .filter-bar {
@@ -235,11 +234,25 @@
     grid-column: span 2;
   }
 
+  /* 🔥 FIXED SELECT DROPDOWN TEXT CUTTING ISSUE */
+  .filter-select-wrapper select {
+    width: 100%;
+    padding: 10px 14px !important;  /* reduce padding to give more room */
+    border-radius: 2rem;
+    border: none;
+    background: linear-gradient(135deg, var(--chamoisee), var(--tan));
+    color: #fff !important;
+    font-size: 0.85rem !important;   /* prevents cutting */
+    font-weight: 600;
+    text-align: center;              /* ensures 500–1000 is centered */
+    white-space: nowrap;             /* prevents text breaking */
+  }
+
   .combo-grid {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 12px !important;
-    column-gap: 16px !important; /* 🔥 Middle gap between side-by-side cards */
-    row-gap: 12px !important;   /* Vertical gap */
+    column-gap: 16px !important;
+    row-gap: 12px !important;
   }
 
   .combo-card {
@@ -281,5 +294,5 @@
     max-width: 350px;
     font-size: 0.9rem;
   }
-
 }
+
