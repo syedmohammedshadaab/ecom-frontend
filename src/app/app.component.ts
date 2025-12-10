@@ -13,37 +13,39 @@ export class AppComponent implements OnInit {
   showLogoutConfirm = false;
   cartCount: number = 0;
 
+  // ✅ Add this: Controls footer visibility
+  showFooter: boolean = true;
+
   constructor(private router: Router, private cartService: CartService) {}
 
   ngOnInit(): void {
-    // ✅ Load username safely
     this.updateUsername();
 
-    // ✅ Subscribe to cartCount observable for real-time updates
     this.cartService.cartCount$.subscribe((count) => {
       this.cartCount = count;
     });
 
-    // ✅ Load cart count immediately if user is logged in
     this.loadCartCount();
 
-    // ✅ Update username and cart count on route changes
+    // 🔥 Update username, cart count, and footer visibility on route change
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.updateUsername();
         this.loadCartCount();
+
+        // ✅ Hide footer for login & signup pages
+        const currentUrl = event.urlAfterRedirects;
+        this.showFooter = !(currentUrl === '/login' || currentUrl === '/signup');
       }
     });
   }
 
-  // ✅ Safe username retrieval
   updateUsername(): void {
     if (typeof window !== 'undefined') {
       this.username = sessionStorage.getItem('username');
     }
   }
 
-  // ✅ Fetch cart items count for logged-in user and update BehaviorSubject
   loadCartCount(): void {
     if (typeof window === 'undefined') return;
 
@@ -53,7 +55,7 @@ export class AppComponent implements OnInit {
     if (uid) {
       this.cartService.getCartItems(uid).subscribe({
         next: (cartItems: any[]) => {
-          this.cartService.setCartCount(cartItems.length); // update count reactively
+          this.cartService.setCartCount(cartItems.length);
         },
         error: (err) => {
           console.error('Error fetching cart count:', err);
@@ -78,8 +80,6 @@ export class AppComponent implements OnInit {
     this.username = null;
     this.cartCount = 0;
     this.showLogoutConfirm = false;
-
-    // ✅ Reset cart count on logout
     this.cartService.resetCartCount();
 
     this.router.navigate(['/login']);
