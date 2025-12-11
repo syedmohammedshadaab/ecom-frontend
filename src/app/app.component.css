@@ -301,42 +301,43 @@
 /* 📱 MOBILE RESPONSIVE (Only for screens ≤ 768px) */
 @media (max-width: 768px) {
 
-  /* 🔻 Keep navbar clean */
+  /* Navbar compact */
   .perfume-navbar {
     height: auto !important;
-    padding: 8px 14px !important;
-    flex-wrap: nowrap;
+    padding: 6px 14px !important;
+    flex-wrap: nowrap;       /* prevent breaking */
     border-radius: 0 0 18px 18px;
   }
 
   /* Logo smaller */
   .brand-logo {
-    height: 58px !important;
+    height: 55px !important;
+    margin-bottom: 4px;
   }
 
-  /* FIX: Keep desktop look of nav-links on mobile */
+  /* 👉 KEEP DESKTOP LOOK — remove block behavior */
   .perfume-navbar .nav-link {
-    padding: 6px 10px !important;   /* normal desktop-style padding */
-    margin: 4px 8px !important;     /* same spacing as desktop */
-    display: inline-flex !important; /* remove full-width block layout */
-    width: auto !important; 
-    text-align: left;
+    display: inline-flex !important;   /* was block */
+    width: auto !important;            /* was 100% */
+    padding: 8px 12px !important;      /* desktop padding */
+    margin: 4px 10px !important;       /* spacing like desktop */
     border-radius: 8px;
     font-size: 1rem;
+    text-align: left;
   }
 
-  /* Desktop underline effect stays hidden on mobile */
+  /* Remove underline */
   .perfume-navbar .nav-link::after {
     display: none !important;
   }
 
-  /* Hamburger icon smaller */
+  /* Hamburger */
   .navbar-toggler {
     padding: 4px 8px !important;
     margin-left: auto;
   }
 
-  /* Cart icon alignment */
+  /* Cart icon */
   .cart-icon-wrapper {
     position: relative;
     margin-left: 10px;
@@ -347,34 +348,34 @@
     right: -6px !important;
   }
 
-  /* FIX: collapsed background without changing button styles */
+  /* Dropdown background */
   .navbar-collapse {
-    background: rgba(237, 224, 212, 0.92);
-    backdrop-filter: blur(10px);
-    padding: 12px;
+    background: rgba(237, 224, 212, 0.95);
+    backdrop-filter: blur(12px);
+    padding: 14px 10px;
     border-radius: 0 0 18px 18px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
     margin-top: 10px;
   }
 
-  /* FIX: Signup & Login buttons look same on mobile */
+  /* 👉 KEEP DESKTOP BUTTON STYLE */
+  .btn,
   .btn-gradient,
   .btn-outline-gradient,
-  .btn-outline-danger,
-  .btn {
+  .btn-outline-danger {
     width: auto !important;
+    padding: 8px 18px !important;
+    margin: 6px 10px !important;
+    border-radius: 30px !important;
     display: inline-flex !important;
     justify-content: center;
-    margin: 4px 8px !important;
-    padding: 8px 16px !important;   /* same as desktop */
-    border-radius: 30px !important;
   }
 
-  /* Username card styling on mobile */
+  /* Username card */
   .user-card {
-    margin: 6px 8px !important;
+    margin: 6px 10px !important;
     padding: 6px 12px;
-    border-radius: 12px;
+    border-radius: 10px;
   }
 }
 
