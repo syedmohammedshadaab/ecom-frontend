@@ -301,46 +301,51 @@
 /* 📱 MOBILE RESPONSIVE (Only for screens ≤ 768px) */
 @media (max-width: 768px) {
 
-  /* Navbar compact */
+  /* 🔻 Reduced navbar height */
   .perfume-navbar {
     height: auto !important;
-    padding: 6px 14px !important;
-    flex-wrap: nowrap;       /* prevent breaking */
+    padding: 6px 14px !important;   /* ⬅️ reduced padding */
+    flex-wrap: wrap;
     border-radius: 0 0 18px 18px;
   }
 
-  /* Logo smaller */
+  /* Title (Perfotiva etc.) */
+  .text-gradient {
+    font-size: 1.3rem;
+  }
+
+  /* Logo size */
   .brand-logo {
-    height: 55px !important;
-    margin-bottom: 4px;
+    height: 60px !important;
+    margin-bottom: 8px;
   }
 
-  /* 👉 KEEP DESKTOP LOOK — remove block behavior */
+  /* Mobile Navigation Links */
   .perfume-navbar .nav-link {
-    display: inline-flex !important;   /* was block */
-    width: auto !important;            /* was 100% */
-    padding: 8px 12px !important;      /* desktop padding */
-    margin: 4px 10px !important;       /* spacing like desktop */
-    border-radius: 8px;
-    font-size: 1rem;
+    display: block;
+    padding: 12px 16px !important;
+    margin: 6px 0;
+    width: 100%;
     text-align: left;
+    border-radius: 12px;
+    font-size: 1rem;
   }
 
-  /* Remove underline */
+  /* Remove underline effects in mobile */
   .perfume-navbar .nav-link::after {
     display: none !important;
   }
 
-  /* Hamburger */
+  /* Hamburger icon button */
   .navbar-toggler {
-    padding: 4px 8px !important;
+    padding: 6px 10px !important;
     margin-left: auto;
   }
 
-  /* Cart icon */
+  /* Cart Icon */
   .cart-icon-wrapper {
     position: relative;
-    margin-left: 10px;
+    margin-left: 12px;
   }
 
   .cart-badge {
@@ -348,38 +353,18 @@
     right: -6px !important;
   }
 
-  /* Dropdown background */
+  /* Dropdown mobile menu background */
   .navbar-collapse {
     background: rgba(237, 224, 212, 0.95);
     backdrop-filter: blur(12px);
-    padding: 14px 10px;
+    padding: 14px;
     border-radius: 0 0 18px 18px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
     margin-top: 10px;
   }
 
-  /* 👉 KEEP DESKTOP BUTTON STYLE */
-  .btn,
-  .btn-gradient,
-  .btn-outline-gradient,
-  .btn-outline-danger {
-    width: auto !important;
-    padding: 8px 18px !important;
-    margin: 6px 10px !important;
-    border-radius: 30px !important;
-    display: inline-flex !important;
-    justify-content: center;
-  }
-
-  /* Username card */
-  .user-card {
-    margin: 6px 10px !important;
-    padding: 6px 12px;
-    border-radius: 10px;
-  }
 }
 
-/* 📌 Tablet View (769px – 992px) */
 @media (max-width: 992px) and (min-width: 769px) {
   .perfume-navbar {
     height: auto;
